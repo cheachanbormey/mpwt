@@ -1,0 +1,332 @@
+/* =========================================================
+   resources/css/module.css
+   ---------------------------------------------------------
+   Shared building blocks for the admin module pages and the
+   staff self-service pages: filter bars, generic forms,
+   empty states, pagination and the profile header.
+   ========================================================= */
+
+/* =========================
+   PAGE WRAPPER
+   dashboard.css styles .dashboard-container; module pages
+   use .module-page so both can coexist.
+   ========================= */
+
+.module-page {
+    padding: 22px 24px 40px;
+}
+
+/* =========================
+   FILTER BAR
+   ========================= */
+
+.module-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.module-search {
+    position: relative;
+    flex: 1 1 220px;
+    min-width: 180px;
+}
+
+.module-search > i {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #9aa0ae;
+    pointer-events: none;
+}
+
+.module-search .form-control {
+    padding-left: 32px;
+}
+
+.module-filters .form-control,
+.module-filters .form-select,
+.module-filters .btn {
+    font-size: 11px;
+}
+
+.module-filters .form-control,
+.module-filters .form-select {
+    flex: 0 1 190px;
+    width: auto;
+    min-width: 150px;
+    border-color: #dcdce4;
+}
+
+.module-filters .form-check-label {
+    font-size: 11px;
+    color: #4b5563;
+    white-space: nowrap;
+}
+
+/* =========================
+   GENERIC FORM
+   ========================= */
+
+.module-form .form-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 5px;
+}
+
+.module-form .form-control,
+.module-form .form-select {
+    font-size: 12px;
+    border-color: #dcdce4;
+}
+
+.module-form .form-control:focus,
+.module-form .form-select:focus {
+    border-color: #0a56c7;
+    box-shadow: 0 0 0 3px rgba(10, 86, 199, .1);
+}
+
+.module-form .invalid-feedback {
+    font-size: 10.5px;
+}
+
+.module-form .form-hint {
+    font-size: 10.5px;
+    color: #8b90a0;
+    margin-top: 4px;
+}
+
+/* Readonly control - the leave-request status. It is rendered
+   but never posted, and the controller refuses to write it. */
+
+.module-form .readonly-control {
+    background: #f6f7fb;
+    border-style: dashed;
+    color: #6b7280;
+}
+
+.module-form .readonly-note {
+    font-size: 10.5px;
+    color: #8b90a0;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.module-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.module-actions .btn {
+    font-size: 12px;
+}
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+
+.module-empty {
+    padding: 44px 20px;
+    text-align: center;
+    color: #9aa0ae;
+}
+
+.module-empty i {
+    font-size: 30px;
+    display: block;
+    margin-bottom: 10px;
+    opacity: .6;
+}
+
+.module-empty p {
+    font-size: 12px;
+    margin: 0 0 12px;
+}
+
+/* =========================
+   PAGINATION
+   Laravel is configured with Paginator::useBootstrapFive()
+   so the markup is Bootstrap's, not Tailwind's.
+   ========================= */
+
+.module-pagination {
+    padding: 12px 16px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.module-pagination .pagination {
+    margin: 0;
+    font-size: 11px;
+}
+
+.module-pagination .page-link {
+    font-size: 11px;
+    padding: 5px 9px;
+    color: #4b5563;
+    border-color: #e4e5ec;
+}
+
+.module-pagination .page-item.active .page-link {
+    background: #0a56c7;
+    border-color: #0a56c7;
+    color: #fff;
+}
+
+.module-pagination .page-item.disabled .page-link {
+    color: #b6b9c2;
+}
+
+/* =========================
+   TABLE EXTRAS
+   ========================= */
+
+.table.attendance-table .text-end {
+    white-space: nowrap;
+}
+
+.table.attendance-table .font-monospace {
+    white-space: nowrap;
+}
+
+.table-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.table-actions .btn {
+    font-size: 10px;
+    padding: 3px 7px;
+}
+
+/* Delete form inherits the flex gap from .table-actions */
+.table-actions form {
+    display: inline;
+}
+
+.table-actions .btn-danger {
+    background: #dc3545;
+    border-color: #dc3545;
+}
+
+.table-actions .btn-danger:hover {
+    background: #b02a37;
+    border-color: #b02a37;
+}
+
+/* =========================
+   CARD HEADER BLOCK
+   dashboard.css defines .card-header-custom; these are the
+   parts the new pages need.
+   ========================= */
+
+.card-header-custom h3 {
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.card-header-custom h3 i {
+    color: #0a56c7;
+    margin-right: 4px;
+}
+
+.card-header-custom p {
+    font-size: 10px;
+    color: #8b90a0;
+    margin: 2px 0 0;
+}
+
+.dashboard-card .table-responsive {
+    border-radius: 0 0 10px 10px;
+}
+
+/* =========================
+   PROFILE HEADER
+   ========================= */
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 22px;
+}
+
+.profile-avatar {
+    width: 62px;
+    height: 62px;
+    min-width: 62px;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+.profile-header h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.profile-header p {
+    font-size: 12px;
+    margin: 0;
+}
+
+/* =========================
+   ROLE BADGES
+   ========================= */
+
+.badge.role-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 5px 9px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.badge.role-badge.role-admin {
+    background: #fdeaf0;
+    color: #b3123c;
+}
+
+.badge.role-badge.role-staff {
+    background: #e8f1fd;
+    color: #0a56c7;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 767.98px) {
+    .module-page {
+        padding: 16px 14px 32px;
+    }
+
+    .module-filters .form-control,
+    .module-filters .form-select {
+        flex: 1 1 100%;
+    }
+
+    .module-pagination {
+        justify-content: center;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+}

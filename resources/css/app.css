@@ -1,0 +1,31 @@
+/* =========================================================
+   resources/css/app.css
+   MAIN CSS ENTRY POINT
+   ---------------------------------------------------------
+   This is the ONLY css file Vite processes.
+   Order matters:
+     1. Bootstrap 5        (framework defaults)
+     2. Bootstrap Icons    (icon font)
+     3. dashboard.css      (existing HRMS design - untouched)
+     4. layout.css         (layout, flash, errors, dropdown)
+     5. module.css         (admin module + staff pages)
+     6. auth.css           (login screen)
+   ========================================================= */
+
+/* ---------- 1. Bootstrap 5 ---------- */
+@import 'bootstrap/dist/css/bootstrap.css';
+
+/* ---------- 2. Bootstrap Icons ---------- */
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+/* ---------- 3. Existing HRMS design ---------- */
+@import './dashboard.css';
+
+/* ---------- 4. Layout scaffolding (flash, errors, sidebar) ---------- */
+@import './layout.css';
+
+/* ---------- 5. Module + self-service pages ---------- */
+@import './module.css';
+
+/* ---------- 6. Login screen ---------- */
+@import './auth.css';

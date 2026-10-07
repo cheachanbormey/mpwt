@@ -1,0 +1,457 @@
+/* =========================================================
+   resources/css/layout.css
+   ---------------------------------------------------------
+   NEW file for Phase 01 scaffolding only.
+   Adds: Khmer font, collapsible sidebar, flash messages,
+         error pages, and Bootstrap-specificity fixes.
+   The original design lives in dashboard.css (untouched).
+   ========================================================= */
+
+
+/* =========================
+   KHIMER FONT
+   The webfont is loaded via the Google Fonts <link> in
+   layouts/app.blade.php. System Khmer fonts are kept as
+   an offline fallback.
+========================= */
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Noto Sans Khmer', 'Khmer OS', 'Battambang', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+/* =========================
+   COLLAPSIBLE SIDEBAR
+   (JS in resources/js/app.js toggles .is-collapsed)
+========================= */
+
+.sidebar {
+    transition: width .2s ease;
+}
+
+.main-wrapper {
+    transition: margin-left .2s ease, width .2s ease;
+}
+
+/* Sidebar hidden state */
+.sidebar.is-collapsed {
+    width: 0;
+    overflow: hidden;
+}
+
+.main-wrapper.is-sidebar-collapsed {
+    margin-left: 0;
+    width: 100%;
+}
+
+/* Dark overlay behind the sidebar on small screens */
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .2s ease, visibility .2s ease;
+}
+
+.sidebar-backdrop.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Cursor pointer feedback */
+.sidebar-item {
+    cursor: pointer;
+}
+
+.settings-button:hover,
+.sidebar-toggle:hover {
+    color: #0756c7;
+}
+
+
+/* =========================
+   FLASH MESSAGES
+========================= */
+
+.flash-container {
+    position: fixed;
+    top: 58px;
+    right: 16px;
+    z-index: 2000;
+    width: 340px;
+    max-width: calc(100vw - 32px);
+}
+
+.flash-alert {
+    border: 0;
+    border-left: 4px solid transparent;
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .12);
+    font-size: 11px;
+    margin-bottom: 8px;
+    animation: flash-in .25s ease-out;
+}
+
+.flash-alert.alert-success {
+    border-left-color: #198754;
+    background: #e9f7ef;
+    color: #0f5132;
+}
+
+.flash-alert.alert-danger,
+.flash-alert.alert-error {
+    border-left-color: #dc3545;
+    background: #fdecee;
+    color: #842029;
+}
+
+.flash-alert.alert-warning {
+    border-left-color: #ffc107;
+    background: #fff8e1;
+    color: #664d03;
+}
+
+.flash-alert.alert-info {
+    border-left-color: #0dcaf0;
+    background: #e7f8fc;
+    color: #055160;
+}
+
+.flash-alert .btn-close {
+    font-size: 9px;
+    opacity: .5;
+}
+
+@keyframes flash-in {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================
+   ERROR PAGES
+========================= */
+
+.error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7f7fa;
+    padding: 24px;
+}
+
+.error-box {
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #e3e3e8;
+    border-radius: 12px;
+    padding: 40px 32px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .05);
+}
+
+.error-code {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1;
+    color: #073b9d;
+    margin: 0;
+}
+
+.error-icon {
+    font-size: 46px;
+    color: #d8d8e0;
+    margin-bottom: 6px;
+}
+
+.error-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 10px 0 6px;
+}
+
+.error-message {
+    font-size: 11px;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   BOOTSTRAP OVERRIDES
+   dashboard.css sets .attendance-table with lower
+   specificity than Bootstrap's .table rules, so we
+   re-assert the HRMS look here.
+========================= */
+
+.table.attendance-table {
+    --bs-table-bg: transparent;
+    --bs-table-hover-bg: #fafafd;
+}
+
+.table.attendance-table > thead > tr > th {
+    background: #fafafd;
+    font-size: 8px;
+    color: #666;
+    font-weight: 600;
+    padding: 9px 14px;
+    border-bottom: 1px solid #ddd;
+}
+
+.table.attendance-table > tbody > tr > td {
+    font-size: 8px;
+    padding: 10px 14px;
+    vertical-align: middle;
+    border-bottom: 1px solid #eee;
+}
+
+
+/* =========================
+   PAGE HEADER HELPER
+   ========================= */
+
+.page-title-text {
+    font-size: 11px;
+    font-weight: 600;
+    margin: 0;
+}
+
+
+/* =========================
+   USER DROPDOWN
+   The navbar account menu. Sign-out lives inside a POST
+   form, so the button must not inherit form styling.
+   ========================= */
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    background: transparent;
+    border: 0;
+    padding: 5px 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .15s ease;
+}
+
+.user-profile:hover,
+.user-profile:focus-visible {
+    background: #f2f4f9;
+}
+
+.user-profile .user-avatar {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    font-size: 11px;
+    border-radius: 50%;
+}
+
+.user-profile .user-info {
+    text-align: left;
+    line-height: 1.3;
+}
+
+.user-profile .user-info strong {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-profile .user-info small {
+    display: block;
+    font-size: 9.5px;
+    color: #8b90a0;
+}
+
+.user-chevron {
+    font-size: 10px;
+    color: #9aa0ae;
+}
+
+/* Avatar sizes shared by the dropdown and the profile page */
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    border-radius: 50%;
+    background: #e8f1fd;
+    color: #0a56c7;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.user-avatar-lg {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    font-size: 15px;
+}
+
+.dropdown-menu.user-dropdown {
+    min-width: 250px;
+    padding: 0;
+    border: 1px solid #e4e5ec;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+    font-size: 12px;
+}
+
+.user-dropdown-header {
+    padding: 14px 16px 10px;
+}
+
+.user-dropdown-identity {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 9px;
+}
+
+.user-dropdown-identity strong {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.user-dropdown-identity small {
+    display: block;
+    font-size: 10px;
+    color: #8b90a0;
+    line-height: 1.5;
+    word-break: break-all;
+}
+
+.user-dropdown .dropdown-item {
+    font-size: 12px;
+    padding: 9px 16px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.user-dropdown .dropdown-item i {
+    font-size: 12px;
+    color: #6b7280;
+    width: 14px;
+    text-align: center;
+}
+
+.user-dropdown .dropdown-item:hover i {
+    color: inherit;
+}
+
+/* A form inside a list item should not add its own block box */
+.user-dropdown form {
+    margin: 0;
+}
+
+.user-dropdown form .dropdown-item {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.user-dropdown .dropdown-divider {
+    margin: 4px 0;
+    border-color: #eee;
+}
+
+
+/* =========================
+   SIDEBAR SECTIONS
+   The nav now has two groups, so labels need separating.
+   ========================= */
+
+.sidebar-section-label {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #a9aebc;
+    padding: 14px 16px 6px;
+    white-space: nowrap;
+}
+
+.sidebar.is-collapsed .sidebar-section-label {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* A long module list must stay scrollable */
+.sidebar-menu {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sidebar.is-collapsed .sidebar-menu {
+    overflow: visible;
+}
+
+/* =========================
+   SIDEBAR FOOTER
+   Signed-in identity, pinned to the bottom of the menu.
+   ========================= */
+
+.sidebar-footer {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 16px;
+    border-top: 1px solid #ececf2;
+    background: #fafafd;
+}
+
+.sidebar-footer-text {
+    line-height: 1.35;
+    overflow: hidden;
+}
+
+.sidebar-footer-text strong {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #1f2937;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebar-footer-text small {
+    display: block;
+    font-size: 9px;
+    color: #8b90a0;
+}
+
+.sidebar.is-collapsed .sidebar-footer {
+    display: none;
+}

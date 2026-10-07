@@ -1,0 +1,287 @@
+/* =========================================================
+   resources/css/auth.css
+   ---------------------------------------------------------
+   Login screen only: the split brand/panel layout and the
+   form card. Scoped to .auth-body so nothing leaks into the
+   authenticated pages.
+   ========================================================= */
+
+.auth-body {
+    margin: 0;
+    min-height: 100vh;
+    background: #f4f5f9;
+}
+
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+}
+
+/* =========================
+   BRAND PANEL (left)
+   ========================= */
+
+.auth-brand {
+    flex: 0 0 42%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: linear-gradient(145deg, #073b9d 0%, #0a56c7 55%, #1183f0 100%);
+    color: #fff;
+}
+
+.auth-brand-inner {
+    max-width: 320px;
+}
+
+.auth-logo {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .15);
+    border: 1px solid rgba(255, 255, 255, .25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 22px;
+}
+
+.auth-brand-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin: 0 0 10px;
+}
+
+.auth-brand-sub {
+    font-size: 13px;
+    opacity: .8;
+    margin-bottom: 26px;
+}
+
+.auth-brand-points {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.auth-brand-points li {
+    font-size: 13px;
+    opacity: .92;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-brand-points i {
+    font-size: 12px;
+    opacity: .85;
+}
+
+/* =========================
+   FORM PANEL (right)
+   ========================= */
+
+.auth-panel {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    border: 1px solid #e4e5ec;
+    border-radius: 14px;
+    box-shadow: 0 10px 34px rgba(7, 59, 157, .08);
+    padding: 34px 32px;
+}
+
+.auth-card-header {
+    margin-bottom: 22px;
+}
+
+.auth-card-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 6px;
+}
+
+.auth-card-header p {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Labels and inputs */
+
+.auth-card .form-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+.auth-card .form-control,
+.auth-card .input-group-text,
+.auth-card .btn-outline-secondary {
+    font-size: 13px;
+    border-color: #dcdce4;
+}
+
+.auth-card .form-control {
+    padding: 10px 12px;
+}
+
+.auth-card .input-group-text {
+    background: #f6f7fb;
+    color: #6b7280;
+}
+
+.auth-card .form-control:focus,
+.auth-card .input-group:focus-within .input-group-text {
+    border-color: #0a56c7;
+    box-shadow: none;
+}
+
+.auth-card .form-check-label {
+    font-size: 12px;
+    color: #4b5563;
+}
+
+.auth-card .btn-primary {
+    font-size: 14px;
+    font-weight: 600;
+    background: #0a56c7;
+    border-color: #0a56c7;
+}
+
+.auth-card .btn-primary:hover {
+    background: #073b9d;
+    border-color: #073b9d;
+}
+
+.auth-card .invalid-feedback {
+    font-size: 11px;
+}
+
+/* =========================
+   DEMO ACCOUNTS
+   Only shown on this screen; the buttons are never a
+   security boundary, they just fill the form.
+   ========================= */
+
+.auth-demo {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px dashed #e0e1e8;
+}
+
+.auth-demo-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+.auth-demo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.auth-demo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 10px 12px;
+    background: #f7f8fc;
+    border: 1px solid #e4e5ec;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color .15s ease, background .15s ease;
+}
+
+.auth-demo-item:hover {
+    background: #eef4ff;
+    border-color: #0a56c7;
+}
+
+.auth-demo-item i {
+    font-size: 14px;
+    color: #0a56c7;
+    margin-bottom: 2px;
+}
+
+.auth-demo-item strong {
+    font-size: 11px;
+    color: #1f2937;
+}
+
+.auth-demo-item code {
+    font-size: 9.5px;
+    color: #6b7280;
+}
+
+.auth-demo-hint {
+    display: block;
+    font-size: 10px;
+    color: #8b90a0;
+    margin-top: 10px;
+}
+
+.auth-demo-hint code {
+    color: #0a56c7;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 991.98px) {
+    .auth-wrapper {
+        flex-direction: column;
+    }
+
+    .auth-brand {
+        flex: 0 0 auto;
+        padding: 32px 24px;
+    }
+
+    .auth-brand-inner {
+        max-width: 100%;
+    }
+
+    .auth-brand-points {
+        display: none;
+    }
+
+    .auth-brand-title {
+        font-size: 20px;
+    }
+
+    .auth-panel {
+        padding: 24px 16px 40px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .auth-card {
+        padding: 26px 20px;
+    }
+
+    .auth-demo-grid {
+        grid-template-columns: 1fr;
+    }
+}
