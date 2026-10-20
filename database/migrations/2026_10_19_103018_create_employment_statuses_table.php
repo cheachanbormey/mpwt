@@ -40,12 +40,12 @@ return new class extends Migration
         $now = now();
 
         $states = [
-            ['code' => 'active', 'name' => 'ការងារ', 'sort_order' => 1],
-            ['code' => 'probation', 'name' => 'ក្នុងកំឡត់សាកល្បង', 'sort_order' => 2],
-            ['code' => 'suspended', 'name' => 'ផ្អាកភារការងារ', 'sort_order' => 3],
-            ['code' => 'on_leave', 'name' => 'កំពុងស្មារណការ', 'sort_order' => 4],
-            ['code' => 'retired', 'name' => 'ចូលនៃមុខវិជ្ជា', 'sort_order' => 5],
-            ['code' => 'terminated', 'name' => 'ចប់ផ្ទាល់ការងារ', 'sort_order' => 6],
+            ['code' => 'active', 'name' => 'កំពុងបំពេញការងារ', 'sort_order' => 1],
+            ['code' => 'probation', 'name' => 'ស្ថិតក្នុងដំណាក់កាលសាកល្បង', 'sort_order' => 2],
+            ['code' => 'suspended', 'name' => 'ត្រូវបានផ្អាកការងារជាបណ្ដោះអាសន្ន', 'sort_order' => 3],
+            ['code' => 'on_leave', 'name' => 'កំពុងឈប់សម្រាក', 'sort_order' => 4],
+            ['code' => 'retired', 'name' => 'ចូលនិវត្តន៍', 'sort_order' => 5],
+            ['code' => 'terminated', 'name' => 'ត្រូវបានបញ្ឈប់ពីការងារ', 'sort_order' => 6],
         ];
 
         foreach ($states as $state) {

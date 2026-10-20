@@ -26,12 +26,9 @@ return new class extends Migration
                 'present',
                 'absent',
                 'late',
-                'leave',
-                'holiday',
-                'weekend',
+                'leave'
             ])->default('present');
             $table->enum('check_in_source', ['manual', 'qr', 'system'])->default('manual');
-            $table->string('notes')->nullable();
 
             $table->timestamps();
 

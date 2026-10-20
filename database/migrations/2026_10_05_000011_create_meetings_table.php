@@ -18,18 +18,29 @@ return new class extends Migration
                 ->constrained('meeting_types')
                 ->restrictOnDelete();
 
+            // $table->foreignId('location_id')
+            //     ->nullable()
+            //     ->constrained('locations')
+            //     ->nullOnDelete();
+
             $table->foreignId('location_id')
-                ->nullable()
                 ->constrained('locations')
-                ->nullOnDelete();
+                ->restrictOnDelete();
 
             $table->foreignId('created_by_staff_id')
                 ->nullable()
                 ->constrained('staff')
                 ->nullOnDelete();
+            
 
             $table->string('title');
             $table->text('agenda_summary')->nullable();
+           
+            // $table->foreignId('agenda_id')
+            //     ->nullable()
+            //     ->constrained('meeting_agendas')
+            //     ->nullOnDelete();         
+           
             $table->date('meeting_date');
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();

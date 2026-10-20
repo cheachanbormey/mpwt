@@ -19,34 +19,33 @@ class StaffSeeder extends Seeder
      */
     public function run(): void
     {
-        $offices = Office::pluck('id', 'code');
-        $positions = Position::pluck('id', 'code');
+        $offices = Office::pluck('id', 'office_code');
+        $positions = Position::pluck('id');
 
         $rows = [
-            ['code' => 'ST-00001', 'name' => 'ពាយាន សុខាន់', 'en' => 'Pech Sotheara', 'office' => 'OFF-003', 'position' => 'POS-001', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00002', 'name' => 'ព្រះរាជាណាចក្រកម្ពុជា ហួន សុខវណ្ណ', 'en' => 'Houn Sokhavana', 'office' => 'OFF-001', 'position' => 'POS-002', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00003', 'name' => 'លាញ់ សុភា', 'en' => 'Leang Sopheak', 'office' => 'OFF-001', 'position' => 'POS-003', 'gender' => 'female', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00004', 'name' => 'ច្រាប់ មានគ្រួសារ', 'en' => 'Chrab Menchour', 'office' => 'OFF-002', 'position' => 'POS-005', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00005', 'name' => 'សុភា សៀមណាន', 'en' => 'Sopheak Seaman', 'office' => 'OFF-002', 'position' => 'POS-006', 'gender' => 'female', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00006', 'name' => 'កុយ សុភាលីន', 'en' => 'Kry Sophealyn', 'office' => 'OFF-003', 'position' => 'POS-007', 'gender' => 'female', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00007', 'name' => 'ប៊ុន សុធាយ', 'en' => 'Born Sotheary', 'office' => 'OFF-004', 'position' => 'POS-007', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00008', 'name' => 'រាជា វង្ស', 'en' => 'Rachea Vong', 'office' => 'OFF-005', 'position' => 'POS-008', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00009', 'name' => 'សុភា ណីន', 'en' => 'Sopheak Neen', 'office' => 'OFF-005', 'position' => 'POS-006', 'gender' => 'female', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00010', 'name' => 'ហាកុង រុណ', 'en' => 'Hakorn Roun', 'office' => 'OFF-006', 'position' => 'POS-007', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00011', 'name' => 'ទាវុស ប៊ិល', 'en' => 'Tavuth Ben', 'office' => 'OFF-006', 'position' => 'POS-008', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00012', 'name' => 'សៀម ឈួន', 'en' => 'Seth Chhun', 'office' => 'OFF-007', 'position' => 'POS-004', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00013', 'name' => 'នាតា សៀវ', 'en' => 'Nadasy', 'office' => 'OFF-007', 'position' => 'POS-008', 'gender' => 'female', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00014', 'name' => 'មោត់ សៀវិន', 'en' => 'Moat Sophean', 'office' => 'OFF-008', 'position' => 'POS-007', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00015', 'name' => 'សុខ ឈួន', 'en' => 'Sok Chhun', 'office' => 'OFF-008', 'position' => 'POS-009', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00016', 'name' => 'រីនា ប៊ីន', 'en' => 'Rinea Ben', 'office' => 'OFF-009', 'position' => 'POS-007', 'gender' => 'female', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00017', 'name' => 'វិសុន ចាន់', 'en' => 'Visun Chan', 'office' => 'OFF-009', 'position' => 'POS-009', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00018', 'name' => 'រុន សុភា', 'en' => 'Roun Sopheak', 'office' => 'OFF-010', 'position' => 'POS-006', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
-            ['code' => 'ST-00019', 'name' => 'កៀន សុវណ្ណ', 'en' => 'Kein Sovann', 'office' => 'OFF-010', 'position' => 'POS-008', 'gender' => 'male', 'status' => Staff::STATUS_PROBATION],
-            ['code' => 'ST-00020', 'name' => 'ចន្រ ពោធិ', 'en' => 'Chhorn Poth', 'office' => 'OFF-001', 'position' => 'POS-010', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00001', 'name_kh' => 'ពេជ្រ សុធារ៉ា', 'name_en' => 'Pech Sotheara', 'office_code' => 'OFF-003', 'position_id' => '1', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00002', 'name_kh' => 'ហួន សុខវណ្ណ', 'name_en' => 'Houn Sokhavana', 'office_code' => 'OFF-001', 'position_id' => '2', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00003', 'name_kh' => 'លាង សុភាព', 'name_en' => 'Leang Sopheaផ', 'office_code' => 'OFF-001', 'position_id' => '3', 'gender' => 'female', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00004', 'name_kh' => 'សុខ សុវណ្ណ', 'name_en' => 'Sok Sovann', 'office_code' => 'OFF-002', 'position_id' => '5', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00005', 'name_kh' => 'សុភា សៀមណាន', 'name_en' => 'Sopheak Seaman', 'office_code' => 'OFF-002', 'position_id' => '6', 'gender' => 'female', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00006', 'name_kh' => 'កុយ សុភាលីន', 'name_en' => 'Kry Soph_idealyn', 'office_code' => 'OFF-003', 'position_id' => '7', 'gender' => 'female', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00007', 'name_kh' => 'ប៊ុន សុធាយ', 'name_en' => 'Born Sotheary', 'office_code' => 'OFF-004', 'position_id' => '7', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00008', 'name_kh' => 'រាជា វង្ស', 'name_en' => 'Rachea Vong', 'office_code' => 'OFF-005', 'position_id' => '8', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00009', 'name_kh' => 'សុភា ណីន', 'name_en' => 'Sopheak Neen', 'office_code' => 'OFF-005', 'position_id' => '6', 'gender' => 'female', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00010', 'name_kh' => 'ហាកុង រុណ', 'name_en' => 'Hakorn Roun', 'office_code' => 'OFF-006', 'position_id' => '7', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00011', 'name_kh' => 'ទាវុស ប៊ិល', 'name_en' => 'Tavuth Ben', 'office_code' => 'OFF-006', 'position_id' => '8', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00012', 'name_kh' => 'សៀម ឈួន', 'name_en' => 'Seth Chhun', 'office_code' => 'OFF-007', 'position_id' => '4', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00013', 'name_kh' => 'នាតា សៀវ', 'name_en' => 'Nadasy', 'office_code' => 'OFF-007', 'position_id' => '8', 'gender' => 'female', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00014', 'name_kh' => 'មោត់ សៀវិន', 'name_en' => 'Moat Sophean', 'office_code' => 'OFF-008', 'position_id' => '7', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00015', 'name_kh' => 'សុខ ឈួន', 'name_en' => 'Sok Chhun', 'office_code' => 'OFF-008', 'position_id' => '9', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00016', 'name_kh' => 'រីនា ប៊ីន', 'name_en' => 'Rinea Ben', 'office_code' => 'OFF-009', 'position_id' => '7', 'gender' => 'female', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00017', 'name_kh' => 'វិសុន ចាន់', 'name_en' => 'Visun Chan', 'office_code' => 'OFF-009', 'position_id' => '9', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
+            ['staff_id' => 'ST-00018', 'name_kh' => 'រុន សុភា', 'name_en' => 'Roun Sopheak', 'office_code' => 'OFF-010', 'position_id' => '6', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],                                                            
+            ['staff_id' => 'ST-00020', 'name_kh' => 'ចន្រ ពោធិ', 'name_en' => 'Chhorn Poth', 'office_code' => 'OFF-001', 'position_id' => '10', 'gender' => 'male', 'status' => Staff::STATUS_ACTIVE],
         ];
 
         foreach ($rows as $index => $row) {
-            if (Staff::where('staff_code', $row['code'])->exists()) {
+            if (Staff::where('staff_id', $row['staff_id'])->exists()) {
                 continue;
             }
 
@@ -55,9 +54,9 @@ class StaffSeeder extends Seeder
 
             if ($index < 3) {
                 $user = User::firstOrCreate(
-                    ['email' => str($row['en'])->slug()->value().'@mpwt.gov.kh'],
+                    ['email' => str($row['name_en'])->slug()->value().'@mpwt.gov.kh'],
                     [
-                        'name' => $row['name'],
+                        'name' => $row['name_kh'],
                         'password' => Hash::make('password'),
                     ]
                 );
@@ -68,20 +67,19 @@ class StaffSeeder extends Seeder
 
             Staff::create([
                 'user_id' => $userId,
-                'office_id' => $offices[$row['office']] ?? null,
-                'position_id' => $positions[$row['position']] ?? null,
-                'staff_code' => $row['code'],
-                'name_km' => $row['name'],
-                'name_en' => $row['en'],
+                'office_code' => $offices[$row['office_code']] ?? null,
+                'position_id' => $positions[$row['position_id']] ?? null,
+                'staff_id' => $row['staff_id'],
+                'name_km' => $row['name_kh'],
+                'name_en' => $row['name_en'],
                 'gender' => $row['gender'],
-                'date_of_birth' => fake()->dateTimeBetween('-58 years', '-24 years'),
-                'national_id' => fake()->unique()->numerify('#########'),
                 'phone' => fake()->numerify('01########'),
-                'email' => str($row['en'])->slug()->value().'@mpwt.gov.kh',
-                'address' => 'រាជធានីភ្នំពេញ',
-                'hire_date' => fake()->dateTimeBetween('-9 years', '-2 months'),
-                'employment_status' => $row['status'],
-                'base_salary' => fake()->randomFloat(2, 400, 3000),
+                'email' => str($row['name_en'])->slug()->value().'@mpwt.gov.kh',
+                // 'telegram' => str($row['name_en'])->slug()->value().'@telegram.me',
+                'telegram' => 'https://t.me' . str($row['name_en'])->slug()->value(),
+                'status' => $row['status'],
+                'system_role' => Staff::ROLE_STAFF,
+
             ]);
         }
     }

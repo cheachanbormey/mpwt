@@ -28,7 +28,7 @@ class AttendanceController extends Controller
      */
     public function index(Request $request): View
     {
-        $staff = $this->currentStaffV2OrFail($request);
+        $staff = $this->currentStaffOrFail($request);
 
         $validated = $request->validate([
             'from' => ['nullable', 'date'],
@@ -38,8 +38,6 @@ class AttendanceController extends Controller
                 Attendance::STATUS_ABSENT,
                 Attendance::STATUS_LATE,
                 Attendance::STATUS_LEAVE,
-                Attendance::STATUS_HOLIDAY,
-                Attendance::STATUS_WEEKEND,
             ])],
         ]);
 
@@ -77,7 +75,7 @@ class AttendanceController extends Controller
      */
     public function checkIn(Request $request): RedirectResponse
     {
-        $staff = $this->currentStaffV2OrFail($request);
+        $staff = $this->currentStaffOrFail($request);
 
         try {
             $this->clock->checkIn($staff);
@@ -93,7 +91,7 @@ class AttendanceController extends Controller
      */
     public function checkInQr(Request $request): RedirectResponse
     {
-        $staff = $this->currentStaffV2OrFail($request);
+        $staff = $this->currentStaffOrFail($request);
 
         try {
             $this->clock->checkIn($staff, null, 'qr');
@@ -109,7 +107,7 @@ class AttendanceController extends Controller
      */
     public function checkOut(Request $request): RedirectResponse
     {
-        $staff = $this->currentStaffV2OrFail($request);
+        $staff = $this->currentStaffOrFail($request);
 
         try {
             $attendance = $this->clock->checkOut($staff);
@@ -125,7 +123,7 @@ class AttendanceController extends Controller
      */
     public function qrCode(Request $request): Response
     {
-        $this->currentStaffV2OrFail($request);
+        $this->currentStaffOrFail($request);
 
         $url = route('staff.attendance.check-in.qr');
         $qr = QrCode::format('svg')->size(250)->margin(1)->generate($url);
@@ -143,12 +141,12 @@ class AttendanceController extends Controller
      */
     public function showQr(Request $request): View
     {
-        $staff = $this->currentStaffV2OrFail($request);
+        $staff = $this->currentStaffOrFail($request);
 
         return view('staff.attendance-qr', [
             'staff' => $staff,
-            'qrUrl' => route('staff.attendance.qr.image'),
-            'checkInUrl' => route('staff.attendance.check-in.qr'),
+            'qrUrl' => route('staff.staff.attendance.qr.image'),
+            'checkInUrl' => route('staff.staff.attendance.check-in.qr'),
         ]);
     }
 }

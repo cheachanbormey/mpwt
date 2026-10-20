@@ -21,43 +21,32 @@ return new class extends Migration
                 ->constrained('users')
                 ->nullOnDelete();
 
-            $table->foreignId('office_id')
-                ->nullable()
-                ->constrained('offices')
-                ->nullOnDelete();
+            $table->foreignId('office_code')
+                ->nullable();
+                // ->constrained('offices');
+                // ->nullOnDelete();
 
             $table->foreignId('position_id')
                 ->nullable()
                 ->constrained('positions')
                 ->nullOnDelete();
 
-            $table->string('staff_code', 50)->unique();
+            $table->string('staff_id', 50)->unique();
             $table->string('name_km');
             $table->string('name_en')->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
-            $table->date('date_of_birth')->nullable();
-            $table->string('national_id', 30)->nullable();
             $table->string('phone', 30)->nullable();
             $table->string('email')->nullable();
-            $table->text('address')->nullable();
-            $table->string('photo')->nullable();
-            $table->date('hire_date')->nullable();
-            $table->enum('employment_status', [
-                'active',
-                'probation',
-                'suspended',
-                'retired',
-                'terminated',
-            ])->default('active');
-            $table->decimal('base_salary', 12, 2)->nullable();
+            $table->string('telegram', 30)->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('system_role', ['admin', 'staff', 'user'])->default('staff');
 
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index('national_id');
-            $table->index('email');
-            $table->index('hire_date');
-            $table->index('employment_status');
+            
+            $table->index('gender');
+            $table->index('status');
+            $table->index('system_role');
         });
     }
 

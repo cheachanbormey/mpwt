@@ -51,26 +51,25 @@
             <span>ផ្ទាំងគ្រប់គ្រង</span>
         </a>
 
-<!-- 
+        <a href="{{ route('staff.staff.attendance') }}" class="sidebar-item">
+            <i class="bi bi-clock-history"></i>
+            <span>វត្តមាន CheckinMe</span>
+        </a>
+
+        <a href="{{ route('staff.staff.leave-requests.index') }}" class="sidebar-item">
+            <i class="bi bi-envelope-paper"></i>
+            <span>ស្នើសុំច្បាប់ឈប់សម្រាក</span>
+        </a>
+
+        <a href="{{ route('staff.staff.meetings.index') }}" class="sidebar-item">
+            <i class="bi bi-calendar-event"></i>
+            <span>កិច្ចប្រជុំ និង ស្កេនវត្តមាន</span>
+        </a>
+
         {{-- Self-service: everyone with a staff record --}}
         <a href="{{ route('staff.profile') }}" class="sidebar-item">
             <i class="bi bi-person-circle"></i>
-            <span>ប្រវត្តិរូបរបស់ខ្ញុំ</span>
-        </a>
-
-        <a href="{{ route('staff.attendance') }}" class="sidebar-item">
-            <i class="bi bi-clock-history"></i>
-            <span>វត្តមានរបស់ខ្ញុំ</span>
-        </a>
-
-        <a href="{{ route('staff.leave-requests.index') }}" class="sidebar-item">
-            <i class="bi bi-envelope-paper"></i>
-            <span>សុំច្បាប់</span>
-        </a>
-
-        <a href="{{ route('staff.meetings.index') }}" class="sidebar-item">
-            <i class="bi bi-calendar-event"></i>
-            <span>កិច្ចប្រជុំ</span>
+            <span>ព័ត៌មានផ្ទាល់ខ្លួន</span>
         </a>
 
 
@@ -92,7 +91,7 @@
 
     </nav>
 
-    {{-- Signed-in identity at the foot of the sidebar --}}
+    <!-- {{-- Signed-in identity at the foot of the sidebar --}}
     <div class="sidebar-footer">
 
         <div class="user-avatar">

@@ -13,7 +13,7 @@
 
             <input
                 type="text"
-                placeholder="ស្វែងរកក្នុងប្រព័ន្ធ..."
+                placeholder="ស្វែងរកតាមឈ្មោះ តួនាទី..."
             >
 
         </div>
@@ -104,25 +104,12 @@
                 </li>
 
                 <li>
-                    <a class="dropdown-item" href="{{ route('staff.attendance') }}">
-                        <i class="bi bi-clock-history"></i>
-                        វត្តមានរបស់ខ្ញុំ
+                    <a class="dropdown-item">
+                        <i class="bi bi-gear"></i>
+                         ការកំណត់ប្រព័ន្ធ
                     </a>
                 </li>
 
-                <li>
-                    <a class="dropdown-item" href="{{ route('staff.leave-requests.index') }}">
-                        <i class="bi bi-envelope-paper"></i>
-                        ស្នើរសុំច្បាប់
-                    </a>
-                </li>
-
-                <li>
-                    <a class="dropdown-item" href="{{ route('staff.meetings.index') }}">
-                        <i class="bi bi-calendar-event"></i>
-                        កិច្ចប្រជុំរបស់ខ្ញុំ
-                    </a>
-                </li>
 
                 <li><hr class="dropdown-divider"></li>
 

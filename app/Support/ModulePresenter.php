@@ -68,8 +68,8 @@ class ModulePresenter
         // Checkbox columns.
         if ($type === 'boolean') {
             return $value
-                ? ['text' => 'បាទ', 'kind' => 'yes']
-                : ['text' => 'អត់', 'kind' => 'no'];
+                ? ['text' => 'សកម្ម', 'kind' => 'yes']
+                : ['text' => 'អសកម្ម', 'kind' => 'no'];
         }
 
         // The module's declared status column becomes a coloured badge.

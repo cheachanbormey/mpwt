@@ -11,16 +11,16 @@
 
         <h1>
             <i class="bi bi-envelope-plus"></i>
-            ស្នើសំឡេងស្មារណការ
+            ស្នើសុំច្បាប់ថ្មី
         </h1>
 
-        <p>ប៉ុណ្ណោះបញ្ចូលព័ត៌មាន។ សំឡេងនឹងត្រូវបានបោះពុម្ពទៅចុចហត្ថលេខាដោយដៃ។</p>
+        <p>ប៉ុណ្ណោះបញ្ចូលព័ត៌មាន។ ច្បាប់នឹងត្រូវបានបោះពុម្ពទៅចុចហត្ថលេខាដោយដៃ។</p>
 
     </div>
 
 
     <form method="POST"
-          action="{{ route('staff.leave-requests.store') }}"
+          action="{{ route('staff.staff.leave-requests.store') }}"
           class="module-form"
           novalidate>
 
@@ -34,7 +34,7 @@
                 <div class="col-md-6">
 
                     <label for="leave_type_id" class="form-label">
-                        ប្រភេទសំឡេង <span class="text-danger">*</span>
+                        ប្រភេទច្បាប់ <span class="text-danger">*</span>
                     </label>
 
                     <select name="leave_type_id"
@@ -116,7 +116,7 @@
                               rows="5"
                               class="form-control @error('reason') is-invalid @enderror"
                               required
-                              placeholder="សូមពន្យល់មូលដ្ឋានសំឡេងរបស់អ្នក…">{{ old('reason') }}</textarea>
+                              placeholder="សូមពន្យល់មូលហេតុច្បាប់របស់អ្នក…">{{ old('reason') }}</textarea>
 
                     @error('reason')
                         <span class="invalid-feedback d-block">{{ $message }}</span>
@@ -132,9 +132,9 @@
         {{-- Notice --}}
         <div class="alert alert-warning mt-3" role="alert">
             <i class="bi bi-info-circle"></i>
-            ចំនួនថ្ងៃសំឡេងត្រូវបានគណនាដោយប្រព័ន្ធ
+            ចំនួនថ្ងៃច្បាប់ត្រូវបានគណនាដោយប្រព័ន្ធ
             (មិនរាប់ថ្ងៃសៅរ៍ និងថ្ងៃអាទិត្យ)។
-            សំឡេងនេះនឹងមានស្ថារាង <strong>កំពុងរង់ចាំ</strong> ហើយមិនអាចប្ដូរក្នុងប្រព័ន្ធបានទេ។
+            ច្បាប់នេះនឹងមានស្ថាភាព <strong>កំពុងរង់ចាំ</strong> ហើយមិនអាចប្ដូរក្នុងប្រព័ន្ធបានទេ។
         </div>
 
 
@@ -142,10 +142,10 @@
 
             <button type="submit" class="btn btn-primary">
                 <i class="bi bi-send"></i>
-                បញ្ជូនសំឡេង
+                បញ្ជូនពាក្យសុំច្បាប់
             </button>
 
-            <a href="{{ route('staff.leave-requests.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('staff.staff.leave-requests.index') }}" class="btn btn-outline-secondary">
                 ត្រឡប់ក្រោយ
             </a>
 

@@ -18,15 +18,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('staff_v2_id')
+            $table->foreignId('staff_id')
                 ->nullable()
                 ->unique()
-                ->constrained('staff_v2')
+                ->constrained('staff')
                 ->nullOnDelete();
         });
 
         foreach (DB::table('users')->whereNotNull('email')->get() as $user) {
-            $staffId = DB::table('staff_v2')
+            $staffId = DB::table('staff')
                 ->where('email', $user->email)
                 ->value('id');
 
@@ -35,7 +35,7 @@ return new class extends Migration
             }
 
             DB::table('users')->where('id', $user->id)->update([
-                'staff_v2_id' => $staffId,
+                'staff_id' => $staffId,
             ]);
         }
     }
@@ -43,9 +43,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['staff_v2_id']);
-            $table->dropUnique(['staff_v2_id']);
-            $table->dropColumn('staff_v2_id');
+            $table->dropForeign(['staff_id']);
+            $table->dropUnique(['staff_id']);
+            $table->dropColumn('staff_id');
         });
     }
 };

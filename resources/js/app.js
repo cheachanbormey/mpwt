@@ -11,6 +11,9 @@ import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.js';
 /* Make Bootstrap available globally for inline page scripts */
 window.bootstrap = bootstrap;
 
+import Chart from 'chart.js/auto';
+
+window.Chart = Chart;
 
 /* =========================================================
    1. COLLAPSIBLE SIDEBAR

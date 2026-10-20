@@ -88,7 +88,7 @@
                                        value="1"
                                        @checked((bool) $old)>
                                 <label class="form-check-label" for="{{ $inputId }}">
-                                    បាទ
+                                    សកម្ម
                                 </label>
                             </div>
 

@@ -13,12 +13,9 @@ return new class extends Migration
             $table->engine = 'InnoDB';
 
             $table->id();
-            $table->string('code', 50)->unique();
-            $table->string('name');
+            $table->string('name_kh');
             $table->string('name_en')->nullable();
-            $table->text('description')->nullable();
-            $table->unsignedSmallInteger('default_days_per_year')->nullable();
-            $table->boolean('is_paid')->default(true);
+            $table->unsignedSmallInteger('default_days_per_year');
             $table->boolean('requires_approval')->default(true);
             $table->boolean('is_active')->default(true);
             $table->timestamps();

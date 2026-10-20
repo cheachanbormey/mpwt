@@ -10,7 +10,13 @@ use App\Http\Controllers\Staff\MeetingController;
 use App\Http\Controllers\Staff\ProfileController;
 use Illuminate\Foundation\Events\DiagnosingHealth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\WorkingHoursChartController;
 
+Route::middleware(['auth'])->get(
+    '/admin/working-hours-chart',
+    [WorkingHoursChartController::class, 'index']
+)->name('admin.working-hours-chart');
 
 /*
 |--------------------------------------------------------------------------
@@ -81,4 +87,124 @@ Route::middleware('auth')->group(function (): void {
 
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
+    //     /* ---------- Staff self-service (both roles may use these) ---------- */
+
+    Route::get('/profile', [ProfileController::class, 'show'])->name('staff.profile');
+    Route::middleware(['auth'])->prefix('staff')->name('staff.')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])
+        ->name('profile');
+
+    Route::get('/attendance', [AttendanceController::class, 'index'])->name('staff.attendance');
+
+//     /*
+//      | The clock takes its time from the server, so both actions are empty
+//      | POSTs. There is no way to post a timestamp of your own.
+//      */
+    Route::post('/attendance/check-in', [AttendanceController::class, 'checkIn'])
+        ->name('staff.attendance.check-in');
+    Route::get('/attendance/check-in/qr', [AttendanceController::class, 'checkInQr'])
+        ->name('staff.attendance.check-in.qr');
+    Route::get('/attendance/qr', [AttendanceController::class, 'showQr'])
+        ->name('staff.attendance.qr');
+    Route::get('/attendance/qr/image', [AttendanceController::class, 'qrCode'])
+        ->name('staff.attendance.qr.image');
+
+    Route::post('/attendance/check-out', [AttendanceController::class, 'checkOut'])
+        ->name('staff.attendance.check-out');
+
+    Route::get('/meetings', [MeetingController::class, 'index'])->name('staff.meetings.index');
+    Route::get('/meetings/{meeting}', [MeetingController::class, 'show'])->name('staff.meetings.show');
+
+    Route::get('/leave-requests', [LeaveRequestController::class, 'index'])
+        ->name('staff.leave-requests.index');
+    Route::get('/leave-requests/create', [LeaveRequestController::class, 'create'])
+        ->name('staff.leave-requests.create');
+
+    /*
+     | Submitting a request always creates a "pending" row.
+     | There is deliberately no approve, reject or cancel route.
+     */
+    Route::post('/leave-requests', [LeaveRequestController::class, 'store'])
+        ->name('staff.leave-requests.store');
+});
+
+// /* ======================================================================
+//  | ADMINISTRATOR ONLY
+//  |
+//  | Each entry of config/hrms.php becomes a full CRUD resource.
+//  |
+//  | The routes are written out instead of using Route::resource because the
+//  | URL segment is a literal ("admin/departments"), not a {module}
+//  | parameter. The module name is therefore attached as a route default,
+//  | which ModuleController reads back. See ModuleController::module().
+//  |
+//  | Two extra actions are opt-in, so a module must ask for them in the
+//  | registry rather than gaining them by accident:
+//  |
+//  |   show     registered when the entry sets `show` to true
+//  |   toggle   registered when the entry names a `status_field`
+//  |
+//  | The {id} constraint keeps /create and /{id}/edit from colliding with
+//  | the show route.
+//  |===================================================================== */
+Route::middleware(['auth'])->prefix('staff')->name('staff.')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])
+        ->name('profile');
+});
+
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function (): void {
+
+//         /*
+//          | Attendance overviews. The row-by-row record list is generated from
+//          | config/hrms.php below; these two screens are hand written because a
+//          | roll-up per day or per person is not a flat list of rows.
+//          */
+        Route::get('/attendance/daily', [AttendanceReportController::class, 'day'])
+            ->name('attendances.day');
+
+        Route::get('/attendance/monthly', [AttendanceReportController::class, 'month'])
+            ->name('attendances.month');
+
+        $actions = [
+            'index' => ['get', '', 'index'],
+            'create' => ['get', '/create', 'create'],
+            'store' => ['post', '', 'store'],
+            'edit' => ['get', '/{id}/edit', 'edit'],
+            'update' => ['put,patch', '/{id}', 'update'],
+            'destroy' => ['delete', '/{id}', 'destroy'],
+        ];
+
+        $extras = [
+            'show' => ['get', '/{id}', 'show'],
+            'toggle' => ['patch', '/{id}/toggle', 'toggle'],
+        ];
+
+        foreach (ModuleController::registry() as $module => $definition) {
+            $moduleActions = $actions;
+
+            if ($definition['show'] ?? false) {
+                $moduleActions['show'] = $extras['show'];
+            }
+
+            if (($definition['status_field'] ?? null) !== null) {
+                $moduleActions['toggle'] = $extras['toggle'];
+            }
+
+            foreach ($moduleActions as $action => [$verbs, $suffix, $method]) {
+                Route::match(explode(',', $verbs), "/{$module}{$suffix}", [
+                    ModuleController::class, $method,
+                ])
+                    ->where('id', '[0-9]+')
+                    ->defaults('module', $module)
+                    ->name("{$module}.{$action}");
+            }
+        }
+    });
+
     
+    Route::get('/user/chart', [UserController::class, 'showChart']);        
+
+});

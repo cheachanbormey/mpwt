@@ -5,9 +5,11 @@ namespace Database\Seeders;
 use App\Models\Location;
 use App\Models\Meeting;
 use App\Models\MeetingType;
+use App\Models\MeetingAgenda;
 use App\Models\Staff;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
+
 
 class MeetingSeeder extends Seeder
 {
@@ -18,11 +20,12 @@ class MeetingSeeder extends Seeder
     {
         $meetingTypes = MeetingType::all();
         $locations = Location::all();
-        $creators = Staff::whereIn('employment_status', [
+        $meetingAgenda = MeetingAgenda::all();
+        $creators = Staff::whereIn('status', [
             Staff::STATUS_ACTIVE,
         ])->get();
 
-        if ($meetingTypes->isEmpty() || $creators->isEmpty()) {
+        if ($meetingTypes->isEmpty() || $creators->isEmpty() || $locations->isEmpty()) {
             return;
         }
 
@@ -57,13 +60,23 @@ class MeetingSeeder extends Seeder
 
             Meeting::create([
                 'meeting_type_id' => $meetingTypes->random()->id,
-                'location_id' => fake()->boolean(90) ? $locations->random()->id : null,
+                'location_id' => $locations->random()->id,
+                // 'location_id' => fake()->boolean(90) ? $locations->random()->id : null,
+                // 'location_id' => $locations->isNotEmpty() && fake()->boolean(90)
+                //     ? $locations->random()->id
+                //     : null,
+
+                // 'agenda_id' => $meetingAgenda->isNotEmpty() && fake()->boolean(90)
+                //     ? $meetingAgenda->random()->id
+                //     : null,
                 'created_by_staff_id' => $creators->random()->id,
                 'title' => $titles[array_rand($titles)].' លើទី '.($i + 1),
                 'agenda_summary' => fake()->paragraph(3),
                 'meeting_date' => $date,
                 'start_time' => sprintf('%02d:00:00', $startHour),
                 'end_time' => sprintf('%02d:00:00', $startHour + fake()->numberBetween(1, 3)),
+                // 'agenda_id' => $meetingAgenda->random()->id,
+                // 'agenda_id' => fake()->boolean(90) ? $meetingAgenda->random()->id : null,
                 'status' => $status,
             ]);
         }

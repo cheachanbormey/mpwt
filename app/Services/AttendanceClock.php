@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\AttendanceClockException;
 use App\Models\Attendance;
-use App\Models\StaffV2;
+use App\Models\Staff;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
@@ -32,7 +32,7 @@ class AttendanceClock
      *
      * @throws AttendanceClockException when the person has already checked in today
      */
-    public function checkIn(StaffV2 $staff, ?Carbon $at = null, string $source = 'system'): Attendance
+    public function checkIn(Staff $staff, ?Carbon $at = null, string $source = 'system'): Attendance
     {
         $at = $this->resolveMoment($at);
         $workDate = $at->toDateString();
@@ -73,7 +73,7 @@ class AttendanceClock
      * @throws AttendanceClockException when they have not arrived, have
      *                                  already left, or are leaving early
      */
-    public function checkOut(StaffV2 $staff, ?Carbon $at = null): Attendance
+    public function checkOut(Staff $staff, ?Carbon $at = null): Attendance
     {
         $at = $this->resolveMoment($at);
         $workDate = $at->toDateString();
@@ -108,7 +108,7 @@ class AttendanceClock
     /**
      * The person's record for one day, if it exists.
      */
-    public function recordFor(StaffV2 $staff, ?string $workDate = null): Builder
+    public function recordFor(Staff $staff, ?string $workDate = null): Builder
     {
         $workDate ??= now()->toDateString();
 

@@ -18,22 +18,21 @@ return new class extends Migration
                 ->constrained('meetings')
                 ->cascadeOnDelete();
 
-            $table->foreignId('presenter_staff_id')
-                ->nullable()
-                ->constrained('staff')
-                ->nullOnDelete();
-
             $table->unsignedSmallInteger('agenda_no');
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->unsignedSmallInteger('duration_minutes')->nullable();
-            $table->unsignedSmallInteger('sort_order')->default(0);
+            $table->text('topic');
+
+            // $table->foreignId('presenter_staff_id')
+            //     ->nullable()
+            //     ->constrained('staff')
+            //     ->nullOnDelete();
+
+            $table->string('presenter_name');
 
             $table->timestamps();
 
             // Agenda numbers are unique inside one meeting
             $table->unique(['meeting_id', 'agenda_no']);
-            $table->index(['meeting_id', 'sort_order']);
+            // $table->index(['meeting_id', 'sort_order']);
         });
     }
 

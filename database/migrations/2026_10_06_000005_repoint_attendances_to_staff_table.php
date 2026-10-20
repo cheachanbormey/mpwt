@@ -26,8 +26,8 @@ return new class extends Migration
      */
     private const COLUMNS = [
         'id', 'staff_id', 'work_date', 'check_in', 'check_out',
-        'worked_hours', 'status', 'check_in_source', 'notes',
-        'created_at', 'updated_at',
+        'worked_hours', 'status', 'check_in_source', 'created_at', 
+        'updated_at'
     ];
 
     public function up(): void
@@ -58,7 +58,7 @@ return new class extends Migration
         Schema::table('attendances', function (Blueprint $table) {
             $table->foreign('staff_id')
                 ->references('id')
-                ->on('staff_v2')
+                ->on('staff')
                 ->cascadeOnDelete();
 
             // A member of staff can only have one record per day
@@ -121,7 +121,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('staff_id')
-                ->constrained('staff_v2')
+                ->constrained('staff')
                 ->cascadeOnDelete();
 
             $table->date('work_date');
@@ -137,7 +137,7 @@ return new class extends Migration
                 'weekend',
             ])->default('present');
             $table->enum('check_in_source', ['manual', 'qr', 'system'])->default('manual');
-            $table->string('notes')->nullable();
+            // $table->string('notes')->nullable();
 
             $table->timestamps();
 
@@ -175,13 +175,13 @@ return new class extends Migration
         $map = [];
 
         foreach (DB::table('positions')->orderBy('id')->get() as $position) {
-            $existing = DB::table('positions_v2')
-                ->where('position_name_kh', $position->name)
+            $existing = DB::table('positions')
+                ->where('name_kh', $position->name_kh)
                 ->value('id');
 
-            $map[$position->id] = $existing ?? DB::table('positions_v2')->insertGetId([
-                'position_name_kh' => $position->name,
-                'position_name_en' => $position->name_en,
+            $map[$position->id] = $existing ?? DB::table('positions')->insertGetId([
+                'name_kh' => $position->name_kh,
+                'name_en' => $position->name_en,
                 'description' => $position->description,
                 'status' => $position->is_active ? 'active' : 'inactive',
                 'created_at' => $position->created_at,
@@ -202,33 +202,34 @@ return new class extends Migration
     {
         $map = [];
 
-        foreach (DB::table('staff')->orderBy('id')->get() as $person) {
+        foreach (DB::table('staff')->orderBy('id')->get() as $staff_id) {
             // staff_code is unique in the old table, so the map stays one to one.
-            $existing = DB::table('staff_v2')
-                ->where('staff_id', $person->staff_code)
+            $existing = DB::table('staff')
+                ->where('staff_id', $staff_id->staff_id)
                 ->value('id');
 
             if ($existing !== null) {
-                $map[$person->id] = $existing;
+                $map[$staff_id->id] = $existing;
 
                 continue;
             }
 
-            $map[$person->id] = DB::table('staff_v2')->insertGetId([
-                'office_id' => $person->office_id,
-                'position_id' => $positionMap[$person->position_id] ?? null,
-                'staff_id' => $person->staff_code,
-                'full_name' => $person->name_km,
-                'gender' => $person->gender,
-                'email' => $person->email,
-                'phone' => $person->phone,
+            $map[$staff_id->id] = DB::table('staff')->insertGetId([
+                'office_id' => $staff_id->office_id,
+                'position_id' => $positionMap[$staff_id->position_id] ?? null,
+                'staff_id' => $staff_id->staff_id,
+                'name_kh' => $staff_id->name_kh,
+                'name_en' => $staff_id->name_en,
+                'gender' => $staff_id->gender,
+                'email' => $staff_id->email,
+                'phone' => $staff_id->phone,
                 'telegram' => null,
                 // employment_status held six states; the rebuilt module only
                 // distinguishes working from not working.
-                'status' => $person->employment_status === 'active' ? 'active' : 'inactive',
+                'status' => $staff_id->employment_status === 'active' ? 'active' : 'inactive',
                 'system_role' => 'staff',
-                'created_at' => $person->created_at,
-                'updated_at' => $person->updated_at,
+                'created_at' => $staff_id->created_at,
+                'updated_at' => $staff_id->updated_at,
             ]);
         }
 

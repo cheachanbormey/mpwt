@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['code', 'name', 'name_en', 'description', 'is_active'])]
+#[Fillable(['dep_code', 'name_kh', 'name_en', 'staff_id', 'is_active'])]
 class Department extends Model
 {
     /** @use HasFactory<DepartmentFactory> */
@@ -27,11 +27,29 @@ class Department extends Model
     }
 
     /**
+     * The table this model reads and writes.
+     */
+    protected $table = 'departments';
+
+    public function staff(): HasMany
+    {
+        return $this->hasMany(Staff::class);
+    }
+
+    /**
      * Offices belonging to this department.
      */
     public function offices(): HasMany
     {
         return $this->hasMany(Office::class);
+    }
+
+    /**
+     * The staff member heading this department.
+     */
+    public function director(): BelongsTo
+    {
+        return $this->belongsTo(Staff::class, 'staff_id');
     }
 
     /**

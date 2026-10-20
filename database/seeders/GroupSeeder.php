@@ -14,24 +14,49 @@ class GroupSeeder extends Seeder
     public function run(): void
     {
         $groups = [
-            ['code' => 'GRP-001', 'name' => 'ក្រុមការងារវត្តមាន', 'name_en' => 'Attendance Team', 'leader' => 'ST-00004'],
-            ['code' => 'GRP-002', 'name' => 'ក្រុមការងារប្រព័ន្ធព័ត៌មាន', 'name_en' => 'Information System Team', 'leader' => 'ST-00007'],
-            ['code' => 'GRP-003', 'name' => 'ក្រុមការងារហិរញ្ញវត្តិ', 'name_en' => 'Finance Team', 'leader' => 'ST-00009'],
-            ['code' => 'GRP-004', 'name' => 'ក្រុមការងារស្តារសញ្ញា', 'name_en' => 'Public Works Team', 'leader' => 'ST-00012'],
-            ['code' => 'GRP-005', 'name' => 'ក្រុមបុគ្គលិកសុវត្ថិភាព', 'name_en' => 'Security Team', 'leader' => 'ST-00016'],
-            ['code' => 'GRP-006', 'name' => 'ក្រុមបង្កើតប្រចាំខែ', 'name_en' => 'Monthly Training Team', 'leader' => 'ST-00014'],
+            ['name_kh' => 'ក្រុមការងារវត្តមាន', 
+             'name_en' => 'Attendance Team', 
+             'description' => 'ក្រុមការងារវត្តមាន',
+             'leader_staff_id' => 'ST-00004',
+             'location_id' => 1],
+            ['name_kh' => 'ក្រុមការងារប្រព័ន្ធព័ត៌មាន',
+             'name_en' => 'Information System Team', 
+             'description' => '',
+             'leader_staff_id' => 'ST-00007',
+             'location_id' => 2],
+            ['name_kh' => 'ក្រុមការងារហិរញ្ញវត្តិ', 
+             'name_en' => 'Finance Team', 
+             'description' => 'ក្រុមការងារហិរញ្ញវត្តិ',
+             'leader_staff_id' => 'ST-00009',
+             'location_id' => 3],
+            ['name_kh' => 'ក្រុមការងារស្តារសញ្ញា', 
+             'name_en' => 'Public Works Team', 
+             'description' => 'ក្រុមការងារស្តារសញ្ញា',
+             'leader_staff_id' => 'ST-00012',
+             'location_id' => 4],
+            ['name_kh' => 'ក្រុមបុគ្គលិកសុវត្ថិភាព', 
+             'name_en' => 'Security Team', 
+             'description' => 'ក្រុមបុគ្គលិកសុវត្ថិភាព',
+             'leader_staff_id' => 'ST-00016', 
+             'location_id' => 5],
+            ['name_kh' => 'ក្រុមបង្កើតប្រចាំខែ', 
+             'name_en' => 'Monthly Training Team', 
+             'description' => 'ក្រុមបង្កើតប្រចាំខែ',
+             'leader_staff_id' => 'ST-00014', 
+             'location_id' => 5],
         ];
 
-        $staff = Staff::pluck('id', 'staff_code');
+        $staff = Staff::pluck('id', 'staff_id')->toArray();
 
         foreach ($groups as $group) {
             Group::firstOrCreate(
-                ['code' => $group['code']],
+                // ['code' => $group['code']],
+                ['name_kh' => $group['name_kh']],
                 [
-                    'name' => $group['name'],
                     'name_en' => $group['name_en'],
-                    'description' => 'ក្រុមការងារការងារ'.$group['name_en'],
-                    'leader_staff_id' => $staff[$group['leader']] ?? null,
+                    'description' => $group['description'],
+                    'leader_staff_id' => $staff[$group['leader_staff_id']] ?? null,
+                    'location_id' => $group['location_id'],
                     'is_active' => true,
                 ]
             );

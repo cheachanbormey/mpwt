@@ -20,6 +20,12 @@ class MeetingParticipantSeeder extends Seeder
             return;
         }
 
+        $groupIds = Staff::pluck('id')->all();
+
+        if ($groupIds === [] || Meeting::count() === 0) {
+            return;
+        }
+
         // Safe to run repeatedly: do not add more rows on a second `db:seed`.
         if (MeetingParticipant::exists()) {
             return;
@@ -58,7 +64,7 @@ class MeetingParticipantSeeder extends Seeder
                         'attended_at' => $status === MeetingParticipant::STATUS_ATTENDED
                             ? $meeting->meeting_date->copy()->setTime(9, 0)
                             : null,
-                        'notes' => null,
+                        // 'notes' => null,
                     ]
                 );
             }

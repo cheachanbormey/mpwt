@@ -88,7 +88,7 @@ class RoleSeeder extends Seeder
 
         $staff = Staff::query()
             ->whereNull('user_id')
-            ->orderBy('staff_code')
+            ->orderBy('staff_id')
             ->first();
 
         if ($staff === null) {

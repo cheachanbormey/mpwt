@@ -39,19 +39,17 @@ class GroupMemberSeeder extends Seeder
                 $members[] = $staffId;
             }
 
-            $roles = ['សមាជិក', 'រដ្ឋលេខាធិការ', 'សេកា', 'អ្នកជំនួយ'];
-
             foreach (array_unique($members) as $staffId) {
                 GroupMember::firstOrCreate(
                     [
                         'group_id' => $group->id,
                         'staff_id' => $staffId,
                     ],
-                    [
-                        'role_in_group' => fake()->randomElement($roles),
-                        'is_leader' => $staffId === $group->leader_staff_id,
-                        'joined_at' => fake()->dateTimeBetween('-4 years', '-1 month'),
-                    ]
+                    // [
+                    //     // 'role_in_group' => fake()->randomElement($roles),
+                    //     // 'is_leader' => $staffId === $group->leader_staff_id,
+                    //     // 'joined_at' => fake()->dateTimeBetween('-4 years', '-1 month'),
+                    // ]
                 );
             }
         }

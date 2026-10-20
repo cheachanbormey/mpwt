@@ -33,14 +33,14 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             LeaveTypeSeeder::class,
             MeetingTypeSeeder::class,
-            DepartmentV2Seeder::class,
-            PositionV2Seeder::class,
+            // DepartmentV2Seeder::class,
+            // PositionV2Seeder::class,
         ]);
 
         // Layer 2 - offices depend on departments
         $this->call([
             OfficeSeeder::class,
-            OfficeV2Seeder::class,
+            // OfficeV2Seeder::class,
         ]);
 
         // Layer 3 - staff depends on offices, positions and users
@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
             StaffSeeder::class,
             // Attendance rows point at this table, so it must be populated
             // before Layer 4 runs.
-            StaffV2Seeder::class,
+            // StaffV2Seeder::class,
         ]);
 
         // Layer 4 - depends on staff
@@ -75,6 +75,15 @@ class DatabaseSeeder extends Seeder
 
         // Layer 8 - mirrors the account links RoleSeeder just worked out onto
         // the rebuilt staff table the clock reads from
-        $this->call(StaffV2UserLinkSeeder::class);
+        // $this->call(StaffV2UserLinkSeeder::class);
+
+        $this->call([
+            LocationSeeder::class,
+            DepartmentSeeder::class,
+            PositionSeeder::class,
+            OfficeSeeder::class,
+            StaffSeeder::class,
+            // DepartmentHeadSeeder::class, 
+        ]);
     }
 }

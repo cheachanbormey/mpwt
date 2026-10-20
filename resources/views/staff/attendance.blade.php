@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'វត្តមានរបស់ខ្ញុំ')
+@section('title', 'វត្តមាន​ CheckinMe')
 @section('titleSuffix', $staff->staff_id)
 
 @section('content')
@@ -11,10 +11,10 @@
 
         <h1>
             <i class="bi bi-clock-history"></i>
-            វត្តមានរបស់ខ្ញុំ
+            វត្តមាន
         </h1>
 
-        <p>តែកំណត់ត្រាវត្តមានរបស់ {{ $staff->full_name }} ប៉ុណ្ណោះ</p>
+        <p>តែកំណត់ត្រាវត្តមានរបស់ {{ $staff->name_km }} ប៉ុណ្ណោះ</p>
 
     </div>
 
@@ -25,7 +25,7 @@
         <div class="card-header-custom">
             <h3>
                 <i class="bi bi-alarm"></i>
-                កាត់ការងារថ្ងៃនេះ
+                ម៉ោងការងារថ្ងៃនេះ
             </h3>
 
             <p>{{ now()->format('d/m/Y') }}</p>
@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="col-md-3 col-6">
-                        <span class="text-body-secondary d-block small">ស្ថារាង</span>
+                        <span class="text-body-secondary d-block small">ស្ថានភាព</span>
                         <span class="badge-status {{ ['present' => 'present', 'late' => 'late', 'absent' => 'absent', 'leave' => 'leave'][$today->status] ?? 'absent' }}">
                             {{ \App\Models\Attendance::statusLabels()[$today->status] ?? $today->status }}
                         </span>
@@ -76,7 +76,7 @@
         <div class="module-actions">
 
             @if ($today === null)
-                <form method="POST" action="{{ route('staff.attendance.check-in') }}">
+                <form method="POST" action="{{ route('staff.staff.attendance.check-in') }}">
                     @csrf
                     <button type="submit" class="btn btn-success">
                         <i class="bi bi-box-arrow-in-right"></i>
@@ -84,7 +84,7 @@
                     </button>
                 </form>
             @elseif ($today->isOpen())
-                <form method="POST" action="{{ route('staff.attendance.check-out') }}">
+                <form method="POST" action="{{ route('staff.staff.attendance.check-out') }}">
                     @csrf
                     <button type="submit" class="btn btn-primary">
                         <i class="bi bi-box-arrow-right"></i>
@@ -93,12 +93,12 @@
                 </form>
             @endif
 
-            <a href="{{ route('staff.attendance.qr') }}" class="btn btn-outline-primary">
+            <a href="{{ route('staff.staff.attendance.qr') }}" class="btn btn-outline-primary">
                 <i class="bi bi-qr-code"></i>
                 QR Code
             </a>
 
-            <a href="{{ route('staff.attendance') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('staff.staff.attendance') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-clockwise"></i>
                 ផ្លាស់ប្ដូរ
             </a>
@@ -113,7 +113,6 @@
 
         @php
             $cards = [
-                ['label' => 'ស្រុង', 'value' => $summary['total'], 'class' => 'blue', 'icon' => 'bi-journal-check'],
                 ['label' => 'វត្តមាន', 'value' => $summary['present'], 'class' => 'blue', 'icon' => 'bi-check-circle'],
                 ['label' => 'យឺត', 'value' => $summary['late'], 'class' => 'orange', 'icon' => 'bi-clock'],
                 ['label' => 'អវត្តមាន', 'value' => $summary['absent'], 'class' => 'gray', 'icon' => 'bi-x-circle'],
@@ -140,7 +139,7 @@
 
 
     {{-- Filters --}}
-    <form method="GET" action="{{ route('staff.attendance') }}" class="module-filters">
+    <form method="GET" action="{{ route('staff.staff.attendance') }}" class="module-filters">
 
         <div class="module-search">
             <i class="bi bi-calendar-range"></i>
@@ -170,11 +169,11 @@
 
         <button type="submit" class="btn btn-secondary">
             <i class="bi bi-funnel"></i>
-            ត្រាស់
+            ស្វែងរក
         </button>
 
         @if ($filters !== [])
-            <a href="{{ route('staff.attendance') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('staff.staff.attendance') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-x-circle"></i>
                 សម្អាត
             </a>
@@ -203,7 +202,7 @@
                             <th>ម៉ោងចេញ</th>
                             <th>ម៉ោងធ្វើការ</th>
                             <th>ប្រភព</th>
-                            <th>ស្ថារាង</th>
+                            <th>ស្ថាភាព</th>
                         </tr>
                     </thead>
 
