@@ -7,32 +7,23 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
-        <title>
-            Login - MPWT HRMS
-        </title>
-        <!-- &middot; {{ config('app.name') }} -->
+        Login -
+        {{ config('app.name') }}
     </title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family= fire-animation">
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-        rel="stylesheet"
-    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
     <!-- {{-- Vite: Bootstrap 5 + Bootstrap Icons + HRMS css --}}
     @vite(['resources/css/app.css', 'resources/js/app.js']) -->
     <style>
-
         * {
             box-sizing: border-box;
         }
@@ -41,7 +32,7 @@
             margin: 0;
             min-height: 100vh;
             background: #073b9f;
-            font-family: Arial, "Khmer OS", sans-serif;
+            font-family: "Google Sans", "Noto Sans Khmer", Arial, "Khmer OS", sans-serif;
         }
 
         .login-wrapper {
@@ -51,10 +42,11 @@
             align-items: center;
             padding: 25px 15px;
         }
+
         body {
-        margin: 0;
-        min-height: 100vh;
-        background: #073b9f;
+            margin: 0;
+            min-height: 100vh;
+            background: #073b9f;
         }
 
         .login-container {
@@ -196,7 +188,7 @@
             background: #052f80;
             color: white;
         }
-        
+
         /* Register */
 
         .register-text {
@@ -242,217 +234,180 @@
                 font-size: 20px;
             }
         }
-
     </style>
 </head>
 
 <body>
 
-<div class="login-wrapper">
+    <div class="login-wrapper">
 
-    <div class="login-container">
+        <div class="login-container">
 
-        {{-- Logo --}}
-        <div class="logo">
-            <img
-                src="{{ asset('images/mpwt-logo.png') }}"
-                alt="MPWT Logo"
-            >
-        </div>
+            {{-- Logo --}}
+            <div class="logo">
+                <img src="{{ asset('images/mpwt-logo.png') }}" alt="MPWT Logo">
+            </div>
 
-        {{-- Ministry Name --}}
-        <div class="ministry-title">
+            {{-- Ministry Name --}}
+            <div class="ministry-title">
 
-            <h1>
-                ក្រសួងសាធារណការ និងដឹកជញ្ជូន
-            </h1>
+                <h1>
+                    ក្រសួងសាធារណការ និងដឹកជញ្ជូន
+                </h1>
 
-            <h2>
-                MINISTRY OF PUBLIC WORKS AND TRANSPORT
-            </h2>
+                <h2>
+                    MINISTRY OF PUBLIC WORKS AND TRANSPORT
+                </h2>
 
-        </div>
+            </div>
 
 
-        {{-- Login Card --}}
-        <div class="login-card">
+            {{-- Login Card --}}
+            <div class="login-card">
 
-            <h3 class="login-title">
-                ចូលប្រព័ន្ធ
-                <small class="d-block fw-normal">ចូលប្រើប្រាស់គណនីរបស់អ្នក</small>
-            </h3>
-
-
-            {{-- Login Form --}}
-            <form method="POST" action="{{ route('login') }}">
-
-                @csrf
+                <h3 class="login-title">
+                    ចូលប្រព័ន្ធ
+                    <small class="d-block fw-normal">ចូលប្រើប្រាស់គណនីរបស់អ្នក</small>
+                </h3>
 
 
-                {{-- Username --}}
-                <div class="mb-3">
+                {{-- Login Form --}}
+                <form method="POST" action="{{ route('login') }}">
 
-                    <label class="form-label">
-                        អ្នកប្រើ
-                    </label>
-
-                    <div class="input-group">
-
-                        <span class="input-group-text">
-                            <i class="bi bi-person"></i>
-                        </span>
-
-                        <input
-                            type="text"
-                            name="email"
-                            class="form-control"
-                            placeholder=""
-                            value="{{ old('email') }}"
-                            required
-                            autofocus
-                        >
-
-                    </div>
-
-                    @error('email')
-                        <small class="text-danger">
-                            {{ $message }}
-                        </small>
-                    @enderror
-
-                </div>
+                    @csrf
 
 
-                {{-- Password --}}
-                <div class="mb-3">
+                    {{-- Username --}}
+                    <div class="mb-3">
 
-                    <label class="form-label">
-                        កូដសម្ងាត់
-                    </label>
-
-                    <div class="input-group">
-
-                        <span class="input-group-text">
-                            <i class="bi bi-lock"></i>
-                        </span>
-
-                        <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            class="form-control"
-                            required
-                        >
-
-                        <button
-                            type="button"
-                            class="input-group-text password-toggle"
-                            onclick="togglePassword()"
-                        >
-                            <i
-                                class="bi bi-eye-slash"
-                                id="passwordIcon"
-                            ></i>
-                        </button>
-
-                    </div>
-
-                    @error('password')
-                        <small class="text-danger">
-                            {{ $message }}
-                        </small>
-                    @enderror
-
-                </div>
-
-
-                {{-- Remember / Forgot --}}
-                <div class="login-options">
-
-                    <div class="form-check">
-
-                        <input
-                            class="form-check-input"
-                            type="checkbox"
-                            name="remember"
-                            id="remember"
-                        >
-
-                        <label
-                            class="form-check-label remember"
-                            for="remember"
-                        >
-                            ចងចាំ
+                        <label class="form-label">
+                            អ្នកប្រើ
                         </label>
 
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="bi bi-person"></i>
+                            </span>
+
+                            <input type="text" name="email" class="form-control" placeholder=""
+                                value="{{ old('email') }}" required autofocus>
+
+                        </div>
+
+                        @error('email')
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
+                        @enderror
+
                     </div>
 
 
-                    <a
-                        href="#"
-                        class="forgot-password"
-                    >
-                        ភ្លេចលេខសម្ងាត់?
-                    </a>
+                    {{-- Password --}}
+                    <div class="mb-3">
 
-                </div>
+                        <label class="form-label">
+                            កូដសម្ងាត់
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="bi bi-lock"></i>
+                            </span>
+
+                            <input type="password" name="password" id="password" class="form-control" required>
+
+                            <button type="button" class="input-group-text password-toggle" onclick="togglePassword()">
+                                <i class="bi bi-eye-slash" id="passwordIcon"></i>
+                            </button>
+
+                        </div>
+
+                        @error('password')
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
+                        @enderror
+
+                    </div>
 
 
-                {{-- Login Button --}}
-                <button
-                    type="submit"
-                    class="btn btn-login"
-                >
-                    ចូលប្រើប្រាស់
-                </button>
+                    {{-- Remember / Forgot --}}
+                    <div class="login-options">
+
+                        <div class="form-check">
+
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember">
+
+                            <label class="form-check-label remember" for="remember">
+                                ចងចាំ
+                            </label>
+
+                        </div>
 
 
-                {{-- Register --}}
-                <p class="register-text">
+                        <a href="#" class="forgot-password">
+                            ភ្លេចលេខសម្ងាត់?
+                        </a>
 
-                    មិនទាន់មានគណនី?
-                    
-                    <a href="#">
-                        ចុះឈ្មោះ
-                    </a>
+                    </div>
 
-                </p>
 
-            </form>
+                    {{-- Login Button --}}
+                    <button type="submit" class="btn btn-login">
+                        ចូលប្រើប្រាស់
+                    </button>
+
+
+                    {{-- Register --}}
+                    <p class="register-text">
+
+                        មិនទាន់មានគណនី?
+
+                        <a href="#">
+                            ចុះឈ្មោះ
+                        </a>
+
+                    </p>
+
+                </form>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
 
+    <script>
 
-<script>
+        function togglePassword() {
 
-function togglePassword() {
+            const password = document.getElementById('password');
+            const icon = document.getElementById('passwordIcon');
 
-    const password = document.getElementById('password');
-    const icon = document.getElementById('passwordIcon');
+            if (password.type === 'password') {
 
-    if (password.type === 'password') {
+                password.type = 'text';
 
-        password.type = 'text';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
 
-        icon.classList.remove('bi-eye-slash');
-        icon.classList.add('bi-eye');
+            } else {
 
-    } else {
+                password.type = 'password';
 
-        password.type = 'password';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
 
-        icon.classList.remove('bi-eye');
-        icon.classList.add('bi-eye-slash');
+            }
 
-    }
+        }
 
-}
-
-</script>
+    </script>
 
 </body>
+
 </html>

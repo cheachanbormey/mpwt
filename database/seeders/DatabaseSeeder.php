@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Test User',
                 'password' => bcrypt('password'),
+                'role' => 'admin',
             ]
         );
 
@@ -83,7 +84,7 @@ class DatabaseSeeder extends Seeder
             PositionSeeder::class,
             OfficeSeeder::class,
             StaffSeeder::class,
-            // DepartmentHeadSeeder::class, 
+            // DepartmentHeadSeeder::class,
         ]);
     }
 }
