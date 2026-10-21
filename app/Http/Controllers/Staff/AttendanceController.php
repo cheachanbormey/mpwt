@@ -125,7 +125,7 @@ class AttendanceController extends Controller
     {
         $this->currentStaffOrFail($request);
 
-        $url = route('staff.attendance.check-in.qr');
+        $url = route('staff.staff.attendance.check-in.qr');
         $qr = QrCode::format('svg')->size(250)->margin(1)->generate($url);
 
         return response($qr, 200, [

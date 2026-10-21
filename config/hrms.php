@@ -74,7 +74,7 @@ return [
     //     'icon' => 'bi-toggle-on',
     //     'order' => 1,
     //     'singular' => 'ស្ថានភាពការងារ',
-    //     // 'description' => 'ស្ថារាងការងាររបស់បុគ្គលិក (ការងារ, សាកល្បង, ផ្អាក, ចូលនៃមុខវិជ្ជា …)',
+    //     // 'description' => 'ស្ថានភាពការងាររបស់បុគ្គលិក (ការងារ, សាកល្បង, ផ្អាក, ចូលនៃមុខវិជ្ជា …)',
     //     'model' => EmploymentStatus::class,
     //     'columns' => ['code', 'name', 'sort_order', 'is_active'],
     //     'search' => ['code', 'name'],
@@ -392,7 +392,7 @@ return [
         'columns' => ['meeting_date', 'title', 'meetingType.name', 'location.name', 'start_time', 'end_time', 'status'],
         'search' => ['title', 'agenda_summary'],
         'filters' => [
-            'status' => ['label' => 'ស្ថារាង', 'options' => [
+            'status' => ['label' => 'ស្ថានភាព', 'options' => [
                 'scheduled' => 'បានកំណត់', 'ongoing' => 'កំពុងប្រព្រោះ',
                 'completed' => 'បានបញ្ចប់', 'cancelled' => 'បានលុបចោល',
             ]],
@@ -405,7 +405,7 @@ return [
             'meeting_date' => ['type' => 'date', 'label' => 'កាលបរិច្ឆេទ', 'required' => true],
             'start_time' => ['type' => 'time', 'label' => 'ម៉ោងចាប់ផ្ដើម', 'required' => true],
             'end_time' => ['type' => 'time', 'label' => 'ម៉ោងបញ្ចប់', 'required' => true],
-            'status' => ['type' => 'select', 'label' => 'ស្ថារាង', 'required' => true, 'options' => [
+            'status' => ['type' => 'select', 'label' => 'ស្ថានភាព', 'required' => true, 'options' => [
                 'scheduled' => 'បានកំណត់', 'ongoing' => 'កំពុងប្រព្រោះ',
                 'completed' => 'បានបញ្ចប់', 'cancelled' => 'បានលុបចោល',
             ]],
@@ -425,7 +425,7 @@ return [
         'search' => ['notes'],
         'filters' => [
             'meeting_id' => ['label' => 'កិច្ចប្រជុំ', 'options_module' => 'meetings', 'option_label' => 'title'],
-            'attendance_status' => ['label' => 'ស្ថារាង', 'options' => [
+            'attendance_status' => ['label' => 'ស្ថានភាព', 'options' => [
                 'invited' => 'បានអញ្ជើញ', 'accepted' => 'បានទទួល', 'declined' => 'បានបដិសេធ',
                 'attended' => 'បានចូលរួម', 'absent' => 'មិនបានមក',
             ]],
@@ -433,7 +433,7 @@ return [
         'fields' => [
             'meeting_id' => ['type' => 'select', 'label' => 'កិច្ចប្រជុំ', 'required' => true, 'options_module' => 'meetings', 'option_label' => 'title'],
             'staff_id' => ['type' => 'select', 'label' => 'បុគ្គលិក', 'required' => true, 'options_module' => 'staff', 'option_label' => 'name_km'],
-            'attendance_status' => ['type' => 'select', 'label' => 'ស្ថារាង', 'required' => true, 'options' => [
+            'attendance_status' => ['type' => 'select', 'label' => 'ស្ថានភាព', 'required' => true, 'options' => [
                 'invited' => 'បានអញ្ជើញ', 'accepted' => 'បានទទួល', 'declined' => 'បានបដិសេធ',
                 'attended' => 'បានចូលរួម', 'absent' => 'មិនបានមក',
             ]],

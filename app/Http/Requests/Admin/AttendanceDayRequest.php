@@ -36,8 +36,8 @@ class AttendanceDayRequest extends FormRequest
     {
         return [
             'date.date_format' => 'កាលបរិច្ឆេទត្រូវតែជាទម្រង់ YYYY-MM-DD ប៉ុណ្ណោះ។',
-            'status.in' => 'ស្ថារាងវត្តមានមិនត្រឹមត្រូវទេ។',
-            'q.max' => 'ពាក្យស្វែងរកក្រុងមិនត្រូវលើសពី 191 តួអក្សរទេ។',
+            'status.in' => 'ស្ថានភាពវត្តមានមិនត្រឹមត្រូវទេ។',
+            'q.max' => 'ពាក្យស្វែងរកមិនត្រូវលើសពី 191 តួអក្សរទេ។',
         ];
     }
 
@@ -48,7 +48,7 @@ class AttendanceDayRequest extends FormRequest
     {
         return [
             'date' => 'កាលបរិច្ឆេទ',
-            'status' => 'ស្ថារាង',
+            'status' => 'ស្ថានភាព',
             'q' => 'ពាក្យស្វែងរក',
         ];
     }

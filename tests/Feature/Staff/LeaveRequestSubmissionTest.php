@@ -150,7 +150,7 @@ class LeaveRequestSubmissionTest extends TestCase
             'leave_type_id' => $leaveType->id,
             'start_date' => '2026-10-05',
             'end_date' => '2026-10-06',
-            'reason' => 'ការសាកល្បងសុវត្ថិភាពស្ថារាង',
+            'reason' => 'ការសាកល្បងសុវត្ថិភាពស្ថានភាព',
             'status' => LeaveRequest::STATUS_APPROVED,
             'approved_by_staff_id' => 1,
             'approved_at' => Carbon::now()->toDateTimeString(),
