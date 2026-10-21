@@ -5,256 +5,267 @@
 
 @section('content')
 
-<div class="module-page">
+    <div class="module-page">
 
-    {{-- Page header --}}
-    <div class="page-header d-flex flex-wrap justify-content-between align-items-center gap-3">
+        {{-- Page header --}}
+        <div class="page-header d-flex flex-wrap justify-content-between align-items-center gap-3">
 
-        <div>
+            <div>
 
-            <h1>
-                <i class="bi {{ $definition['icon'] }}"></i>
-                {{ $definition['label'] }}
-            </h1>
+                <h1>
+                    <i class="bi {{ $definition['icon'] }}"></i>
+                    {{ $definition['label'] }}
+                </h1>
 
-            <p>{{ $definition['description'] }}</p>
-
-        </div>
-
-        <div class="d-flex flex-wrap align-items-center gap-2">
-
-            {{-- Extra screens the registry offers alongside this list --}}
-            @foreach (($definition['reports'] ?? []) as $report)
-                <a href="{{ route($report['route']) }}" class="btn btn-outline-primary">
-                    <i class="bi {{ $report['icon'] }}"></i>
-                    {{ $report['label'] }}
-                </a>
-            @endforeach
-
-            <a href="{{ route("admin.{$module}.create") }}" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i>
-                បង្កើត{{ $definition['singular'] }}
-            </a>
-
-        </div>
-
-    </div>
-
-
-    {{-- Search and filters --}}
-    <form method="GET" action="{{ route("admin.{$module}.index") }}" class="module-filters">
-
-        {{-- Search --}}
-        @if (($definition['search'] ?? []) !== [])
-            <div class="module-search">
-
-                <i class="bi bi-search"></i>
-
-                <input type="search"
-                       name="q"
-                       value="{{ $search }}"
-                       class="form-control"
-                       placeholder="ស្វែងរក…">
+                <p>{{ $definition['description'] }}</p>
 
             </div>
-        @endif
 
-        {{-- Dropdown filters --}}
-        @foreach ($filterOptions as $name => $choices)
-            <select name="{{ $name }}" class="form-select module-filter">
+            <div class="d-flex flex-wrap align-items-center gap-2">
 
-                <option value="">
-                    {{ $definition['filters'][$name]['label'] }}: ទាំងអស់
-                </option>
-
-                @foreach ($choices as $value => $label)
-                    <option value="{{ $value }}" {{ ($filters[$name] ?? '') === (string) $value ? 'selected' : '' }}>
-                        {{ $label }}
-                    </option>
+                {{-- Extra screens the registry offers alongside this list --}}
+                @foreach (($definition['reports'] ?? []) as $report)
+                    <a href="{{ route($report['route']) }}" class="btn btn-outline-primary">
+                        <i class="bi {{ $report['icon'] }}"></i>
+                        {{ $report['label'] }}
+                    </a>
                 @endforeach
 
-            </select>
-        @endforeach
-
-        {{-- Date filters --}}
-        @foreach ($definition['filters'] ?? [] as $name => $filter)
-            @if (($filter['type'] ?? null) === 'date')
-                <input type="date"
-                       name="{{ $name }}"
-                       value="{{ $filters[$name] ?? '' }}"
-                       class="form-control module-filter"
-                       title="{{ $filter['label'] }}">
-            @endif
-        @endforeach
-
-        <button type="submit" class="btn btn-secondary">
-            <i class="bi bi-funnel"></i>
-            ស្វែងរក
-        </button>
-
-        @if ($search !== '' || $filters !== [])
-            <a href="{{ route("admin.{$module}.index") }}" class="btn btn-outline-secondary">
-                <i class="bi bi-x-circle"></i>
-                សម្អាត
-            </a>
-        @endif
-
-    </form>
-
-
-    {{-- Table --}}
-    <div class="dashboard-card">
-
-        @php
-    $columns = \App\Support\ModulePresenter::columns($definition);
-    $showRoute = ($definition['show'] ?? false) ? "admin.{$module}.show" : null;
-    $toggleRoute = ($definition['status_field'] ?? null) !== null ? "admin.{$module}.toggle" : null;
-    $statusColumn = $definition['status_field'] ?? null;
-    $actionWidth = 140 + ($showRoute ? 34 : 0) + ($toggleRoute ? 34 : 0);
-@endphp
-
-        @if ($rows->isEmpty())
-
-            <div class="module-empty">
-
-                <i class="bi bi-inbox"></i>
-
-                <p>
-                    @if ($search !== '' || $filters !== [])
-                        រកមិនឃើញទិន្នន័យដែលស្វែងរក។
-                    @else
-                        មិនទាន់មាន{{ $definition['label'] }}នៅឡើយ។
-                    @endif
-                </p>
-
-                <a href="{{ route("admin.{$module}.create") }}" class="btn btn-sm btn-primary">
+                <a href="{{ route("admin.{$module}.create") }}" class="btn btn-primary">
                     <i class="bi bi-plus-lg"></i>
-                    បង្កើត{{ $definition['singular'] }}ដំបូងម្តង
+                    បង្កើត{{ $definition['singular'] }}
                 </a>
 
             </div>
 
-        @else
+        </div>
 
-            <div class="table-responsive">
 
-                <table class="table attendance-table module-table">
+        {{-- Search and filters --}}
+        <form method="GET" action="{{ route("admin.{$module}.index") }}" class="module-filters">
 
-                    <thead>
-                        <tr>
-                            <th style="width: 60px">#</th>
+            {{-- Search input and search button --}}
+            @if (($definition['search'] ?? []) !== [])
+                <div class="module-search">
+                    <i class="bi bi-search"></i>
+                    <input type="search" name="q" value="{{ $search }}" class="form-control" placeholder="ស្វែងរក…">
+                </div>
 
-                            @foreach ($columns as $column)
-                                <th>{{ $column['label'] }}</th>
-                            @endforeach
+                <button type="submit" class="btn btn-secondary">
+                    <i class="bi bi-search"></i>
+                    ស្វែងរក
+                </button>
+            @endif
 
-                            <th class="text-end" style="width: {{ $actionWidth }}px">សកម្មភាព</th>
-                        </tr>
-                    </thead>
+            {{-- Dropdown filters --}}
+            @foreach ($filterOptions as $name => $choices)
+                <select name="{{ $name }}" class="form-select module-filter">
 
-                    <tbody>
-                        @foreach ($rows as $row)
-                            @php
-                                $cells = [];
-                                foreach ($columns as $column) {
-                                    $cell = \App\Support\ModulePresenter::cell($row, $column['key'], $definition);
-                                    $cells[$column['key']] = [
-                                        'text'  => $cell['text'],
-                                        'class' => \App\Support\ModulePresenter::cellClass($column['key'], $definition, $cell['kind']),
-                                        'kind'  => $cell['kind'],
-                                        'badge' => \App\Support\ModulePresenter::badgeClass($column['key'], $definition, $cell['kind']),
-                                    ];
-                                }
-                            @endphp
+                    <option value="">
+                        {{ $definition['filters'][$name]['label'] }}: ទាំងអស់
+                    </option>
 
+                    @foreach ($choices as $value => $label)
+                        <option value="{{ $value }}" {{ ($filters[$name] ?? '') === (string) $value ? 'selected' : '' }}>
+                            {{ $label }}
+                        </option>
+                    @endforeach
+
+                </select>
+            @endforeach
+
+            {{-- Date filters --}}
+            @foreach ($definition['filters'] ?? [] as $name => $filter)
+                @if (($filter['type'] ?? null) === 'date')
+                    <input type="date" name="{{ $name }}" value="{{ $filters[$name] ?? '' }}" class="form-control module-filter"
+                        title="{{ $filter['label'] }}">
+                @endif
+            @endforeach
+
+            {{-- Submit button if module has filters but no search input --}}
+            @if (($definition['search'] ?? []) === [] && ($filterOptions !== [] || ($definition['filters'] ?? []) !== []))
+                <button type="submit" class="btn btn-secondary">
+                    <i class="bi bi-funnel"></i>
+                    ស្វែងរក
+                </button>
+            @endif
+
+            @if ($search !== '' || $filters !== [])
+                <a href="{{ route("admin.{$module}.index") }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle"></i>
+                    សម្អាត
+                </a>
+            @endif
+
+        </form>
+
+
+        {{-- Table --}}
+        <div class="dashboard-card">
+
+            @php
+                $columns = \App\Support\ModulePresenter::columns($definition);
+                $showRoute = ($definition['show'] ?? false) ? "admin.{$module}.show" : null;
+                $toggleRoute = ($definition['status_field'] ?? null) !== null ? "admin.{$module}.toggle" : null;
+                $statusColumn = $definition['status_field'] ?? null;
+                $actionWidth = 140 + ($showRoute ? 34 : 0) + ($toggleRoute ? 34 : 0);
+            @endphp
+
+            @if ($rows->isEmpty())
+
+                <div class="module-empty">
+
+                    <i class="bi bi-inbox"></i>
+
+                    <p>
+                        @if ($search !== '' || $filters !== [])
+                            រកមិនឃើញទិន្នន័យដែលស្វែងរក។
+                        @else
+                            មិនទាន់មាន{{ $definition['label'] }}នៅឡើយ។
+                        @endif
+                    </p>
+
+                    <a href="{{ route("admin.{$module}.create") }}" class="btn btn-sm btn-primary">
+                        <i class="bi bi-plus-lg"></i>
+                        បង្កើត{{ $definition['singular'] }}ដំបូងម្តង
+                    </a>
+
+                </div>
+
+            @else
+
+                <div class="table-responsive">
+
+                    <table class="table attendance-table module-table">
+
+                        <thead>
                             <tr>
-                                <td class="text-body-tertiary font-monospace">{{ $row->getKey() }}</td>
+                                <th style="width: 60px">#</th>
 
                                 @foreach ($columns as $column)
-                                    <td class="{{ $cells[$column['key']]['class'] }}">
-
-                                        @if (in_array($cells[$column['key']]['kind'], ['yes', 'no'], true))
-                                            <span class="badge-status {{ $cells[$column['key']]['kind'] === 'yes' ? 'present' : 'absent' }}">
-                                                {{ $cells[$column['key']]['text'] }}
-                                            </span>
-                                        @elseif ($cells[$column['key']]['badge'])
-                                            <span class="badge {{ $cells[$column['key']]['badge'] }}">
-                                                {{ $cells[$column['key']]['text'] }}
-                                            </span>
-                                        @else
-                                            {{ $cells[$column['key']]['text'] }}
-                                        @endif
-
-                                    </td>
+                                    <th>{{ $column['label'] }}</th>
                                 @endforeach
 
-                                <td class="text-end">
-                                    <div class="btn-group btn-group-sm">
+                                <th class="text-center" style="width: 90px; min-width: 90px">សកម្មភាព</th>
+                            </tr>
+                        </thead>
 
-                                        @if ($showRoute)
-                                            <a href="{{ route($showRoute, $row->getKey()) }}"
-                                               class="btn btn-outline-secondary"
-                                               title="មើលព័ត៌មាន">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-                                        @endif
+                        <tbody>
+                            @foreach ($rows as $row)
+                                @php
+                                    $cells = [];
+                                    foreach ($columns as $column) {
+                                        $cell = \App\Support\ModulePresenter::cell($row, $column['key'], $definition);
+                                        $cells[$column['key']] = [
+                                            'text' => $cell['text'],
+                                            'class' => \App\Support\ModulePresenter::cellClass($column['key'], $definition, $cell['kind']),
+                                            'kind' => $cell['kind'],
+                                            'badge' => \App\Support\ModulePresenter::badgeClass($column['key'], $definition, $cell['kind']),
+                                        ];
+                                    }
+                                @endphp
 
-                                        @if ($toggleRoute)
-                                            @php $isActive = $row->getAttribute($statusColumn) === 'active'; @endphp
+                                <tr>
+                                    <td class="text-body-tertiary font-monospace">{{ $row->getKey() }}</td>
 
-                                            <form method="POST"
-                                                  action="{{ route($toggleRoute, $row->getKey()) }}"
-                                                  onsubmit="return confirm('{{ $isActive ? 'តើត្រូវធ្វើឱ្យអសកម្មម៉ូឌុលនេះទេ?' : 'តើត្រូវធ្វើឱ្យសកម្មម៉ូឌុលនេះទេ?' }}');">
+                                    @foreach ($columns as $column)
+                                        <td class="{{ $cells[$column['key']]['class'] }}">
 
-                                                @csrf
-                                                @method('PATCH')
+                                            @if (in_array($cells[$column['key']]['kind'], ['yes', 'no'], true))
+                                                <span
+                                                    class="badge-status {{ $cells[$column['key']]['kind'] === 'yes' ? 'present' : 'absent' }}">
+                                                    {{ $cells[$column['key']]['text'] }}
+                                                </span>
+                                            @elseif ($cells[$column['key']]['badge'])
+                                                <span class="badge {{ $cells[$column['key']]['badge'] }}">
+                                                    {{ $cells[$column['key']]['text'] }}
+                                                </span>
+                                            @else
+                                                {{ $cells[$column['key']]['text'] }}
+                                            @endif
 
-                                                <button type="submit"
-                                                        class="btn {{ $isActive ? 'btn-outline-warning' : 'btn-outline-success' }}"
-                                                        title="{{ $isActive ? 'ធ្វើឱ្យអសកម្ម' : 'ធ្វើឱ្យសកម្ម' }}">
-                                                    <i class="bi {{ $isActive ? 'bi-pause-circle' : 'bi-play-circle' }}"></i>
-                                                </button>
+                                        </td>
+                                    @endforeach
 
-                                            </form>
-                                        @endif
-
-                                        <a href="{{ route("admin.{$module}.edit", $row->getKey()) }}"
-                                           class="btn btn-outline-primary"
-                                           title="កែសម្រួល">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-
-                                        <form method="POST"
-                                              action="{{ route("admin.{$module}.destroy", $row->getKey()) }}"
-                                              onsubmit="return confirm('តើត្រូវលុបម្តងទេ? សកម្មភាពនេះមិនអាចត្រឡប់វិញបានទេ។');">
-
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button type="submit" class="btn btn-outline-danger" title="លុប">
-                                                <i class="bi bi-trash"></i>
+                                    <td class="text-center" style="width: 90px">
+                                        <div class="dropdown d-inline-block">
+                                            <button class="btn btn-icon-action"
+                                                    type="button"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                    title="សកម្មភាព">
+                                                <i class="bi bi-three-dots-vertical"></i>
                                             </button>
 
-                                        </form>
+                                            <ul class="dropdown-menu dropdown-menu-end module-action-dropdown">
+                                                @if ($showRoute)
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ route($showRoute, $row->getKey()) }}">
+                                                            <i class="bi bi-eye text-primary"></i>
+                                                            <span>មើលព័ត៌មាន</span>
+                                                        </a>
+                                                    </li>
+                                                @endif
 
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                                                @if ($toggleRoute)
+                                                    @php $isActive = $row->getAttribute($statusColumn) === 'active'; @endphp
+                                                    <li>
+                                                        <form method="POST" action="{{ route($toggleRoute, $row->getKey()) }}"
+                                                            onsubmit="return confirm('{{ $isActive ? 'តើត្រូវធ្វើឱ្យអសកម្មម៉ូឌុលនេះទេ?' : 'តើត្រូវធ្វើឱ្យសកម្មម៉ូឌុលនេះទេ?' }}');">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button type="submit" class="dropdown-item">
+                                                                <i
+                                                                    class="bi {{ $isActive ? 'bi-pause-circle text-warning' : 'bi-play-circle text-success' }}"></i>
+                                                                <span>{{ $isActive ? 'ធ្វើឱ្យអសកម្ម' : 'ធ្វើឱ្យសកម្ម' }}</span>
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                @endif
 
-                </table>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route("admin.{$module}.edit", $row->getKey()) }}">
+                                                        <i class="bi bi-pencil text-primary"></i>
+                                                        <span>កែសម្រួល</span>
+                                                    </a>
+                                                </li>
 
-            </div>
+                                                <li>
+                                                    <hr class="dropdown-divider my-1">
+                                                </li>
 
-            <div class="module-pagination">
-                {{ $rows->links() }}
-            </div>
+                                                <li>
+                                                    <form method="POST"
+                                                        action="{{ route("admin.{$module}.destroy", $row->getKey()) }}"
+                                                        onsubmit="return confirm('តើត្រូវលុបម្តងទេ? សកម្មភាពនេះមិនអាចត្រឡប់វិញបានទេ។');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item text-danger">
+                                                            <i class="bi bi-trash text-danger"></i>
+                                                            <span>លុប</span>
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
 
-        @endif
+                    </table>
+
+                </div>
+
+                <div class="module-pagination">
+                    {{ $rows->links() }}
+                </div>
+
+            @endif
+
+        </div>
 
     </div>
-
-</div>
 
 @endsection

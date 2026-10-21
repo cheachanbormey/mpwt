@@ -122,7 +122,7 @@ class DashboardController extends Controller
         $staff = $user->staff;
 
         if ($staff === null) {
-            return ['headline' => [], 'secondary' => []];
+            return collect();
         }
 
         $attendance = $staff;
