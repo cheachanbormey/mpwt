@@ -152,7 +152,7 @@
         </div>
 
         <select name="status" class="form-select module-filter">
-            <option value="">ស្ថារាង: ទាំងអស់</option>
+            <option value="">ស្ថានភាព: ទាំងអស់</option>
             @foreach ([
                 'present' => 'វត្តមាន',
                 'absent' => 'អវត្តមាន',

@@ -61,7 +61,7 @@
                             <td class="text-end">{{ $meeting->creator?->name_km ?? '—' }}</td>
                         </tr>
                         <tr>
-                            <th>ស្ថារាងរបស់ខ្ញុំ</th>
+                            <th>ស្ថានភាពរបស់ខ្ញុំ</th>
                             <td class="text-end">
                                 @php
                                     $participantLabels = [

@@ -36,9 +36,9 @@
             <i class="bi bi-printer"></i>
             <div>
                 <strong>សំគាល់៖</strong>
-                ស្ថារាងមួយៗ ({{ implode(', ', $readonlyFields->map(fn ($f) => $definition['fields'][$f]['label'])->all()) }})
+                ស្ថានភាពមួយៗ ({{ implode(', ', $readonlyFields->map(fn ($f) => $definition['fields'][$f]['label'])->all()) }})
                 មិនអាចកែប្រែនៅក្នុងប្រព័ន្ធនេះទេ។
-                សំឡេងស្មារណការត្រូវបានបោះពុម្ពដើម្បីយកទៅចុចហត្ថលេខាដោយអ្នកគ្រប់គ្រងជំនួសវិញ។
+                សំណើសុំច្បាប់ឈប់សម្រាកត្រូវបានបោះពុម្ពដើម្បីយកទៅចុចហត្ថលេខាដោយអ្នកគ្រប់គ្រងជំនួសវិញ។
             </div>
         </div>
     @endif

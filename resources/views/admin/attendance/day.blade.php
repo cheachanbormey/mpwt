@@ -81,7 +81,7 @@
         </div>
 
         <select name="status" class="form-select module-filter">
-            <option value="">ស្ថារាង: ទាំងអស់</option>
+            <option value="">ស្ថានភាព: ទាំងអស់</option>
             @foreach (\App\Models\Attendance::statusLabels() as $value => $label)
                 <option value="{{ $value }}" {{ ($filters['status'] ?? '') === $value ? 'selected' : '' }}>
                     {{ $label }}
@@ -124,7 +124,7 @@
                             <th>ម៉ោងចេញ</th>
                             <th>ម៉ោងធ្វើការ</th>
                             <th>ប្រភព</th>
-                            <th>ស្ថារាង</th>
+                            <th>ស្ថានភាព</th>
                             <th class="text-end" style="width: 60px">ពិនិត្យ</th>
                         </tr>
                     </thead>

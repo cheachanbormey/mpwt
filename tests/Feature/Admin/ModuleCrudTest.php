@@ -255,7 +255,7 @@ class ModuleCrudTest extends TestCase
         $response = $this->get('/admin/leave_requests/create');
 
         $response->assertOk();
-        $response->assertSee('ស្ថារាង (មិនអាចកែប្រែ)');
+        $response->assertSee('ស្ថានភាព (មិនអាចកែប្រែ)');
     }
 
     /*

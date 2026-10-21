@@ -22,7 +22,7 @@
     <form method="GET" action="{{ route('staff.meetings.index') }}" class="module-filters">
 
         <select name="status" class="form-select module-filter">
-            <option value="">ស្ថារាង: ទាំងអស់</option>
+            <option value="">ស្ថានភាព: ទាំងអស់</option>
             @foreach ([
                 'scheduled' => 'បានកំណត់',
                 'ongoing' => 'កំពុងប្រព្រោះ',
@@ -76,7 +76,7 @@
                             <th>ចំណងជើង</th>
                             <th>ប្រភេទ</th>
                             <th>ទីកន្លែង</th>
-                            <th>ស្ថារាង</th>
+                            <th>ស្ថានភាព</th>
                             <th>ចុច</th>
                         </tr>
                     </thead>
