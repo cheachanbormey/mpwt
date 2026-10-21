@@ -72,7 +72,7 @@ class AttendanceReportController extends Controller
     {
         $month = Carbon::parse($request->month().'-01');
 
-        $rows = StaffV2::query()
+        $rows = Staff::query()
             ->with(['office', 'position'])
             ->when($request->validated('office_id'), fn ($q, $officeId) => $q->where('office_id', $officeId))
             ->when($request->validated('position_id'), fn ($q, $positionId) => $q->where('position_id', $positionId))
@@ -91,7 +91,7 @@ class AttendanceReportController extends Controller
             ->withCount(['attendances as leave_count' => fn ($q) => $q
                 ->inMonth($month->format('Y-m'))
                 ->where('status', Attendance::STATUS_LEAVE)])
-            ->orderBy('full_name')
+            ->orderBy('name_km')
             ->paginate(self::PER_PAGE)
             ->withQueryString();
 
@@ -99,8 +99,8 @@ class AttendanceReportController extends Controller
             'month' => $month,
             'rows' => $rows,
             'filters' => $request->validated(),
-            'offices' => Office::query()->orderBy('name')->pluck('name', 'id'),
-            'positions' => PositionV2::query()->orderBy('position_name_kh')->pluck('position_name_kh', 'id'),
+            'offices' => Office::query()->orderBy('name_kh')->pluck('name_kh', 'id'),
+            'positions' => Position::query()->orderBy('name_kh')->pluck('name_kh', 'id'),
         ]);
     }
 

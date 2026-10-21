@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'role', 'staff_v2_id'])]
+#[Fillable(['name', 'email', 'password', 'role', 'staff_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -72,10 +72,10 @@ class User extends Authenticatable
      * The key sits on this table rather than on staff_v2, so this points
      * outwards at one record instead of collecting a row.
      */
-    public function staffV2(): BelongsTo
-    {
-        return $this->belongsTo(StaffV2::class, 'staff_v2_id');
-    }
+    // public function staff(): BelongsTo
+    // {
+    //     return $this->belongsTo(Staff::class, 'staff_id');
+    // }
 
     /*
     |--------------------------------------------------------------------------
@@ -149,7 +149,7 @@ class User extends Authenticatable
 
     /*
     |--------------------------------------------------------------------------
-    | Scopes
+| Scopes
     |--------------------------------------------------------------------------
     */
 

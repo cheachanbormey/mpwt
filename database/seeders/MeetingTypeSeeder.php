@@ -13,15 +13,15 @@ class MeetingTypeSeeder extends Seeder
     public function run(): void
     {
         $meetingTypes = [
-            ['code' => 'MT-001', 'name' => 'កិច្ចប្រជុំប្រចាំសប្តាហ៍', 'name_en' => 'Weekly Meeting', 'default_duration_minutes' => 60, 'description' => 'កិច្ចប្រជុំសប្តាហ៍របស់ថ្នាក់គ្រប់គ្រង'],
-            ['code' => 'MT-002', 'name' => 'កិច្ចប្រជុំប្រចាំខែ', 'name_en' => 'Monthly Meeting', 'default_duration_minutes' => 90, 'description' => 'កិច្ចប្រជុំប្រចាំខែវត្តមាន'],
-            ['code' => 'MT-003', 'name' => 'កិច្ចប្រជុំការងារ', 'name_en' => 'Task Force Meeting', 'default_duration_minutes' => 120, 'description' => 'កិច្ចប្រជុំសម្រាប់ការងារការងារបុគ្គលិក'],
-            ['code' => 'MT-004', 'name' => 'កិច្ចប្រជុំទូទៅ', 'name_en' => 'General Meeting', 'default_duration_minutes' => 60, 'description' => 'កិច្ចប្រជុំទូទៅរបស់ក្រសួង'],
-            ['code' => 'MT-005', 'name' => 'កិច្ចប្រជុំបុគ្គលិក', 'name_en' => 'Staff Meeting', 'default_duration_minutes' => 45, 'description' => 'កិច្ចប្រជុំបុគ្គលិកតាមការិយាល័យ'],
+            ['name_kh' => 'កិច្ចប្រជុំប្រចាំសប្តាហ៍', 'name_en' => 'Weekly Meeting', 'type'=> 'private'], 
+            ['name_kh' => 'កិច្ចប្រជុំប្រចាំខែ', 'name_en' => 'Monthly Meeting', 'type'=> 'public'],
+            ['name_kh' => 'កិច្ចប្រជុំការងារ', 'name_en' => 'Task Force Meeting', 'type'=> 'private'], 
+            ['name_kh' => 'កិច្ចប្រជុំទូទៅ', 'name_en' => 'General Meeting', 'type'=> 'private'],
+            ['name_kh' => 'កិច្ចប្រជុំបុគ្គលិក', 'name_en' => 'Staff Meeting', 'type'=> 'public'], 
         ];
 
         foreach ($meetingTypes as $meetingType) {
-            MeetingType::firstOrCreate(['code' => $meetingType['code']], $meetingType + ['is_active' => true]);
+            MeetingType::firstOrCreate(['name_kh' => $meetingType['name_kh']], $meetingType + ['is_active' => true]);
         }
     }
 }

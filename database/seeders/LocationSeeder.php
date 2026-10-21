@@ -13,11 +13,31 @@ class LocationSeeder extends Seeder
     public function run(): void
     {
         $locations = [
-            ['name' => 'បន្ទប់ប្រជុំរដ្ឋសភា', 'name_en' => 'Minister Meeting Room', 'capacity' => 40, 'address' => 'អគារ A ជាន់ផ្ទាំងទី ១'],
-            ['name' => 'បន្ទប់ប្រជុំធនធានមនុស្ស', 'name_en' => 'HR Meeting Room', 'capacity' => 20, 'address' => 'អគារ B ជាន់ផ្ទាំងទី ៣'],
-            ['name' => 'បន្ទប់ប្រជុំតូច', 'name_en' => 'Small Meeting Room', 'capacity' => 10, 'address' => 'អគារ B ជាន់ផ្ទាំងទី ៣'],
-            ['name' => 'សាលាមានធានារ៉ាប់', 'name_en' => 'Ceremony Hall', 'capacity' => 200, 'address' => 'អគារ C ជាន់ផ្ទាំងទី ១'],
-            ['name' => 'បន្ទប់ប្រជុំអន្តរជាតិ', 'name_en' => 'International Conference Room', 'capacity' => 100, 'address' => 'អគារ A ជាន់ផ្ទាំងទី ២'],
+            ['name' => 'បន្ទប់ប្រជុំរដ្ឋសភា', 
+             'building' => 'អគារ A',
+             'floor' => 'ជាន់ទី ១',
+             'capacity' => 40,
+             'facilities' => 'Projector, Whiteboard'],            
+            ['name' => 'បន្ទប់ប្រជុំធនធានមនុស្ស', 
+             'building' => 'អគារ B', 
+             'floor' => 'ជាន់ទី ៣', 
+             'capacity' => 20, 
+             'facilities' => 'Projector, Whiteboard'],
+            ['name' => 'បន្ទប់ប្រជុំតូច', 
+             'building' => 'អគារ B', 
+             'floor' => 'ជាន់ទី ៣', 
+             'capacity' => 10, 
+             'facilities' => 'Projector, Whiteboard'],
+            ['name' => 'សាលាមានធានារ៉ាប់', 
+             'building' => 'អគារ C', 
+             'floor' => 'ជាន់ទី ១', 
+             'capacity' => 200, 
+             'facilities' => 'Projector, Whiteboard'],
+            ['name' => 'បន្ទប់ប្រជុំអន្តរជាតិ', 
+             'building' => 'អគារ A', 
+             'floor' => 'ជាន់ទី ៥', 
+             'capacity' => 100, 
+             'facilities' => 'Projector, Whiteboard'],
         ];
 
         foreach ($locations as $location) {

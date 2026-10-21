@@ -53,7 +53,7 @@ class DashboardController extends Controller
         return [
             'headline' => [
                 ['label' => 'បុគ្គលិកសរុប', 'value' => Staff::count(), 'icon' => 'bi-people', 'class' => 'blue'],
-                ['label' => 'ការងារ', 'value' => Office::count(), 'icon' => 'bi-building', 'class' => 'purple'],
+                ['label' => 'នាយកដ្ឋាន', 'value' => Office::count(), 'icon' => 'bi-building', 'class' => 'purple'],
                 ['label' => 'វត្តមានថ្ងៃនេះ', 'value' => Attendance::whereDate('work_date', $today)->count(), 'icon' => 'bi-calendar-check', 'class' => 'orange'],
                 ['label' => 'សុំច្បាប់កំពុងរង់ចាំ', 'value' => LeaveRequest::pending()->count(), 'icon' => 'bi-envelope-paper', 'class' => 'gray'],
             ],
@@ -61,7 +61,7 @@ class DashboardController extends Controller
                 ['label' => 'ក្រុមការងារ', 'value' => Group::count(), 'icon' => 'bi-people-fill', 'class' => 'purple'],
                 ['label' => 'កិច្ចប្រជុំ', 'value' => Meeting::count(), 'icon' => 'bi-calendar-event', 'class' => 'blue'],
                 ['label' => 'អ្នកចូលរួម', 'value' => MeetingParticipant::count(), 'icon' => 'bi-person-check', 'class' => 'orange'],
-                ['label' => 'ការងារសកម្ម', 'value' => Staff::active()->count(), 'icon' => 'bi-person-badge', 'class' => 'gray'],
+                ['label' => 'ការងារសកម្ម', 'value' => Staff::where('status', 'active')->count(), 'icon' => 'bi-person-badge', 'class' => 'gray'],
             ],
         ];
     }
@@ -81,7 +81,7 @@ class DashboardController extends Controller
 
         // Attendance rows belong to the rebuilt staff module, so the totals
         // are counted there rather than against the legacy record.
-        $attendance = $user->staffV2;
+        $attendance = $user->staff;
 
         return [
             'headline' => [
@@ -94,7 +94,8 @@ class DashboardController extends Controller
                 ['label' => 'សំុច្បាប់ទាំងអស់', 'value' => $staff->leaveRequests()->count(), 'icon' => 'bi-envelope-paper', 'class' => 'blue'],
                 ['label' => 'កំពុងរង់ចាំ', 'value' => $staff->leaveRequests()->pending()->count(), 'icon' => 'bi-hourglass', 'class' => 'orange'],
                 ['label' => 'កិច្ចប្រជុំ', 'value' => $staff->meetings()->count(), 'icon' => 'bi-calendar-event', 'class' => 'purple'],
-                ['label' => 'ក្រុមការងារ', 'value' => $staff->groups()->count(), 'icon' => 'bi-people-fill', 'class' => 'gray'],
+                // ['label' => 'មន្រ្តីទាំងអស់', 'value' => $staff->staff()->count(), 'icon' => 'bi-people-fill', 'class' => 'gray'],
+                ['label' => 'មន្រ្តីទាំងអស់', 'value' => Staff::count(), 'icon' => 'bi-people-fill', 'class' => 'gray'],
             ],
         ];
     }
@@ -117,11 +118,18 @@ class DashboardController extends Controller
      */
     private function ownRecentAttendance(User $user)
     {
-        $attendance = $user->staffV2;
+        // $attendance = $user->staff;
+        $staff = $user->staff;
 
-        if ($attendance === null) {
+        if ($staff === null) {
             return collect();
         }
+
+        $attendance = $staff;
+
+        // if ($attendance === null) {
+        //     return collect();
+        // }
 
         return $attendance->attendances()
             ->orderByDesc('work_date')

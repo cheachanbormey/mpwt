@@ -28,9 +28,13 @@ class LeaveRequestSeeder extends Seeder
         }
 
         // Managers used as approvers.
-        $approvers = Staff::whereIn('employment_status', [
-            Staff::STATUS_ACTIVE,
-            Staff::STATUS_PROBATION,
+        // $approvers = Staff::whereIn('employment_status', [
+        //     Staff::STATUS_ACTIVE,
+        //     Staff::STATUS_PROBATION,
+        // ])->get();
+        $approvers = Staff::whereIn('status', [
+            'active',
+            'probation',
         ])->get();
 
         foreach ($staff as $person) {
@@ -75,12 +79,13 @@ class LeaveRequestSeeder extends Seeder
                     'start_date' => $start,
                     'end_date' => $end,
                     'total_days' => $start->diffInDays($end) + 1,
+                    'return_date' => $end->copy()->addDays(1),
                     'reason' => fake()->sentence(10),
                     'status' => $status,
                     'approved_by_staff_id' => $decided ? $approvers->random()->id : null,
                     'approved_at' => $approvedAt,
                     'rejection_reason' => $status === LeaveRequest::STATUS_REJECTED
-                        ? 'មិនអាចអនុម័តបានដោយសារការងាររបស់សារីរុង'
+                        ? 'មិនអាចអនុម័តបានដោយសារតែមានករណីបន្ទាន់'
                         : null,
                 ]);
             }

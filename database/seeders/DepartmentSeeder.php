@@ -13,17 +13,55 @@ class DepartmentSeeder extends Seeder
     public function run(): void
     {
         $departments = [
-            ['code' => 'DEP-001', 'name' => 'អគ្គមន៍បន្ទាន់ប្រឡង់', 'name_en' => 'Information Technology', 'description' => 'ផ្ទាំងជំនួសប្រព័ន្ធ និងព័ត៌មានគ្រប់គ្រង'],
-            ['code' => 'DEP-002', 'name' => 'អគ្គមន៍ច្បាស់ការណ៍', 'name_en' => 'Finance', 'description' => 'សាធារណកិច្ច និងហិរញ្ញវត្តិ'],
-            ['code' => 'DEP-003', 'name' => 'ធនធានមនុស្ស', 'name_en' => 'Human Resources', 'description' => 'គ្រប់គ្រងបុគ្គលិក និងវត្តមាន'],
-            ['code' => 'DEP-004', 'name' => 'ការដឹកជញ្ជូន', 'name_en' => 'Transport', 'description' => 'រតបភាព និងការដឹកជញ្ជូន'],
-            ['code' => 'DEP-005', 'name' => 'ការស្តារសញ្ញា', 'name_en' => 'Public Works', 'description' => 'សាងសង់ និងការិយាល័យស្រុក'],
-            ['code' => 'DEP-006', 'name' => 'ផ្ទាំងការអប់រំ', 'name_en' => 'Education', 'description' => 'ការអប់រំ និងបង្កើត'],
-            ['code' => 'DEP-007', 'name' => 'សុវត្ថិភាព និងសន្តិភាព', 'name_en' => 'Security', 'description' => 'សុវត្ថិភាព និងសុវត្ថិភាពកម្មវិធី'],
+            ['dep_code' => 'DEP-001',
+             'name_kh' => 'អគ្គនាយយកដ្ឋានរដ្ឋបាល និងហិរញ្ញវត្ថុ',
+             'name_en' => 'General Department of Administration and Finance', 
+             'staff_id' => null, // Director: Pech Sotheara
+             ],
+            ['dep_code' => 'DEP-002', 
+             'name_kh' => 'អគ្គនាយកដ្ឋានផែនការនិងគោលនយោបាយ', 
+             'name_en' => 'General Department of Planning and Policy', 
+             'staff_id' => null, // Director: Pech Sotheara
+             ],
+            ['dep_code' => 'DEP-003', 
+             'name_kh' => 'អគ្គនាយកដ្ឋានបច្ចេកទេស', 
+             'name_en' => 'General Department of Technical Affairs', 
+             'staff_id' => null, // Director: Pech Sotheara
+             ],
+            ['dep_code' => 'DEP-004', 
+             'name_kh' => 'អគ្គនាយកដ្ឋានសាធារណការ', 
+             'name_en' => 'General Department of Public Works', 
+             'staff_id' => null, // Director: Pech Sotheara
+             ],
+            ['dep_code' => 'DEP-005', 
+             'name_kh' => 'អគ្គនាយកដ្ឋានដឹកជញ្ជូនផ្លូវគោក', 
+             'name_en' => 'General Department of Land Transport', 
+             'staff_id' => null, // Director: Pech Sotheara
+             ],
+            ['dep_code' => 'DEP-006', 
+             'name_kh' => 'អគ្គនាយកដ្ឋានដឹកជញ្ជូនផ្លូវទឹក​ និងកំពង់ផែ', 
+             'name_en' => 'General Department of Waterway and Port Transport', 
+             'staff_id' => null, // Director: Pech Sotheara
+             ],
+            ['dep_code' => 'DEP-007', 
+             'name_kh' => 'អគ្គនាយកដ្ឋានភស្តុភារកម្ម', 
+             'name_en' => 'General Department of Logistics', 
+             'staff_id' => null, // Director: Pech Sotheara
+             ],
+            ['dep_code' => 'DEP-007', 
+             'name_kh' => 'អគ្គនាយកដ្ឋានប្រព័ន្ធចម្រោះទឹកកខ្វក់', 
+             'name_en' => 'General Department of Wastewater Treatment Systems', 
+             'staff_id' => null, // Director: Pech Sotheara
+             ],
+            ['dep_code' => 'DEP-007', 
+             'name_kh' => 'អគ្គនាយកដ្ឋានបច្ចេកវិទ្យានិងទំនាក់ទំនងសាធារណៈ', 
+             'name_en' => 'General Department of Technology and Public Relations', 
+             'staff_id' => null, // Director: Pech Sotheara
+             ],
         ];
 
         foreach ($departments as $department) {
-            Department::firstOrCreate(['code' => $department['code']], $department);
+            Department::firstOrCreate(['dep_code' => $department['dep_code']], $department);
         }
     }
 }

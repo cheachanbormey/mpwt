@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Staff;
 use App\Models\Attendance;
 use App\Models\StaffV2;
 use Illuminate\Database\Seeder;
@@ -15,7 +16,7 @@ class AttendanceSeeder extends Seeder
     {
         // Attendance rows are keyed to the rebuilt staff table, so seeding
         // against the legacy list would write foreign keys that point nowhere.
-        $staff = StaffV2::whereNotNull('office_id')->get();
+        $staff = Staff::whereNotNull('office_code')->get();
 
         if ($staff->isEmpty()) {
             return;
@@ -62,7 +63,6 @@ class AttendanceSeeder extends Seeder
                             : null,
                         'status' => $status,
                         'check_in_source' => fake()->randomElement(['manual', 'qr', 'system']),
-                        'notes' => null,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ];
@@ -79,7 +79,7 @@ class AttendanceSeeder extends Seeder
             Attendance::upsert(
                 $chunk,
                 ['staff_id', 'work_date'],
-                ['check_in', 'check_out', 'worked_hours', 'status', 'check_in_source', 'notes', 'updated_at']
+                ['check_in', 'check_out', 'worked_hours', 'status', 'check_in_source', 'updated_at']
             );
         }
     }

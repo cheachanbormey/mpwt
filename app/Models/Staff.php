@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+// use App\Models\Staff;
 use Database\Factories\StaffFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
@@ -18,19 +19,20 @@ use Illuminate\Support\Carbon;
     'user_id',
     'office_id',
     'position_id',
-    'staff_code',
+    'staff_id',
     'name_km',
     'name_en',
     'gender',
-    'date_of_birth',
-    'national_id',
     'phone',
     'email',
-    'address',
-    'photo',
-    'hire_date',
-    'employment_status',
-    'base_salary',
+    'telegram',
+    'status',
+    'system_role',
+    
+    // 'photo',
+    // 'hire_date',
+    // 'employment_status',
+    // 'base_salary',
 ])]
 class Staff extends Model
 {
@@ -48,6 +50,14 @@ class Staff extends Model
      */
     public const STATUS_ACTIVE = 'active';
 
+    public const STATUS_INACTIVE = 'inactive';
+
+    public const ROLE_ADMIN = 'admin';
+
+    public const ROLE_STAFF = 'staff';
+
+    public const ROLE_USER = 'user';
+    
     public const STATUS_PROBATION = 'probation';
 
     public const STATUS_SUSPENDED = 'suspended';
@@ -57,6 +67,8 @@ class Staff extends Model
     public const STATUS_RETIRED = 'retired';
 
     public const STATUS_TERMINATED = 'terminated';
+
+    protected $table = 'staff';
 
     /**
      * True when this person holds the given employment code.
@@ -74,6 +86,8 @@ class Staff extends Model
         return [
             'date_of_birth' => 'date',
             'hire_date' => 'date',
+            'gender' => 'string',
+            'system_role' => 'string',
             'base_salary' => 'decimal:2',
             'employment_status' => 'string',
         ];
@@ -98,7 +112,12 @@ class Staff extends Model
      */
     public function office(): BelongsTo
     {
-        return $this->belongsTo(Office::class);
+        return $this->belongsTo(Office::class, 'office_code');
+    }
+
+       public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
     }
 
     /**
@@ -126,7 +145,7 @@ class Staff extends Model
      */
     public function attendances(): HasMany
     {
-        return $this->hasMany(Attendance::class);
+        return $this->hasMany(Attendance::class, 'staff_id', 'staff_id');
     }
 
     /**
@@ -134,7 +153,7 @@ class Staff extends Model
      */
     public function leaveRequests(): HasMany
     {
-        return $this->hasMany(LeaveRequest::class);
+        return $this->hasMany(LeaveRequest::class, 'staff_id', 'staff_id');
     }
 
     /**
@@ -193,7 +212,7 @@ class Staff extends Model
     public function meetings(): BelongsToMany
     {
         return $this->belongsToMany(Meeting::class, 'meeting_participants')
-            ->withPivot(['attendance_status', 'attended_at', 'notes'])
+            ->withPivot(['attendance_status', 'attended_at'])
             ->withTimestamps();
     }
 
@@ -220,6 +239,33 @@ class Staff extends Model
         $query->where('employment_status', self::STATUS_ACTIVE);
     }
 
+        /**
+     * Only staff who are not currently working.
+     */
+    #[Scope]
+    protected function inactive(Builder $query): void
+    {
+        $query->where('status', self::STATUS_INACTIVE);
+    }
+
+    /**
+     * Staff attached to the given office.
+     */
+    #[Scope]
+    protected function forOffice(Builder $query, int $officeId): void
+    {
+        $query->where('office_id', $officeId);
+    }
+
+    /**
+     * Staff holding the given position.
+     */
+    #[Scope]
+    protected function forPosition(Builder $query, int $positionId): void
+    {
+        $query->where('position_id', $positionId);
+    }
+
     /**
      * Staff hired on or after the given date.
      */
@@ -228,6 +274,7 @@ class Staff extends Model
     {
         $query->whereBetween('hire_date', [$from, $to]);
     }
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -258,5 +305,83 @@ class Staff extends Model
     public function isActive(): bool
     {
         return $this->employment_status === self::STATUS_ACTIVE;
+    }
+
+     
+
+
+    /** @use HasFactory<StaffV2Factory> */
+    use HasFactory;
+
+   
+    public function isAdmin(): bool
+    {
+        return $this->system_role === self::ROLE_ADMIN;
+    }
+
+    /**
+     * Khmer labels for the status column.
+     *
+     * @return array<string, string>
+     */
+    public static function statusLabels(): array
+    {
+        return [
+            self::STATUS_ACTIVE => 'ការងារសកម្ម',
+            self::STATUS_INACTIVE => 'ឈប់ការងារ',
+        ];
+    }
+
+    /**
+     * Khmer labels for the gender column.
+     *
+     * @return array<string, string>
+     */
+    public static function genderLabels(): array
+    {
+        return [
+            'male' => 'បុគ្គលិកប្រុស',
+            'female' => 'បុគ្គលិកស្រី',
+            'other' => 'ផ្សេងៗ',
+        ];
+    }
+
+    /**
+     * Khmer labels for the system role column.
+     *
+     * @return array<string, string>
+     */
+    public static function systemRoleLabels(): array
+    {
+        return [
+            self::ROLE_ADMIN => 'អ្នកគ្រប់គ្រង',
+            self::ROLE_STAFF => 'បុគ្គលិក',
+            self::ROLE_USER => 'អ្នកប្រើប្រព័ន្ធ',
+        ];
+    }
+
+    /**
+     * Initials used for avatar placeholders.
+     */
+    // public function getInitialsAttribute(): string
+    // {
+    //     $parts = preg_split('/\s+/u', trim((string) $this->full_name), -1, PREG_SPLIT_NO_EMPTY) ?: [];
+
+    //     if ($parts === []) {
+    //         return '';
+    //     }
+
+    //     $first = mb_substr($parts[0], 0, 1);
+    //     $last = count($parts) > 1 ? mb_substr(end($parts), 0, 1) : '';
+
+    //     return mb_strtoupper($first.$last);
+    // }
+
+    /**
+     * The name shown in menus and tables.
+     */
+    public function displayName(): string
+    {
+        return (string) $this->full_name;
     }
 }

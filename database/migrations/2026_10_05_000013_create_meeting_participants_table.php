@@ -21,6 +21,11 @@ return new class extends Migration
             $table->foreignId('staff_id')
                 ->constrained('staff')
                 ->cascadeOnDelete();
+            
+             $table->foreignId('group_id')
+                ->nullable()
+                ->constrained('groups')
+                ->cascadeOnDelete();
 
             $table->enum('attendance_status', [
                 'invited',
@@ -30,12 +35,13 @@ return new class extends Migration
                 'absent',
             ])->default('invited');
             $table->dateTime('attended_at')->nullable();
-            $table->string('notes')->nullable();
+            // $table->string('notes')->nullable();
 
             $table->timestamps();
 
             // A member of staff can only be registered once per meeting
             $table->unique(['meeting_id', 'staff_id']);
+            // $table->unique(['meeting_id', 'group_id']);
         });
     }
 

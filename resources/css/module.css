@@ -24,111 +24,294 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 14px;
+    gap: 12px;
+    margin-bottom: 18px;
 }
 
 .module-search {
     position: relative;
-    flex: 1 1 220px;
-    min-width: 180px;
+    flex: 0 1 480px;
+    min-width: 320px;
+    max-width: 560px;
 }
 
 .module-search > i {
     position: absolute;
     top: 50%;
-    left: 12px;
+    left: 15px;
     transform: translateY(-50%);
-    font-size: 12px;
-    color: #9aa0ae;
+    font-size: 16px;
+    color: #64748b;
     pointer-events: none;
+    z-index: 2;
 }
 
 .module-search .form-control {
-    padding-left: 32px;
+    width: 100% !important;
+    flex: 1 1 100% !important;
+    height: 42px;
+    padding-left: 44px;
+    padding-right: 14px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #d8dee8;
+    background: #ffffff;
+    color: #1e293b;
+    transition: all 0.2s ease;
+}
+
+.module-search .form-control:focus {
+    border-color: #07388d;
+    box-shadow: 0 0 0 3px rgba(7, 56, 141, 0.12);
 }
 
 .module-filters .form-control,
 .module-filters .form-select,
 .module-filters .btn {
-    font-size: 11px;
+    font-size: 13.5px;
+    height: 42px;
+    border-radius: 10px;
 }
 
-.module-filters .form-control,
-.module-filters .form-select {
-    flex: 0 1 190px;
+.module-filters .btn {
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: 500;
+}
+
+.module-filters .btn-secondary {
+    background: #07388d;
+    border-color: #07388d;
+    color: #ffffff;
+}
+
+.module-filters .btn-secondary:hover {
+    background: #052a6b;
+    border-color: #052a6b;
+}
+
+.module-filters select.module-filter,
+.module-filters input.module-filter {
+    flex: 0 1 200px;
     width: auto;
-    min-width: 150px;
-    border-color: #dcdce4;
+    min-width: 160px;
+    border-color: #d8dee8;
 }
 
 .module-filters .form-check-label {
-    font-size: 11px;
+    font-size: 13px;
     color: #4b5563;
     white-space: nowrap;
 }
 
 /* =========================
-   GENERIC FORM
+   GENERIC FORM & FORM CARD
    ========================= */
 
+.module-form-container {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.module-form-card {
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.module-form-card .card-header-custom {
+    padding: 18px 28px;
+    background: #ffffff;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.module-form-card .card-header-custom h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.module-form-card .card-header-custom h3 i {
+    color: #07388d;
+    font-size: 18px;
+}
+
+.form-required-badge {
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748b;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.module-form-body {
+    padding: 32px 36px;
+}
+
+@media (max-width: 768px) {
+    .module-form-body {
+        padding: 22px 18px;
+    }
+}
+
 .module-form .form-label {
-    font-size: 11px;
+    font-size: 13.5px;
     font-weight: 600;
-    color: #374151;
-    margin-bottom: 5px;
+    color: #1e293b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
 }
 
 .module-form .form-control,
 .module-form .form-select {
-    font-size: 12px;
-    border-color: #dcdce4;
+    font-size: 14px;
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid #d8dee8;
+    background: #ffffff;
+    color: #1e293b;
+    padding: 0 16px;
+    transition: all 0.2s ease;
+}
+
+.module-form textarea.form-control {
+    height: auto;
+    min-height: 110px;
+    padding: 12px 16px;
+    line-height: 1.6;
+}
+
+.module-form .form-control:hover,
+.module-form .form-select:hover {
+    border-color: #94a3b8;
 }
 
 .module-form .form-control:focus,
 .module-form .form-select:focus {
-    border-color: #0a56c7;
-    box-shadow: 0 0 0 3px rgba(10, 86, 199, .1);
+    border-color: #07388d;
+    box-shadow: 0 0 0 3.5px rgba(7, 56, 141, 0.12);
+    background: #ffffff;
 }
 
-.module-form .invalid-feedback {
-    font-size: 10.5px;
+.module-form .form-control::placeholder,
+.module-form textarea::placeholder {
+    color: #94a3b8;
+    font-size: 13.5px;
 }
 
-.module-form .form-hint {
-    font-size: 10.5px;
-    color: #8b90a0;
-    margin-top: 4px;
+/* Modern switch toggle card */
+.module-switch-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px 20px;
+    transition: all 0.2s ease;
 }
 
-/* Readonly control - the leave-request status. It is rendered
-   but never posted, and the controller refuses to write it. */
-
-.module-form .readonly-control {
-    background: #f6f7fb;
-    border-style: dashed;
-    color: #6b7280;
+.module-switch-card:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
 }
 
-.module-form .readonly-note {
-    font-size: 10.5px;
-    color: #8b90a0;
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+.module-switch-card .form-check-input {
+    width: 48px;
+    height: 25px;
+    cursor: pointer;
+    background-color: #cbd5e1;
+    border-color: #cbd5e1;
+    transition: background-color 0.2s, border-color 0.2s;
 }
 
-.module-actions {
+.module-switch-card .form-check-input:checked {
+    background-color: #07388d;
+    border-color: #07388d;
+}
+
+.module-switch-hint {
+    line-height: 1.4;
+}
+
+/* Form footer actions */
+.module-form-footer {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 8px;
-    margin-top: 16px;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 32px;
+    background: #f8fafc;
+    border-top: 1px solid #edf2f7;
 }
 
-.module-actions .btn {
+.module-form-footer .btn {
+    height: 44px;
+    padding: 0 22px;
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.2s ease;
+}
+
+.module-form-footer .btn-primary {
+    background: #07388d;
+    border-color: #07388d;
+    color: #ffffff;
+}
+
+.module-form-footer .btn-primary:hover {
+    background: #052a6b;
+    border-color: #052a6b;
+    box-shadow: 0 4px 14px rgba(7, 56, 141, 0.25);
+}
+
+.btn-back-header {
+    height: 40px;
+    padding: 0 16px;
+    font-size: 13.5px;
+    font-weight: 500;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.module-form .invalid-feedback {
     font-size: 12px;
+    margin-top: 6px;
+    font-weight: 500;
+    color: #dc2626;
+}
+
+.module-form .form-hint {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 6px;
+}
+
+/* Readonly control - the leave-request status */
+.module-form .readonly-control {
+    background: #f8fafc;
+    border-style: dashed;
+    color: #64748b;
+}
+
+.module-form .readonly-note {
+    font-size: 11.5px;
+    color: #8b90a0;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 /* =========================
@@ -189,7 +372,7 @@
 }
 
 /* =========================
-   TABLE EXTRAS
+   TABLE EXTRAS & ACTIONS
    ========================= */
 
 .table.attendance-table .text-end {
@@ -200,6 +383,99 @@
     white-space: nowrap;
 }
 
+/* Three-dot action button */
+.btn-icon-action {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-icon-action:hover,
+.btn-icon-action:focus,
+.btn-icon-action[aria-expanded="true"] {
+    background: #f1f5f9;
+    border-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.btn-icon-action[aria-expanded="true"] {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+    color: #07388d;
+}
+
+.btn-icon-action i {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.table.attendance-table td.text-center {
+    vertical-align: middle;
+}
+
+.table.attendance-table tr:has(.dropdown.show),
+.table.attendance-table .dropdown.show {
+    position: relative;
+    z-index: 1050;
+}
+
+/* Action dropdown menu */
+.module-action-dropdown {
+    min-width: 175px;
+    padding: 6px;
+    margin-top: 4px !important;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 1060;
+}
+
+.module-action-dropdown .dropdown-item {
+    font-size: 13.5px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #334155;
+    background: transparent;
+    border: 0;
+    width: 100%;
+    text-align: left;
+    transition: all 0.15s ease;
+}
+
+.module-action-dropdown .dropdown-item:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.module-action-dropdown .dropdown-item i {
+    font-size: 15px;
+    width: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.module-action-dropdown .dropdown-item.text-danger:hover {
+    background: #fef2f2;
+    color: #dc2626 !important;
+}
+
+.module-action-dropdown form {
+    margin: 0;
+}
+
 .table-actions {
     display: flex;
     justify-content: flex-end;
@@ -207,8 +483,8 @@
 }
 
 .table-actions .btn {
-    font-size: 10px;
-    padding: 3px 7px;
+    font-size: 11px;
+    padding: 4px 8px;
 }
 
 /* Delete form inherits the flex gap from .table-actions */
@@ -251,6 +527,20 @@
 
 .dashboard-card .table-responsive {
     border-radius: 0 0 10px 10px;
+}
+
+.module-page .dashboard-card {
+    overflow: visible;
+}
+
+.module-page .table-responsive {
+    overflow: visible;
+}
+
+@media (max-width: 991.98px) {
+    .module-page .table-responsive {
+        overflow-x: auto;
+    }
 }
 
 /* =========================

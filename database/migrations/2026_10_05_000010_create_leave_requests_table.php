@@ -25,6 +25,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->decimal('total_days', 5, 2)->nullable();
+            $table->date('return_date');
             $table->text('reason')->nullable();
             $table->enum('status', [
                 'pending',
@@ -45,6 +46,7 @@ return new class extends Migration
 
             $table->index('start_date');
             $table->index('end_date');
+            $table->index('return_date');
             $table->index('status');
             $table->index(['staff_id', 'status']);
         });

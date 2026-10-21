@@ -13,11 +13,9 @@ return new class extends Migration
             $table->engine = 'InnoDB';
 
             $table->id();
-            $table->string('code', 50)->unique();
-            $table->string('name');
+            $table->string('name_kh');
             $table->string('name_en')->nullable();
-            $table->text('description')->nullable();
-            $table->unsignedSmallInteger('default_duration_minutes')->nullable();
+            $table->enum('type', ['private', 'public'])->default('private');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
 

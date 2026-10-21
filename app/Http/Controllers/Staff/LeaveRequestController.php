@@ -67,7 +67,7 @@ class LeaveRequestController extends Controller
 
         return view('staff.leave-requests.create', [
             'staff' => $staff,
-            'leaveTypes' => LeaveType::query()->orderBy('name')->get(),
+            'leaveTypes' => LeaveType::query()->orderBy('name_kh')->get(),
         ]);
     }
 

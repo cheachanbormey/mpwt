@@ -6,23 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
+   
+public function up(): void
     {
+          if (Schema::hasTable('offices')) {
+        return;
+        }
         Schema::create('offices', function (Blueprint $table) {
             // MyISAM (the WAMP server default) silently drops foreign keys
             $table->engine = 'InnoDB';
 
             $table->id();
 
-            $table->foreignId('department_id')
-                ->constrained('departments')
-                ->cascadeOnDelete();
+            $table->foreignId('dep_code')->nullable();
+                // ->constrained('departments');
+                // ->cascadeOnDelete();
 
-            $table->string('code', 50)->unique();
-            $table->string('name');
+            $table->string('office_code', 50)->unique();
+            $table->string('name_kh');
             $table->string('name_en')->nullable();
-            $table->string('phone', 30)->nullable();
-            $table->text('address')->nullable();
+            $table->foreignId('location_id')
+                ->constrained('locations')
+                ->cascadeOnDelete();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
 

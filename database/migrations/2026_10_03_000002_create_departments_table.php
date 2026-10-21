@@ -8,15 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('positions', function (Blueprint $table) {
+        Schema::create('departments', function (Blueprint $table) {
             // MyISAM (the WAMP server default) silently drops foreign keys
             $table->engine = 'InnoDB';
 
             $table->id();
-            $table->string('code', 50)->unique();
-            $table->string('name');
+            $table->string('dep_code', 50)->unique();
+            $table->string('name_kh');
             $table->string('name_en')->nullable();
-            $table->text('description')->nullable();
+            // director
+            $table->foreignId('staff_id')
+                ->nullable();
+                // ->constrained('staff');
+                // ->nullOnDelete();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
 
@@ -26,6 +30,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('positions');
+        Schema::dropIfExists('departments');
     }
 };

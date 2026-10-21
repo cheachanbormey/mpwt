@@ -47,7 +47,7 @@
 
         <button type="submit" class="btn btn-secondary">
             <i class="bi bi-funnel"></i>
-            ត្រាស់
+            ស្វែងរក
         </button>
 
         @if ($filters !== [])

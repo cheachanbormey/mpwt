@@ -2,7 +2,7 @@
 
 use App\Models\Attendance;
 use App\Models\Department;
-use App\Models\DepartmentV2;
+// use App\Models\DepartmentV2;
 use App\Models\EmploymentStatus;
 use App\Models\Group;
 use App\Models\LeaveRequest;
@@ -13,10 +13,10 @@ use App\Models\MeetingAgenda;
 use App\Models\MeetingParticipant;
 use App\Models\MeetingType;
 use App\Models\Office;
-use App\Models\OfficeV2;
+// use App\Models\OfficeV2;
 use App\Models\Position;
 use App\Models\Staff;
-use App\Models\StaffV2;
+// use App\Models\StaffV2;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,22 +69,22 @@ return [
     |----------------------------------------------------------------------
     */
 
-    'employment_statuses' => [
-        'label' => 'ស្ថារាងការងារ',
-        'icon' => 'bi-toggle-on',
-        'order' => 1,
-        'singular' => 'ស្ថារាងការងារ',
-        'description' => 'ស្ថារាងការងាររបស់បុគ្គលិក (ការងារ, សាកល្បង, ផ្អាក, ចូលនៃមុខវិជ្ជា …)',
-        'model' => EmploymentStatus::class,
-        'columns' => ['code', 'name', 'sort_order', 'is_active'],
-        'search' => ['code', 'name'],
-        'fields' => [
-            'code' => ['type' => 'text', 'label' => 'លេខកូដ', 'required' => true, 'max' => 30, 'unique' => true],
-            'name' => ['type' => 'text', 'label' => 'ឈ្មោះ', 'required' => true, 'max' => 191],
-            'sort_order' => ['type' => 'number', 'label' => 'លំដាប់', 'min' => 0, 'max' => 999],
-            'is_active' => ['type' => 'boolean', 'label' => 'អាចជ្រើសរើសបាន'],
-        ],
-    ],
+    // 'employment_statuses' => [
+    //     'label' => 'ស្ថានភាពការងារ',
+    //     'icon' => 'bi-toggle-on',
+    //     'order' => 1,
+    //     'singular' => 'ស្ថានភាពការងារ',
+    //     // 'description' => 'ស្ថារាងការងាររបស់បុគ្គលិក (ការងារ, សាកល្បង, ផ្អាក, ចូលនៃមុខវិជ្ជា …)',
+    //     'model' => EmploymentStatus::class,
+    //     'columns' => ['code', 'name', 'sort_order', 'is_active'],
+    //     'search' => ['code', 'name'],
+    //     'fields' => [
+    //         'code' => ['type' => 'text', 'label' => 'លេខកូដ', 'required' => true, 'max' => 30, 'unique' => true],
+    //         'name' => ['type' => 'text', 'label' => 'ឈ្មោះ', 'required' => true, 'max' => 191],
+    //         'sort_order' => ['type' => 'number', 'label' => 'លំដាប់', 'min' => 0, 'max' => 999],
+    //         'is_active' => ['type' => 'boolean', 'label' => 'អាចជ្រើសរើសបាន'],
+    //     ],
+    // ],
 
     /*
     |----------------------------------------------------------------------
@@ -93,20 +93,21 @@ return [
     */
 
     'departments' => [
-        'label' => 'ផ្ទាំង',
+        'label' => 'អគ្គនាយកដ្ខាន',
         'icon' => 'bi-diagram-3',
         'order' => 2,
-        'singular' => 'ផ្ទាំង',
-        'description' => 'ផ្ទាំងការងារទាំងអស់នៃអង្គភាព',
+        'singular' => 'អគ្គនាយកដ្ខាន',
+        'description' => 'អគ្គនាយកដ្ខានទាំងអស់នៃអង្គភាព',
         'model' => Department::class,
-        'columns' => ['code', 'name', 'name_en', 'is_active'],
-        'search' => ['code', 'name', 'name_en'],
+        'columns' => ['dep_code', 'name_kh', 'name_en', 'staff_id', 'is_active'],
+        'search' => ['dep_code', 'name_kh', 'name_en'],
         'fields' => [
-            'code' => ['type' => 'text', 'label' => 'លេខកូដ', 'required' => true, 'max' => 50, 'unique' => true],
-            'name' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
+            'dep_code' => ['type' => 'text', 'label' => 'លេខកូដ', 'required' => true, 'max' => 50, 'unique' => true],
+            'name_kh' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
             'name_en' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាអង់គ្លេស', 'max' => 191],
-            'description' => ['type' => 'textarea', 'label' => 'ពិពណ៌នា', 'max' => 1000],
-            'is_active' => ['type' => 'boolean', 'label' => 'សកម្ម'],
+            // 'description' => ['type' => 'textarea', 'label' => 'ពិពណ៌នា', 'max' => 1000],
+            'staff_id' => ['type' => 'select', 'label' => 'ប្រធានអគ្គនាយកដ្ឋាន', 'options_module' => 'staff', 'option_label' => 'name_km',],
+            'is_active' => ['type' => 'boolean', 'label' => 'ស្ថានភាព'],
         ],
     ],
 
@@ -117,11 +118,11 @@ return [
         'singular' => 'តួនាទី',
         'description' => 'តួនាទីការងារទាំងអស់',
         'model' => Position::class,
-        'columns' => ['code', 'name', 'name_en', 'is_active'],
-        'search' => ['code', 'name', 'name_en'],
+        'columns' => ['name_kh', 'name_en', 'is_active'],
+        'search' => ['name_kh', 'name_en'],
         'fields' => [
-            'code' => ['type' => 'text', 'label' => 'លេខកូដ', 'required' => true, 'max' => 50, 'unique' => true],
-            'name' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
+            // 'code' => ['type' => 'text', 'label' => 'លេខកូដ', 'required' => true, 'max' => 50, 'unique' => true],
+            'name_kh' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
             'name_en' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាអង់គ្លេស', 'max' => 191],
             'description' => ['type' => 'textarea', 'label' => 'ពិពណ៌នា', 'max' => 1000],
             'is_active' => ['type' => 'boolean', 'label' => 'សកម្ម'],
@@ -129,24 +130,28 @@ return [
     ],
 
     'offices' => [
-        'label' => 'ការងារ',
+        'label' => 'នាយកដ្ឋាន',
         'icon' => 'bi-building',
         'order' => 4,
-        'singular' => 'ការងារ',
-        'description' => 'ការងារស្ថិតក្រោមផ្ទាំងនីមួយៗ',
+        'singular' => 'នាយកដ្ឋាន',
+        'description' => 'នាយកដ្ឋានស្ថិតក្រោមផ្ទាំងនីមួយៗ',
         'model' => Office::class,
-        'columns' => ['code', 'name', 'department.name', 'phone', 'is_active'],
-        'search' => ['code', 'name', 'name_en'],
+        'columns' => ['office_code', 'name_kh', 'location_id', 'is_active'],
+        'search' => ['office_code', 'name_kh', 'name_en'],
         'fields' => [
-            'department_id' => [
-                'type' => 'select', 'label' => 'ផ្ទាំង', 'required' => true,
+            'dep_code' => [
+                'type' => 'select', 'label' => 'អគ្គនាយកដ្ឋាន', 'required' => true,
                 'options_module' => 'departments', 'option_label' => 'name',
             ],
-            'code' => ['type' => 'text', 'label' => 'លេខកូដ', 'required' => true, 'max' => 50, 'unique' => true],
-            'name' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
+            'office_code' => ['type' => 'text', 'label' => 'លេខកូដ', 'required' => true, 'max' => 50, 'unique' => true],
+            'name_kh' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
             'name_en' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាអង់គ្លេស', 'max' => 191],
-            'phone' => ['type' => 'text', 'label' => 'លេខទូរស័ព្ទ', 'max' => 30],
-            'address' => ['type' => 'textarea', 'label' => 'អាសយដ្ឋាន', 'max' => 1000],
+            // 'phone' => ['type' => 'text', 'label' => 'លេខទូរស័ព្ទ', 'max' => 30],
+            // 'address' => ['type' => 'textarea', 'label' => 'អាសយដ្ឋាន', 'max' => 1000],
+            'location_id' => [
+                'type' => 'select', 'label' => 'ទីតាំង', 'required' => true,
+                'options_module' => 'departments', 'option_label' => 'name',
+            ],
             'is_active' => ['type' => 'boolean', 'label' => 'សកម្ម'],
         ],
     ],
@@ -164,25 +169,27 @@ return [
         'singular' => 'បុគ្គលិក',
         'description' => 'ព័ត៌មានបុគ្គលិកទាំងអស់ក្នុងប្រព័ន្ធ',
         'model' => Staff::class,
-        'columns' => ['staff_code', 'name_km', 'office.name', 'position.name', 'employment_status'],
-        'search' => ['staff_code', 'name_km', 'name_en', 'national_id', 'phone'],
+        'columns' => ['staff_id',  'name_km', 'position_id', 'office_code' , 'telegram', 'phone', 'email', 'employment_status'],
+        'search' => ['staff_id', 'name_km', 'name_en', 'phone'],
         'fields' => [
-            'staff_code' => ['type' => 'text', 'label' => 'លេខបុគ្គលិក', 'required' => true, 'max' => 50, 'unique' => true],
+            'staff_id' => ['type' => 'text', 'label' => 'លេខបុគ្គលិក', 'required' => true, 'max' => 50, 'unique' => true],
             'name_km' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
             'name_en' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាអង់គ្លេស', 'max' => 191],
-            'gender' => ['type' => 'select', 'label' => 'យេស្តិ', 'options' => [
-                'male' => 'បុគ្គលិកបុគ្គលប្រុស', 'female' => 'បុគ្គលិកស្រី', 'other' => 'ផ្សេងៗ',
+            'gender' => ['type' => 'select', 'label' => 'ភេទ', 'options' => [
+                        'male' => 'ប្រុស', 'female' => 'ស្រី', 'other' => 'ផ្សេងៗ',
             ]],
-            'date_of_birth' => ['type' => 'date', 'label' => 'ថ្ងៃខែឆ្នាំកើត'],
-            'national_id' => ['type' => 'text', 'label' => 'លេខអត្តសញ្ញាណ', 'max' => 30],
+            // 'date_of_birth' => ['type' => 'date', 'label' => 'ថ្ងៃខែឆ្នាំកើត'],
+            // 'national_id' => ['type' => 'text', 'label' => 'លេខអត្តសញ្ញាណ', 'max' => 30],
             'phone' => ['type' => 'text', 'label' => 'លេខទូរស័ព្ទ', 'max' => 30],
             'email' => ['type' => 'email', 'label' => 'អ៊ីមែល'],
-            'address' => ['type' => 'textarea', 'label' => 'អាសយដ្ឋាន', 'max' => 1000],
-            'office_id' => ['type' => 'select', 'label' => 'ការងារ', 'options_module' => 'offices', 'option_label' => 'name'],
+            'telegram' => ['type' => 'telegram', 'label' => 'តេឡេក្រាម'],
+            // 'address' => ['type' => 'textarea', 'label' => 'អាសយដ្ឋាន', 'max' => 1000],
+            'office_code' => ['type' => 'select', 'label' => 'ការិយាល័យ', 'options_module' => 'offices', 'option_label' => 'name'],
             'position_id' => ['type' => 'select', 'label' => 'តួនាទី', 'options_module' => 'positions', 'option_label' => 'name'],
-            'employment_status' => ['type' => 'select', 'label' => 'ស្ថារាងការងារ', 'required' => true, 'options_module' => 'employment_statuses', 'option_label' => 'name'],
-            'hire_date' => ['type' => 'date', 'label' => 'កាលបរិច្ឆេទចូលរួមការងារ'],
-            'base_salary' => ['type' => 'decimal', 'label' => 'ប្រាក់ឈ្នួលមូលដ្ឋាន', 'min' => 0],
+            'system_role' => ['type' => 'select', 'label' => 'ស្ថានភាព', 'required' => true, 'options_module' => 'employment_statuses', 'option_label' => 'name'],
+            'employment_status' => ['type' => 'select', 'label' => 'តួនាទីក្នុងប្រព័ន្ធ', 'options' => ['admin' => 'អ្នកគ្រប់គ្រង', 'staff' => 'បុគ្គលិក' ], ],
+            // 'hire_date' => ['type' => 'date', 'label' => 'កាលបរិច្ឆេទចូលរួមការងារ'],
+            // 'base_salary' => ['type' => 'decimal', 'label' => 'ប្រាក់ឈ្នួលមូលដ្ឋាន', 'min' => 0],
         ],
     ],
 
@@ -202,34 +209,34 @@ return [
         'show' => true,
         // Roll-up screens offered beside the row list.
         'reports' => [
-            ['route' => 'admin.attendances.day', 'label' => 'របាយការណ៍ប្រចាំថ្ងៃ', 'icon' => 'bi-calendar-day'],
-            ['route' => 'admin.attendances.month', 'label' => 'របាយការណ៍ប្រចាំខែ', 'icon' => 'bi-calendar-month'],
+            ['route' => 'admin.attendances.day', 'label' => 'របាយការណ៍វត្តមានប្រចាំថ្ងៃ', 'icon' => 'bi-calendar-day'],
+            ['route' => 'admin.attendances.month', 'label' => 'របាយការណ៍វត្តមានប្រចាំខែ', 'icon' => 'bi-calendar-month'],
         ],
-        'columns' => ['work_date', 'staff.full_name', 'check_in', 'check_out', 'worked_hours', 'status', 'check_in_source'],
-        'search' => ['staff.full_name', 'staff.staff_id', 'notes'],
+        'columns' => ['work_date', 'staff.name_km', 'check_in', 'check_out', 'worked_hours', 'status', 'check_in_source'],
+        'search' => ['staff.name_km', 'staff.staff_id', 'work_date' ],
         'filters' => [
-            'staff_id' => ['label' => 'បុគ្គលិក', 'options_module' => StaffV2::class, 'option_label' => 'full_name'],
-            'status' => ['label' => 'ស្ថារាង', 'options' => [
+            'staff_id' => ['label' => 'បុគ្គលិក', 'options_module' => Staff::class, 'option_label' => 'name_kh'],
+            'status' => ['label' => 'ស្ថាភាព', 'options' => [
                 'present' => 'វត្តមាន', 'absent' => 'អវត្តមាន', 'late' => 'យឺត',
-                'leave' => 'សុំច្បាប់', 'holiday' => 'បុណ្យ', 'weekend' => 'ចុចអាទិត្យ',
+                'leave' => 'សុំច្បាប់'
             ]],
             'from' => ['label' => 'ចាប់ពីថ្ងៃ', 'column' => 'work_date', 'operator' => '>=', 'type' => 'date'],
             'to' => ['label' => 'ដល់ថ្ងៃ', 'column' => 'work_date', 'operator' => '<=', 'type' => 'date'],
         ],
         'fields' => [
-            'staff_id' => ['type' => 'select', 'label' => 'បុគ្គលិក', 'required' => true, 'options_module' => StaffV2::class, 'option_label' => 'full_name'],
+            'staff_id' => ['type' => 'select', 'label' => 'បុគ្គលិក', 'required' => true, 'options_module' => Staff::class, 'option_label' => 'name_km'],
             'work_date' => ['type' => 'date', 'label' => 'កាលបរិច្ឆេទ', 'required' => true],
             'check_in' => ['type' => 'datetime', 'label' => 'ម៉ោងចូល', 'nullable' => true],
             'check_out' => ['type' => 'datetime', 'label' => 'ម៉ោងចេញ', 'nullable' => true],
             'worked_hours' => ['type' => 'decimal', 'label' => 'ម៉ោងធ្វើការ', 'min' => 0, 'max' => 24],
-            'status' => ['type' => 'select', 'label' => 'ស្ថារាង', 'required' => true, 'options' => [
+            'status' => ['type' => 'select', 'label' => 'ស្ថានភាព', 'required' => true, 'options' => [
                 'present' => 'វត្តមាន', 'absent' => 'អវត្តមាន', 'late' => 'យឺត',
-                'leave' => 'សុំច្បាប់', 'holiday' => 'បុណ្យ', 'weekend' => 'ចុចអាទិត្យ',
+                'leave' => 'សុំច្បាប់', 
             ]],
             'check_in_source' => ['type' => 'select', 'label' => 'ប្រភពកំណត់ត្រា', 'options' => [
-                'manual' => 'ដោយដៃ', 'qr' => 'QR Code', 'system' => 'ស្រោះ',
+                'manual' => 'ដោយដៃ', 'qr' => 'QR Code',
             ]],
-            'notes' => ['type' => 'text', 'label' => 'សំគាល់', 'max' => 191],
+            // 'notes' => ['type' => 'text', 'label' => 'សំគាល់', 'max' => 191],
         ],
     ],
 
@@ -240,42 +247,40 @@ return [
     */
 
     'leave_types' => [
-        'label' => 'ប្រភេទសំឡេង',
+        'label' => 'ប្រភេទច្បាប់',
         'icon' => 'bi-file-earmark-text',
         'order' => 7,
-        'singular' => 'ប្រភេទសំឡេង',
-        'description' => 'ប្រភេទសំឡេងដែលអនុញ្ញាតឱ្យបុគ្គលិកស្នើសុំ',
+        'singular' => 'ប្រភេទច្បាប់',
+        'description' => 'ប្រភេទច្បាប់ដែលអនុញ្ញាតឱ្យបុគ្គលិកស្នើសុំ',
         'model' => LeaveType::class,
-        'columns' => ['code', 'name', 'default_days_per_year', 'is_paid', 'is_active'],
-        'search' => ['code', 'name', 'name_en'],
+        'columns' => ['name_kh', 'default_days_per_year', 'requires_approval', 'is_active'],
+        'search' => ['name_kh', 'name_en'],
         'fields' => [
-            'code' => ['type' => 'text', 'label' => 'លេខកូដ', 'required' => true, 'max' => 50, 'unique' => true],
-            'name' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
+            'name_kh' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
             'name_en' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាអង់គ្លេស', 'max' => 191],
-            'description' => ['type' => 'textarea', 'label' => 'ពិពណ៌នា', 'max' => 1000],
+            // 'description' => ['type' => 'textarea', 'label' => 'ពិពណ៌នា', 'max' => 1000],
             'default_days_per_year' => ['type' => 'number', 'label' => 'ចំនួនថ្ងៃក្នុងមួយឆ្នាំ', 'min' => 0, 'max' => 366],
-            'is_paid' => ['type' => 'boolean', 'label' => 'ជាសំឡេងមានលុយ'],
             /*
              * Reframed for this project: leave is signed by hand on paper,
              * there is no online approval step.
              */
-            'requires_approval' => ['type' => 'boolean', 'label' => 'ត្រូវមានការចុចហត្ថលេខាដោយអ្នកគ្រប់គ្រង (លើក្រារ)'],
+            'requires_approval' => ['type' => 'boolean', 'label' => 'ត្រូវមានការចុចហត្ថលេខាដោយអ្នកគ្រប់គ្រង'],
             'is_active' => ['type' => 'boolean', 'label' => 'សកម្ម'],
         ],
     ],
 
     'leave_requests' => [
-        'label' => 'សំឡេងស្មារណការ',
+        'label' => 'សំណើសុំឈប់សម្រាក',
         'icon' => 'bi-envelope-paper',
         'order' => 8,
-        'singular' => 'សំឡេងស្មារណការ',
-        'description' => 'បញ្ជីសំឡេងស្មារណការទាំងអស់។ សំឡេងត្រូវបានបោះពុម្ព និងចុចហត្ថលេខាដោយដៃ។',
+        'singular' => 'សំណើសុំឈប់សម្រាក',
+        'description' => 'បញ្ជីសំណើសុំឈប់សម្រាកទាំងអស់។ សំណើសុំឈប់សម្រាកត្រូវបានបោះពុម្ព និងចុចហត្ថលេខាដោយដៃ។',
         'model' => LeaveRequest::class,
         'columns' => ['created_at', 'staff.name_km', 'leaveType.name', 'start_date', 'end_date', 'total_days', 'status'],
-        'search' => ['reason'],
+        'search' => ['reason', 'staff.name_km', 'start_date' ],
         'filters' => [
             'staff_id' => ['label' => 'បុគ្គលិក', 'options_module' => 'staff', 'option_label' => 'name_km'],
-            'status' => ['label' => 'ស្ថារាង', 'options' => [
+            'status' => ['label' => 'ស្ថានភាព', 'options' => [
                 'pending' => 'កំពុងរង់ចាំ', 'approved' => 'បានអនុម័ត',
                 'rejected' => 'បានបដិសេធ', 'cancelled' => 'បានលុបចោល',
             ]],
@@ -288,6 +293,7 @@ return [
             'start_date' => ['type' => 'date', 'label' => 'ចាប់ពីកាលបរិច្ឆេទ', 'required' => true],
             'end_date' => ['type' => 'date', 'label' => 'ដល់កាលបរិច្ឆេទ', 'required' => true, 'after' => 'start_date'],
             'total_days' => ['type' => 'decimal', 'label' => 'ចំនួនថ្ងៃ', 'min' => 0],
+            'return_date' => ['type' => 'date', 'label' => 'កាលបរិច្ឆេទចូល', 'required' => true, 'after' => 'end_date'],
             'reason' => ['type' => 'textarea', 'label' => 'មូលដ្ឋាន', 'required' => true, 'max' => 1000],
             /*
              * status is deliberately READ-ONLY here.
@@ -295,7 +301,7 @@ return [
              * application may change it. See README / report.
              */
             'status' => [
-                'type' => 'select', 'label' => 'ស្ថារាង (មិនអាចកែប្រែ)',
+                'type' => 'select', 'label' => 'ស្ថានភាព (មិនអាចកែប្រែ)',
                 'readonly' => true, 'default' => 'pending',
                 'options' => [
                     'pending' => 'កំពុងរង់ចាំ', 'approved' => 'បានអនុម័ត',
@@ -312,20 +318,21 @@ return [
     */
 
     'groups' => [
-        'label' => 'ក្រុមការងារ',
+        'label' => 'ក្រុមប្រជុំ',
         'icon' => 'bi-people-fill',
         'order' => 9,
-        'singular' => 'ក្រុមការងារ',
-        'description' => 'ក្រុមការងារសមាជិក និងប្រធានក្រុម',
+        'singular' => 'ក្រុមប្រជុំ',
+        'description' => 'សមាជិកក្រុម និងប្រធានក្រុម',
         'model' => Group::class,
-        'columns' => ['code', 'name', 'leader.name_km', 'is_active'],
-        'search' => ['code', 'name', 'name_en'],
+        'columns' => ['name_kh', 'leader.name_km', 'is_active'],
+        'search' => ['name_kh', 'name_en'],
         'fields' => [
-            'code' => ['type' => 'text', 'label' => 'លេខកូដ', 'required' => true, 'max' => 50, 'unique' => true],
-            'name' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
-            'name_en' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាអង់គ្លេស', 'max' => 191],
+            // 'code' => ['type' => 'text', 'label' => 'លេខកូដ', 'required' => true, 'max' => 50, 'unique' => true],
+            'name' => ['type' => 'text', 'label' => 'ឈ្មោះក្រុមជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
+            'name_en' => ['type' => 'text', 'label' => 'ឈ្មោះក្រុមជាភាសាអង់គ្លេស', 'max' => 191],
             'description' => ['type' => 'textarea', 'label' => 'ពិពណ៌នា', 'max' => 1000],
             'leader_staff_id' => ['type' => 'select', 'label' => 'ប្រធានក្រុម', 'options_module' => 'staff', 'option_label' => 'name_km'],
+            'location_id' => ['type' => 'select', 'label' => 'ទីតាំង', 'options_module' => 'locations', 'option_label' => 'name'],
             'is_active' => ['type' => 'boolean', 'label' => 'សកម្ម'],
         ],
     ],
@@ -341,16 +348,18 @@ return [
         'icon' => 'bi-geo-alt',
         'order' => 10,
         'singular' => 'ទីកន្លែង',
-        'description' => 'ទីកន្លែងប្រឡង់សម្រាប់កិច្ចប្រជុំ',
+        'description' => 'ទីកន្លែងសម្រាប់កិច្ចប្រជុំ',
         'model' => Location::class,
         'columns' => ['name', 'name_en', 'capacity', 'is_active'],
         'search' => ['name', 'name_en'],
         'fields' => [
             'name' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
-            'name_en' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាអង់គ្លេស', 'max' => 191],
-            'address' => ['type' => 'textarea', 'label' => 'អាសយដ្ឋាន', 'max' => 1000],
+            // 'name_en' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាអង់គ្លេស', 'max' => 191],
+            'buiding' => ['type' => 'text', 'label' => 'ឈ្មោះអគារ', 'max' => 191],
+            'floor' => ['type' => 'text', 'label' => 'ជាន់', 'placeholder'=> 'ឧទាហរណ៍៖ ជាន់ទី ១', 'max' => 100],
             'capacity' => ['type' => 'number', 'label' => 'ចំនួនអាចដល់', 'min' => 0, 'max' => 10000],
             'is_active' => ['type' => 'boolean', 'label' => 'សកម្ម'],
+            'facilities' => ['type' => 'textarea' , 'label' => 'បរិក្ខា និងឧបករណ៍បច្ចេកវិទ្យា', 'placeholder'=> 'ឧទាហរណ៍៖ Smart Screen, High-Speed WiFi', 'max' => 1000],
         ],
     ],
 
@@ -456,6 +465,7 @@ return [
         ],
     ],
 
+
     /*
     |----------------------------------------------------------------------
     | Departments v2
@@ -476,53 +486,53 @@ return [
     |
     */
 
-    'departments_v2' => [
-        'label' => 'ផ្ទាំង (កំណែថ្មី)',
-        'icon' => 'bi-diagram-3',
-        'order' => 15,
-        'singular' => 'ផ្ទាំង',
-        'description' => 'កំណត់ត្រាផ្ទាំងការងារជំនួសដែលមានលេខកូដ និងនាយកផ្ទាំង',
-        'model' => DepartmentV2::class,
+    // 'departments_v2' => [
+    //     'label' => 'ផ្ទាំង (កំណែថ្មី)',
+    //     'icon' => 'bi-diagram-3',
+    //     'order' => 15,
+    //     'singular' => 'ផ្ទាំង',
+    //     'description' => 'កំណត់ត្រាផ្ទាំងការងារជំនួសដែលមានលេខកូដ និងនាយកផ្ទាំង',
+    //     'model' => DepartmentV2::class,
 
-        'show' => true,
-        'status_field' => 'status',
-        'status_values' => ['active' => 'active', 'inactive' => 'inactive'],
+    //     'show' => true,
+    //     'status_field' => 'status',
+    //     'status_values' => ['active' => 'active', 'inactive' => 'inactive'],
 
-        'columns' => ['dep_code', 'dep_kh_name', 'dep_en_name', 'director.name_km', 'status'],
-        'search' => ['dep_code', 'dep_kh_name', 'dep_en_name'],
+    //     'columns' => ['dep_code', 'dep_kh_name', 'dep_en_name', 'director.name_km', 'status'],
+    //     'search' => ['dep_code', 'dep_kh_name', 'dep_en_name'],
 
-        'filters' => [
-            'status' => ['label' => 'ស្ថានភាព', 'options' => DepartmentV2::statusLabels()],
-        ],
+    //     'filters' => [
+    //         'status' => ['label' => 'ស្ថានភាព', 'options' => DepartmentV2::statusLabels()],
+    //     ],
 
-        // Rendered as a table on the department's detail page.
-        'detail_relations' => [
-            'offices' => [
-                'label' => 'ការងារក្រោមផ្ទាំង',
-                'status_column' => 'status',
-                'columns' => [
-                    'office_code' => 'លេខកូដ',
-                    'office_name' => 'ឈ្មោះការងារ',
-                    'location' => 'ទីតាំង',
-                    'status' => 'ស្ថានភាព',
-                ],
-                'labels' => [
-                    'status' => OfficeV2::statusLabels(),
-                ],
-            ],
-        ],
+    //     // Rendered as a table on the department's detail page.
+    //     'detail_relations' => [
+    //         'offices' => [
+    //             'label' => 'ការងារក្រោមផ្ទាំង',
+    //             'status_column' => 'status',
+    //             'columns' => [
+    //                 'office_code' => 'លេខកូដ',
+    //                 'office_name' => 'ឈ្មោះការងារ',
+    //                 'location' => 'ទីតាំង',
+    //                 'status' => 'ស្ថានភាព',
+    //             ],
+    //             'labels' => [
+    //                 'status' => OfficeV2::statusLabels(),
+    //             ],
+    //         ],
+    //     ],
 
-        'fields' => [
-            'dep_code' => ['type' => 'text', 'label' => 'លេខកូដផ្ទាំង', 'required' => true, 'max' => 50, 'unique' => true],
-            'dep_kh_name' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
-            'dep_en_name' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាអង់គ្លេស', 'max' => 191],
-            'director_dep' => ['type' => 'select', 'label' => 'នាយកផ្ទាំង', 'options_module' => 'staff', 'option_label' => 'name_km'],
-            'status' => [
-                'type' => 'select', 'label' => 'ស្ថានភាព',
-                'options' => DepartmentV2::statusLabels(), 'default' => DepartmentV2::STATUS_ACTIVE,
-            ],
-        ],
-    ],
+    //     'fields' => [
+    //         'dep_code' => ['type' => 'text', 'label' => 'លេខកូដផ្ទាំង', 'required' => true, 'max' => 50, 'unique' => true],
+    //         'dep_kh_name' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាខ្មែរ', 'required' => true, 'max' => 191],
+    //         'dep_en_name' => ['type' => 'text', 'label' => 'ឈ្មោះជាភាសាអង់គ្លេស', 'max' => 191],
+    //         'director_dep' => ['type' => 'select', 'label' => 'នាយកផ្ទាំង', 'options_module' => 'staff', 'option_label' => 'name_km'],
+    //         'status' => [
+    //             'type' => 'select', 'label' => 'ស្ថានភាព',
+    //             'options' => DepartmentV2::statusLabels(), 'default' => DepartmentV2::STATUS_ACTIVE,
+    //         ],
+    //     ],
+    // ],
 
     /*
     |----------------------------------------------------------------------
@@ -535,45 +545,45 @@ return [
     |
     */
 
-    'offices_v2' => [
-        'label' => 'ការងារ (កំណែថ្មី)',
-        'icon' => 'bi-building',
-        'order' => 16,
-        'singular' => 'ការងារ',
-        'description' => 'ការងារស្ថិតក្រោមផ្ទាំងនីមួយៗ',
-        'model' => OfficeV2::class,
+    // 'offices_v2' => [
+    //     'label' => 'ការងារ (កំណែថ្មី)',
+    //     'icon' => 'bi-building',
+    //     'order' => 16,
+    //     'singular' => 'ការងារ',
+    //     'description' => 'ការងារស្ថិតក្រោមផ្ទាំងនីមួយៗ',
+    //     'model' => OfficeV2::class,
 
-        'show' => true,
-        'status_field' => 'status',
-        'status_values' => ['active' => 'active', 'inactive' => 'inactive'],
+    //     'show' => true,
+    //     'status_field' => 'status',
+    //     'status_values' => ['active' => 'active', 'inactive' => 'inactive'],
 
-        'columns' => ['office_code', 'office_name', 'dep_id', 'department.dep_kh_name', 'location', 'status'],
-        'search' => ['office_code', 'office_name', 'location'],
+    //     'columns' => ['office_code', 'office_name', 'dep_id', 'department.dep_kh_name', 'location', 'status'],
+    //     'search' => ['office_code', 'office_name', 'location'],
 
-        'filters' => [
-            // Filter the office list by department.
-            'dep_id' => [
-                'label' => 'ផ្ទាំង',
-                'options_module' => 'departments_v2',
-                'option_label' => 'dep_kh_name',
-            ],
-            'status' => ['label' => 'ស្ថានភាព', 'options' => OfficeV2::statusLabels()],
-        ],
+    //     'filters' => [
+    //         // Filter the office list by department.
+    //         'dep_id' => [
+    //             'label' => 'ផ្ទាំង',
+    //             'options_module' => 'departments_v2',
+    //             'option_label' => 'dep_kh_name',
+    //         ],
+    //         'status' => ['label' => 'ស្ថានភាព', 'options' => OfficeV2::statusLabels()],
+    //     ],
 
-        'fields' => [
-            'dep_id' => [
-                'type' => 'select', 'label' => 'ផ្ទាំង', 'required' => true,
-                'options_module' => 'departments_v2', 'option_label' => 'dep_kh_name',
-            ],
-            'office_code' => ['type' => 'text', 'label' => 'លេខកូដការងារ', 'required' => true, 'max' => 50, 'unique' => true],
-            'office_name' => ['type' => 'text', 'label' => 'ឈ្មោះការងារ', 'required' => true, 'max' => 191],
-            'location' => ['type' => 'text', 'label' => 'ទីតាំង', 'max' => 191],
-            'description' => ['type' => 'textarea', 'label' => 'ពិពណ៌នា', 'max' => 2000],
-            'status' => [
-                'type' => 'select', 'label' => 'ស្ថានភាព',
-                'options' => OfficeV2::statusLabels(), 'default' => OfficeV2::STATUS_ACTIVE,
-            ],
-        ],
-    ],
+    //     'fields' => [
+    //         'dep_id' => [
+    //             'type' => 'select', 'label' => 'ផ្ទាំង', 'required' => true,
+    //             'options_module' => 'departments_v2', 'option_label' => 'dep_kh_name',
+    //         ],
+    //         'office_code' => ['type' => 'text', 'label' => 'លេខកូដការងារ', 'required' => true, 'max' => 50, 'unique' => true],
+    //         'office_name' => ['type' => 'text', 'label' => 'ឈ្មោះការងារ', 'required' => true, 'max' => 191],
+    //         'location' => ['type' => 'text', 'label' => 'ទីតាំង', 'max' => 191],
+    //         'description' => ['type' => 'textarea', 'label' => 'ពិពណ៌នា', 'max' => 2000],
+    //         'status' => [
+    //             'type' => 'select', 'label' => 'ស្ថានភាព',
+    //             'options' => OfficeV2::statusLabels(), 'default' => OfficeV2::STATUS_ACTIVE,
+    //         ],
+    //     ],
+    // ],
 
 ];

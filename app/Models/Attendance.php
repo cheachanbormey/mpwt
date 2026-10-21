@@ -19,7 +19,6 @@ use Illuminate\Support\Carbon;
     'worked_hours',
     'status',
     'check_in_source',
-    'notes',
 ])]
 class Attendance extends Model
 {
@@ -36,10 +35,6 @@ class Attendance extends Model
     public const STATUS_LATE = 'late';
 
     public const STATUS_LEAVE = 'leave';
-
-    public const STATUS_HOLIDAY = 'holiday';
-
-    public const STATUS_WEEKEND = 'weekend';
 
     /**
      * @return array<string, string>
@@ -59,7 +54,7 @@ class Attendance extends Model
      */
     public function staff(): BelongsTo
     {
-        return $this->belongsTo(StaffV2::class);
+        return $this->belongsTo(Staff::class);
     }
 
     /**
@@ -126,8 +121,6 @@ class Attendance extends Model
             self::STATUS_ABSENT => 'អវត្តមាន',
             self::STATUS_LATE => 'យឺត',
             self::STATUS_LEAVE => 'សុំច្បាប់',
-            self::STATUS_HOLIDAY => 'បុណ្យ',
-            self::STATUS_WEEKEND => 'ចុចអាទិត្យ',
         ];
     }
 }

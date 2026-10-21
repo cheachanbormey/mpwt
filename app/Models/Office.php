@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['department_id', 'code', 'name', 'name_en', 'phone', 'address', 'is_active'])]
+#[Fillable(['dep_code','office_code', 'name_kh', 'name_en', 'location_id', 'is_active'])]
 class Office extends Model
 {
     /** @use HasFactory<OfficeFactory> */
@@ -32,7 +32,7 @@ class Office extends Model
      */
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class);
+        return $this->belongsTo(Department::class, 'dep_code');
     }
 
     /**
@@ -43,6 +43,12 @@ class Office extends Model
         return $this->hasMany(Staff::class);
     }
 
+
+    /**
+     * The table this model reads and writes.
+     */
+    protected $table = 'offices';
+
     /**
      * Only active offices.
      */
@@ -50,5 +56,35 @@ class Office extends Model
     protected function active(Builder $query): void
     {
         $query->where('is_active', true);
+    }
+
+    /**
+     * Only inactive offices.
+     */
+    #[Scope]
+    protected function inactive(Builder $query): void
+    {
+        $query->where('status', self::STATUS_INACTIVE);
+    }
+
+    /**
+     * Whether the office may be used on new records.
+     */
+    public function isActive(): bool
+    {
+        return $this->status === self::STATUS_ACTIVE;
+    }
+
+    /**
+     * Khmer labels for the status column.
+     *
+     * @return array<string, string>
+     */
+    public static function statusLabels(): array
+    {
+        return [
+            self::STATUS_ACTIVE => 'សកម្ម',
+            self::STATUS_INACTIVE => 'អសកម្ម',
+        ];
     }
 }

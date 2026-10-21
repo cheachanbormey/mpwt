@@ -22,14 +22,10 @@ return new class extends Migration
                 ->constrained('staff')
                 ->cascadeOnDelete();
 
-            $table->string('role_in_group', 50)->nullable();
-            $table->boolean('is_leader')->default(false);
-            $table->date('joined_at')->nullable();
-
             $table->timestamps();
 
             // A member cannot be added to the same group twice
-            $table->unique(['group_id', 'staff_id']);
+            // $table->unique(['group_id', 'staff_id']);
         });
     }
 

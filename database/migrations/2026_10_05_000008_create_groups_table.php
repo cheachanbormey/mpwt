@@ -13,8 +13,7 @@ return new class extends Migration
             $table->engine = 'InnoDB';
 
             $table->id();
-            $table->string('code', 50)->unique();
-            $table->string('name');
+            $table->string('name_kh');
             $table->string('name_en')->nullable();
             $table->text('description')->nullable();
 
@@ -22,6 +21,10 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('staff')
                 ->nullOnDelete();
+            
+            $table->foreignId('location_id')
+                ->constrained('locations')
+                ->cascadeOnDelete();
 
             $table->boolean('is_active')->default(true);
             $table->timestamps();

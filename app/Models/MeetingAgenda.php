@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable([
     'meeting_id',
-    'presenter_staff_id',
     'agenda_no',
-    'title',
-    'description',
-    'duration_minutes',
-    'sort_order',
+    'topic',
+    'presenter_id',
+    // 'description',
+    // 'duration_minutes',
+    // 'sort_order',
 ])]
 class MeetingAgenda extends Model
 {
@@ -29,8 +29,8 @@ class MeetingAgenda extends Model
     {
         return [
             'agenda_no' => 'integer',
-            'duration_minutes' => 'integer',
-            'sort_order' => 'integer',
+            // 'duration_minutes' => 'integer',
+            // 'sort_order' => 'integer',
         ];
     }
 
