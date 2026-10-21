@@ -1,26 +1,38 @@
 @extends('layouts.error')
 
 @section('code', '404')
+@section('title', 'រកមិនឃើញទំព័រ')
+@section('themeClass', 'theme-blue')
 
 @section('content')
 
-    <div class="error-box">
+    <div class="error-icon-circle">
+        <i class="bi bi-compass-fill"></i>
+    </div>
 
-        <i class="bi bi-compass error-icon"></i>
+    <div>
+        <span class="error-code-badge">
+            <i class="bi bi-search"></i> កូដ 404 &bull; រកមិនឃើញ
+        </span>
+    </div>
 
-        <p class="error-code">404</p>
+    <h2 class="error-code-number error-highlight">404</h2>
 
-        <h1 class="error-title">រកមិនឃើញទំព័រ</h1>
+    <h1 class="error-title">រកមិនឃើញទំព័រដែលអ្នកស្នើសុំ</h1>
 
-        <p class="error-message">
-            ទំព័រដែលអ្នកស្វែងរកមិនត្រឹមតែត្រូវឡើយ ឬតែង់បានលុបចេញពីប្រព័ន្ធ។
-        </p>
+    <p class="error-description">
+        ទំព័រដែលលោកអ្នកកំពុងស្វែងរកប្រហែលជាត្រូវបានផ្លាស់ប្តូរឈ្មោះ លុបចេញពីប្រព័ន្ធ ឬតំណភ្ជាប់មិនត្រឹមត្រូវឡើយ។
+    </p>
 
-        <a href="{{ url('/') }}" class="btn btn-primary btn-sm px-3">
-            <i class="bi bi-house-door"></i>
+    <div class="error-actions">
+        <a href="{{ url('/') }}" class="error-btn-primary">
+            <i class="bi bi-house-door-fill"></i>
             ត្រឡប់ទៅទំព័រដើម
         </a>
-
+        <button type="button" onclick="window.history.back()" class="error-btn-secondary">
+            <i class="bi bi-arrow-left"></i>
+            ត្រឡប់ក្រោយ
+        </button>
     </div>
 
 @endsection

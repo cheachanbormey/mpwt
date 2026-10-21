@@ -337,38 +337,132 @@
 }
 
 /* =========================
-   PAGINATION
-   Laravel is configured with Paginator::useBootstrapFive()
-   so the markup is Bootstrap's, not Tailwind's.
+   PAGINATION (MODERN REDESIGN)
    ========================= */
 
 .module-pagination {
-    padding: 12px 16px;
-    border-top: 1px solid #eee;
+    padding: 14px 20px;
+    border-top: 1px solid #edf2f7;
+    background: #ffffff;
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
 }
 
-.module-pagination .pagination {
+.module-pagination nav {
+    width: 100%;
+}
+
+.pagination-info {
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.pagination-highlight {
+    font-weight: 600;
+    color: #0f172a;
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin: 0 2px;
+    font-size: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.module-pagination .pagination,
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin: 0;
-    font-size: 11px;
+    padding: 0;
+    list-style: none;
 }
 
-.module-pagination .page-link {
-    font-size: 11px;
-    padding: 5px 9px;
-    color: #4b5563;
-    border-color: #e4e5ec;
+.module-pagination .page-item,
+.pagination .page-item {
+    margin: 0;
 }
 
-.module-pagination .page-item.active .page-link {
-    background: #0a56c7;
-    border-color: #0a56c7;
-    color: #fff;
+.module-pagination .page-link,
+.pagination .page-link {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Google Sans', 'Noto Sans Khmer', sans-serif;
+    color: #475569;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px !important; /* Discrete modern pill buttons */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    text-decoration: none;
+    transition: all 0.15s ease-in-out;
 }
 
-.module-pagination .page-item.disabled .page-link {
-    color: #b6b9c2;
+.module-pagination .page-link:hover,
+.pagination .page-link:hover {
+    color: #073b9d;
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+}
+
+.module-pagination .page-link:focus,
+.pagination .page-link:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(7, 59, 157, 0.15);
+}
+
+.module-pagination .page-item.active .page-link,
+.pagination .page-item.active .page-link {
+    background: #073b9d;
+    border-color: #073b9d;
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(7, 59, 157, 0.3);
+}
+
+.module-pagination .page-item.active .page-link:hover,
+.pagination .page-item.active .page-link:hover {
+    background: #052c77;
+    border-color: #052c77;
+    color: #ffffff;
+    transform: none;
+}
+
+.module-pagination .page-item.disabled .page-link,
+.pagination .page-item.disabled .page-link {
+    color: #94a3b8;
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+.module-pagination .page-item.separator .page-link,
+.pagination .page-item.separator .page-link {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: #94a3b8;
+    min-width: 24px;
+    padding: 0 4px;
+}
+
+.module-pagination .page-link i,
+.pagination .page-link i {
+    font-size: 13px;
+    line-height: 1;
 }
 
 /* =========================
@@ -612,6 +706,17 @@
     }
 
     .module-pagination {
+        padding: 14px 16px;
+    }
+
+    .module-pagination nav {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .module-pagination .pagination {
+        flex-wrap: wrap;
         justify-content: center;
     }
 

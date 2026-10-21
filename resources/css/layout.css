@@ -229,52 +229,379 @@ body {
 
 
 /* =========================
-   ERROR PAGES
+   ERROR PAGES - MODERN DESIGN
 ========================= */
 
+.error-body {
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f8fafc;
+    font-family: 'Google Sans', 'Noto Sans Khmer', sans-serif;
+    color: #1e293b;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.error-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 16px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Ambient glow & mesh background */
+.error-ambient-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.error-ambient-glow::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    top: -200px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(7, 59, 157, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+}
+
+.error-ambient-glow::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    bottom: -150px;
+    left: -100px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+}
+
+.error-container {
+    max-width: 540px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Ministry Branding header */
+.error-branding {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    text-decoration: none;
+}
+
+.error-branding-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(7, 59, 157, 0.15));
+}
+
+.error-branding-text {
+    text-align: left;
+}
+
+.error-branding-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #073b9d;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.error-branding-sub {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Card Container */
+.error-card {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 20px;
+    padding: 44px 36px 36px;
+    text-align: center;
+    box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(15, 23, 42, 0.03);
+    position: relative;
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Error Themes & Icon Circles */
+.error-icon-circle {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.error-icon-circle::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    opacity: 0.4;
+    z-index: -1;
+}
+
+/* Theme 403 (Amber / Warning) */
+.theme-amber .error-icon-circle {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #d97706;
+}
+.theme-amber .error-icon-circle::after {
+    background: #fef3c7;
+}
+.theme-amber .error-code-badge {
+    background: #fffbeb;
+    color: #b45309;
+    border-color: #fde68a;
+}
+.theme-amber .error-highlight {
+    color: #d97706;
+}
+
+/* Theme 404 (Blue / Info) */
+.theme-blue .error-icon-circle {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    color: #2563eb;
+}
+.theme-blue .error-icon-circle::after {
+    background: #dbeafe;
+}
+.theme-blue .error-code-badge {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-color: #bfdbfe;
+}
+.theme-blue .error-highlight {
+    color: #073b9d;
+}
+
+/* Theme 419 (Purple / Expired) */
+.theme-purple .error-icon-circle {
+    background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+    color: #7c3aed;
+}
+.theme-purple .error-icon-circle::after {
+    background: #f3e8ff;
+}
+.theme-purple .error-code-badge {
+    background: #faf5ff;
+    color: #6d28d9;
+    border-color: #e9d5ff;
+}
+.theme-purple .error-highlight {
+    color: #7c3aed;
+}
+
+/* Theme 500 (Danger / Red) */
+.theme-danger .error-icon-circle {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #dc2626;
+}
+.theme-danger .error-icon-circle::after {
+    background: #fee2e2;
+}
+.theme-danger .error-code-badge {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-color: #fecaca;
+}
+.theme-danger .error-highlight {
+    color: #dc2626;
+}
+
+/* Code Badge & Number */
+.error-code-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.error-code-number {
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1;
+    margin: 0 0 12px 0;
+    letter-spacing: -1px;
+}
+
+/* Typography */
+.error-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.error-description {
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 28px;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Actions */
+.error-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.error-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #073b9d;
+    border: 1px solid #073b9d;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(7, 59, 157, 0.25);
+    transition: all 0.2s ease;
+}
+
+.error-btn-primary:hover {
+    background: #052c77;
+    border-color: #052c77;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(7, 59, 157, 0.35);
+}
+
+.error-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.error-btn-secondary:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+    border-color: #cbd5e1;
+}
+
+/* Support Help Text */
+.error-footer-text {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 24px;
+    line-height: 1.5;
+}
+
+/* Debug Details for 500 */
+.error-debug-details {
+    margin-top: 24px;
+    text-align: left;
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 16px;
+}
+
+.error-debug-summary {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    user-select: none;
+}
+
+.error-debug-pre {
+    margin-top: 10px;
+    padding: 12px;
+    background: #0f172a;
+    color: #f1f5f9;
+    border-radius: 8px;
+    font-size: 11px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 250px;
+}
+
+/* Legacy fallback classes for backwards compatibility */
 .error-page {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f7f7fa;
+    background: #f8fafc;
     padding: 24px;
 }
-
 .error-box {
-    max-width: 460px;
+    max-width: 520px;
     width: 100%;
     text-align: center;
     background: #fff;
-    border: 1px solid #e3e3e8;
-    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
     padding: 40px 32px;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, .05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .05);
 }
-
 .error-code {
     font-size: 56px;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1;
     color: #073b9d;
     margin: 0;
 }
-
 .error-icon {
     font-size: 46px;
-    color: #d8d8e0;
+    color: #94a3b8;
     margin-bottom: 6px;
 }
-
-.error-title {
-    font-size: 17px;
-    font-weight: 700;
-    margin: 10px 0 6px;
-}
-
 .error-message {
-    font-size: 11px;
-    color: #777;
+    font-size: 13px;
+    color: #64748b;
     margin-bottom: 20px;
 }
 

@@ -1,26 +1,38 @@
 @extends('layouts.error')
 
 @section('code', '419')
+@section('title', 'សម័យដំណើរការបានផុតកំណត់')
+@section('themeClass', 'theme-purple')
 
 @section('content')
 
-    <div class="error-box">
+    <div class="error-icon-circle">
+        <i class="bi bi-hourglass-split"></i>
+    </div>
 
-        <i class="bi bi-hourglass-split error-icon"></i>
+    <div>
+        <span class="error-code-badge">
+            <i class="bi bi-clock-history"></i> កូដ 419 &bull; អស់សុពលភាព
+        </span>
+    </div>
 
-        <p class="error-code">419</p>
+    <h2 class="error-code-number error-highlight">419</h2>
 
-        <h1 class="error-title">សម័យបានផុតកំណត់</h1>
+    <h1 class="error-title">សម័យដំណើរការបានផុតកំណត់</h1>
 
-        <p class="error-message">
-            ទំព័របានអស់កំណត់។ សូមផ្ទុកទំព័រម្តងទៀត ហើយព្យាយាមម្តងទៀត។
-        </p>
+    <p class="error-description">
+        ដោយសារទុកចោលយូរពេក ឬសម័យសុវត្ថិភាព (Session) ត្រូវបានផុតកំណត់។ សូមចុចផ្ទុកទំព័រឡើងវិញ ដើម្បីបន្តការងាររបស់អ្នក។
+    </p>
 
-        <a href="{{ url('/') }}" class="btn btn-primary btn-sm px-3">
+    <div class="error-actions">
+        <button type="button" onclick="window.location.reload()" class="error-btn-primary">
             <i class="bi bi-arrow-clockwise"></i>
-            ផ្ទុកម្តងទៀត
+            ផ្ទុកទំព័រឡើងវិញ
+        </button>
+        <a href="{{ url('/') }}" class="error-btn-secondary">
+            <i class="bi bi-house-door-fill"></i>
+            ត្រឡប់ទៅទំព័រដើម
         </a>
-
     </div>
 
 @endsection

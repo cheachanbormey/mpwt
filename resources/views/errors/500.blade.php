@@ -1,35 +1,50 @@
 @extends('layouts.error')
 
 @section('code', '500')
+@section('title', 'កំហុសបច្ចេកទេសក្នុងប្រព័ន្ធ')
+@section('themeClass', 'theme-danger')
 
 @section('content')
 
-    <div class="error-box">
+    <div class="error-icon-circle">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+    </div>
 
-        <i class="bi bi-tools error-icon"></i>
+    <div>
+        <span class="error-code-badge">
+            <i class="bi bi-bug-fill"></i> កូដ 500 &bull; កំហុសម៉ាស៊ីនបម្រើ
+        </span>
+    </div>
 
-        <p class="error-code">500</p>
+    <h2 class="error-code-number error-highlight">500</h2>
 
-        <h1 class="error-title">កំហុសម្នាក់មិនអាចបាន</h1>
+    <h1 class="error-title">មានកំហុសបច្ចេកទេសក្នុងប្រព័ន្ធ</h1>
 
-        <p class="error-message">
-            មានកំហុសមួយបានកើតឡើង។ ក្រុមការងារបានទទួលស្គាល់ហើយ សូមព្យាយាមនៅពេលក្រោយ។
-        </p>
+    <p class="error-description">
+        ប្រព័ន្ធបានជួបប្រទះបញ្ហាបច្ចេកទេសដែលមិនរំពឹងទុក។ ក្រុមការងារបច្ចេកទេសត្រូវបានជូនដំណឹងរួចហើយ។ សូមព្យាយាមម្តងទៀតនៅពេលបន្តិចក្រោយ។
+    </p>
 
-        <a href="{{ url('/') }}" class="btn btn-primary btn-sm px-3">
-            <i class="bi bi-house-door"></i>
+    <div class="error-actions">
+        <button type="button" onclick="window.location.reload()" class="error-btn-primary">
+            <i class="bi bi-arrow-clockwise"></i>
+            ផ្ទុកទំព័រឡើងវិញ
+        </button>
+        <a href="{{ url('/') }}" class="error-btn-secondary">
+            <i class="bi bi-house-door-fill"></i>
             ត្រឡប់ទៅទំព័រដើម
         </a>
-
-        @if (config('app.debug'))
-            <details class="mt-3 text-start">
-                <summary class="error-message" style="cursor:pointer">
-                    ព័ត៌មានបច្ចេកទេស (តែមើលនៅក្នុងរបៀប Debug)
-                </summary>
-                <pre class="bg-light p-2 mt-2 small text-break">{{ $exception->message }}</pre>
-            </details>
-        @endif
-
     </div>
+
+    @if (config('app.debug') && isset($exception))
+        <details class="error-debug-details">
+            <summary class="error-debug-summary">
+                <i class="bi bi-code-slash me-1"></i>
+                ព័ត៌មានបច្ចេកទេស (របៀប Debug)
+            </summary>
+            <pre class="error-debug-pre">{{ $exception->getMessage() }}
+
+{{ $exception->getFile() }}:{{ $exception->getLine() }}</pre>
+        </details>
+    @endif
 
 @endsection
