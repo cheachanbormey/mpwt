@@ -40,6 +40,13 @@ fi
 # Cache config, routes, and views for production performance
 if [ "${APP_ENV:-production}" = "production" ]; then
     echo "Optimizing Laravel for production..."
+    
+    # Ensure application key is present before caching config
+    if [ -z "$APP_KEY" ] && ! grep -q "^APP_KEY=base64:" .env 2>/dev/null; then
+        echo "APP_KEY is missing. Generating application key..."
+        php artisan key:generate --force
+    fi
+
     php artisan config:cache
     php artisan route:cache
     php artisan view:cache
