@@ -1,58 +1,220 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# HR Management System (HRMS) — MPWT
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern, robust Human Resource Management System built for the Ministry of Public Works and Transport (MPWT), powered by **Laravel**, **MySQL**, **Redis**, **Bootstrap 5**, and **Docker**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- 👥 **Staff Directory & Profiles**: Comprehensive staff records, departments, offices, positions, and employment statuses.
+- 🕒 **Attendance & QR Code Clock-In**: Instant QR code scanning for daily check-in/out with location validation and history logs.
+- 📝 **Leave Management**: Leave request workflows, leave types, balances, and approval processes.
+- 📅 **Meetings & Agendas**: Schedule meetings, track attendees, and manage meeting agenda items.
+- 🤝 **Working Groups & Committees**: Team and committee assignments with member role tracking.
+- 📊 **Dashboard & Visual Analytics**: Interactive metrics and charts powered by Chart.js.
+- 🔐 **Role-Based Access Control (RBAC)**: Distinct permissions and views for Administrators and Staff members.
+- 🇰🇭 **Khmer Localization**: Default Khmer language interface (`km`) with English fallback support.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🛠️ Technology Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+| Layer | Technology |
+|---|---|
+| **Framework** | [Laravel](https://laravel.com) (PHP 8.3+) |
+| **Database** | [MySQL 8.0](https://www.mysql.com) |
+| **Cache & Queues** | [Redis 7](https://redis.io) |
+| **Web Server** | [Nginx](https://nginx.org) |
+| **Frontend** | [Bootstrap 5](https://getbootstrap.com), [Vite](https://vite.dev), [Chart.js](https://www.chartjs.org) |
+| **Containers** | Docker & Docker Compose |
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## 💻 Local Development Setup
 
-## Agentic Development
+### Prerequisites
+- **PHP** >= 8.3
+- **Composer** >= 2.x
+- **Node.js** >= 20.x & **npm**
+- **Docker** & **Docker Compose**
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### Step-by-Step Installation
 
-```bash
-composer require laravel/boost --dev
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd mpwt
+   ```
 
-php artisan boost:install
+2. **Set up the environment file:**
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Install PHP and Node dependencies:**
+   ```bash
+   composer install
+   npm install
+   ```
+
+4. **Generate the application key:**
+   ```bash
+   php artisan key:generate
+   ```
+
+5. **Start the local MySQL database with Docker:**
+   ```bash
+   docker compose up -d
+   ```
+
+6. **Run database migrations and seeders:**
+   ```bash
+   php artisan migrate --seed
+   ```
+
+7. **Create the storage symlink:**
+   ```bash
+   php artisan storage:link
+   ```
+
+8. **Start the development servers:**
+   ```bash
+   # Terminal 1: Compile frontend assets with Vite
+   npm run dev
+
+   # Terminal 2: Run Laravel backend server
+   php artisan serve
+   ```
+   Open your browser at **`http://localhost:8000`**.
+
+---
+
+## 🔑 Default Demo Accounts
+
+After running `php artisan migrate --seed`, you can log in with:
+
+| Role | Email | Password |
+|---|---|---|
+| **Administrator** | `admin@mpwt.gov.kh` | `password` |
+| **Staff Member** | `sokha@mpwt.gov.kh` | `password` |
+| **Test Account** | `test@example.com` | `password` |
+
+---
+
+## 🐳 Production Deployment (Docker Compose)
+
+The repository provides a production-ready Docker Compose configuration with multi-stage builds, OPcache optimizations, an Nginx reverse proxy, MySQL, Redis, a queue worker, and an automated task scheduler.
+
+### Architecture
+
+```
+                       ┌─────────────────────────┐
+                       │  HTTP/HTTPS Traffic     │
+                       │ (hrm-portal.mpwt.dev)   │
+                       └────────────┬────────────┘
+                                    │ Port 8010 (or 443 via proxy)
+                                    ▼
+                       ┌─────────────────────────┐
+                       │        hrms_web         │
+                       │     (Nginx Alpine)      │
+                       └────────────┬────────────┘
+                                    │ FastCGI (:9000)
+                                    ▼
+                       ┌─────────────────────────┐
+                       │        hrms_app         │
+                       │   (PHP 8.3 FPM Alpine)  │
+                       └──────┬───────────┬──────┘
+                              │           │
+         ┌────────────────────┴───┐   ┌───┴────────────────────┐
+         ▼                        ▼   ▼                        ▼
+┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐
+│     hrms_db      │    │    hrms_redis    │    │    hrms_queue    │
+│    (MySQL 8)     │    │ (Cache/Sessions) │    │  (Queue Worker)  │
+└──────────────────┘    └──────────────────┘    └──────────────────┘
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Production Setup Instructions
 
-## Contributing
+1. **Prepare the production environment:**
+   ```bash
+   cp .env.production.example .env
+   ```
+   *Set `APP_URL=https://hrm-portal.mpwt.dev` and `APP_PORT=8010` (the origin port Cloudflare Tunnel or reverse proxy routes traffic to).*
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. **Build and start all services:**
+   ```bash
+   docker compose -f docker-compose.prod.yml up -d --build
+   ```
+   The application will be accessible via Cloudflare at **`https://hrm-portal.mpwt.dev`** (with traffic routed to local port `8010`).
 
-## Code of Conduct
+3. **Check container status:**
+   ```bash
+   docker compose -f docker-compose.prod.yml ps
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **Monitor logs:**
+   ```bash
+   # View all service logs
+   docker compose -f docker-compose.prod.yml logs -f
 
-## Security Vulnerabilities
+   # View only application logs
+   docker compose -f docker-compose.prod.yml logs -f app
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. **Run maintenance & Artisan commands inside Docker:**
+   ```bash
+   # Run migrations manually if needed
+   docker compose -f docker-compose.prod.yml exec app php artisan migrate --force
 
-## License
+   # Clear or refresh caches
+   docker compose -f docker-compose.prod.yml exec app php artisan optimize:clear
+   docker compose -f docker-compose.prod.yml exec app php artisan optimize
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   # Database backup
+   docker compose -f docker-compose.prod.yml exec db mysqldump -u root -p hrms > backup.sql
+   ```
+
+---
+
+## 📁 Project Structure
+
+```text
+├── app/                  # Application core (Controllers, Models, Services)
+├── bootstrap/            # Application bootstrap and configuration cache
+├── config/               # Application configuration files
+├── database/
+│   ├── factories/        # Model factories
+│   ├── migrations/       # Database migrations
+│   └── seeders/          # Database seeders (demo data & roles)
+├── docker/
+│   ├── entrypoint.sh     # Production container startup & cache script
+│   ├── nginx/            # Production Nginx virtual host configuration
+│   └── php/              # Custom php.ini and opcache.ini configurations
+├── public/               # Web root (compiled Vite assets, index.php)
+├── resources/            # Blade views, CSS, and JavaScript
+├── routes/               # Web, console, and API routes
+├── storage/              # Uploaded files, cache, and application logs
+├── Dockerfile            # Multi-stage production Dockerfile (App & Web)
+├── docker-compose.yml    # Development Docker Compose (MySQL service)
+└── docker-compose.prod.yml # Production Docker Compose (Full stack)
+```
+
+---
+
+## 🧪 Testing & Code Quality
+
+Run tests and linting with:
+
+```bash
+# Run test suite
+php artisan test
+
+# Format code with Laravel Pint
+./vendor/bin/pint
+```
+
+---
+
+## 📄 License
+
+This project is proprietary software developed for the Ministry of Public Works and Transport (MPWT).

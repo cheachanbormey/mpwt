@@ -20,6 +20,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         /*
+         * Trust reverse proxies (such as Cloudflare) so HTTPS, client IPs,
+         * and host headers are accurately recognized.
+         */
+        $middleware->trustProxies(at: '*');
+        /*
          * Global middleware for the HRMS application.
          * The web group already provides sessions, CSRF and
          * cookie encryption, which flash messages rely on.
