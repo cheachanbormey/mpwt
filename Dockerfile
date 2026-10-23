@@ -1,15 +1,15 @@
 # ==========================================
 # Stage 1: Build Frontend Assets with Node
 # ==========================================
-FROM node:20-alpine AS node_builder
+FROM node:22-alpine AS node_builder
 
 WORKDIR /app
 
 # Copy dependency manifests
 COPY package*.json ./
 
-# Install npm dependencies
-RUN npm ci
+# Install npm dependencies (npm install resolves platform-specific native binaries like Rolldown for Linux)
+RUN npm install
 
 # Copy all source files needed by Vite
 COPY . .

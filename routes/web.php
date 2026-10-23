@@ -92,7 +92,7 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/profile', [ProfileController::class, 'show'])->name('staff.profile');
     Route::middleware(['auth'])->prefix('staff')->name('staff.')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])
-        ->name('profile');
+        ->name('overview');
 
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('staff.attendance');
 
@@ -147,10 +147,6 @@ Route::middleware('auth')->group(function (): void {
 //  | The {id} constraint keeps /create and /{id}/edit from colliding with
 //  | the show route.
 //  |===================================================================== */
-Route::middleware(['auth'])->prefix('staff')->name('staff.')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])
-        ->name('profile');
-});
 
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
