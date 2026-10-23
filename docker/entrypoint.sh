@@ -12,6 +12,11 @@ mkdir -p /var/www/html/storage/framework/sessions \
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
+# Ensure a .env file exists inside container so artisan commands like key:generate succeed
+if [ ! -f /var/www/html/.env ]; then
+    touch /var/www/html/.env
+fi
+
 # Create storage symlink if not already present
 php artisan storage:link --force || true
 
@@ -42,7 +47,7 @@ if [ "${APP_ENV:-production}" = "production" ]; then
     echo "Optimizing Laravel for production..."
     
     # Ensure application key is present before caching config
-    if [ -z "$APP_KEY" ] && ! grep -q "^APP_KEY=base64:" .env 2>/dev/null; then
+    if [ -z "$APP_KEY" ] && ! grep -q "^APP_KEY=base64:" /var/www/html/.env 2>/dev/null; then
         echo "APP_KEY is missing. Generating application key..."
         php artisan key:generate --force
     fi
